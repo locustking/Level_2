@@ -29,7 +29,7 @@ REAL AUTHOR STAKEHOLDER: Geri Walton, Author, www.geriwalton.com, Richard Kasper
 
 DETAIL PERSONA OF REAL STAKEHOLDER:
 
-URL of backlog:
+URL of backlog: https://trello.com/b/qDwMkuI6/book-author-s-competitive-analysis-tool
 
 Rationale for ordering backlog:
 

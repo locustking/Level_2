@@ -69,12 +69,12 @@ Publishers want to get an understanding of the market, see how categories of boo
 We ordered our backlog based on the user use case (Authors first), then data source (Amazon first), and complexity/dependency (sub-groups are dependent features that first require another use case to be fully developed, in order to function properly).
 
 ### Definition of Ready 
-a) Stakeholder defined
-b) Includes the specific outlines of the feature
-c) User story includes the reason or purpose for the feature
-d) Must determine the data source (if applicable) for the feature
-e) PBI story points estimated via Planning Poker by the team
-f) Must understand the dependency of the feature with other user stories (sub-groups).
+- Stakeholder defined
+- Includes the specific outlines of the feature
+- User story includes the reason or purpose for the feature
+- Must determine the data source (if applicable) for the feature
+- PBI story points estimated via Planning Poker by the team
+- Must understand the dependency of the feature with other user stories (sub-groups).
 
 
 

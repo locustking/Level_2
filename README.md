@@ -7,7 +7,7 @@ Team Members:
 * Doug Walton
 * Basuki Winoto
 
-OPEN SOURCE PRODUCT NAME: Book Author’s Competitive Analysis Tool 
+OPEN SOURCE PRODUCT NAME: Book Beat: A Book Author’s Competitive Analysis Tool 
 
 FAR VISION:
 The tool or Wordpess plugin gives real-time of update on sales rank of a list of books both against current book and prospective. Use is for competitive analysis for authors to see what books sell well and how their own book is doing. Could combine resuls from Amazon, Barnes and Noble, GoodReads and ohers. Could also compare other author's websie traffice, for examples using scomparative search hits from Alexa.
@@ -39,11 +39,11 @@ a) Title,
 b) User story opening sentence, 
 c) Additional details, 
 d) Estimated in story points. 
-- 
+
 ... anything else from notes?
 
 
-Whole team relative size estimating activity done with ENTER NAME. The activity involved the development team members only 
+Whole team relative size estimating activity done with planningpoker.com. The activity involved the development team members only 
 
 
 

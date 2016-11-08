@@ -10,7 +10,7 @@ use Behat\Gherkin\Node\TableNode;
  */
 class FeatureContext implements Context
 {
-    private $widgetpane;
+    private $bookbeat;
 
     /**
      * Initializes context.
@@ -21,29 +21,46 @@ class FeatureContext implements Context
      */
     public function __construct()
     {
-        $this->widgetpane = new WidgetPane();
+        $this->bookbeat = new BookBeat();
     }
 
+
     /**
-     * @Given there is a link to about page
+     * @Given I am online
      */
-    public function thereIsALinkToAboutPage()
+    public function iAmOnline()
     {
         throw new PendingException();
     }
 
     /**
-     * @When I open the about page
+     * @Given I search for tools that can help my book sales
      */
-    public function iOpenTheAboutPage()
+    public function iSearchForToolsThatCanHelpMyBookSales()
     {
         throw new PendingException();
     }
 
     /**
-     * @Then I should have the about page with a full description about the tools that can help my book online
+     * @When I google search for bookbeat
      */
-    public function iShouldHaveTheAboutPageWithAFullDescriptionAboutTheToolsThatCanHelpMyBookOnline()
+    public function iGoogleSearchForBookbeat()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I view the page
+     */
+    public function iViewThePage()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should have the bookbeat website describing its app
+     */
+    public function iShouldHaveTheBookbeatWebsiteDescribingItsApp()
     {
         throw new PendingException();
     }
@@ -51,37 +68,93 @@ class FeatureContext implements Context
     /**
      * @Given there is a :arg1, which is listed on Amazon
      */
-    public function thereIsAWhichIsListedOnAmazon($arg1)
+    public function thereIsAWhichIsListedOnAmazon($book_title)
     {
-        throw new PendingException();
+        $this->bookbeat->setBookTitle($book_title);
     }
 
     /**
-     * @When I add :arg1
+     * @When I view a :arg1
      */
-    public function iAdd($arg1)
+    public function iViewA($book_title)
     {
-        throw new PendingException();
+        $this->bookbeat->viewBookTitle($book_title);
     }
 
     /**
-     * @Then I should have :arg1 book in the widget pane
+     * @Then I should see :arg1
      */
-    public function iShouldHaveBookInTheWidgetPane($arg1)
+    public function iShouldSee($book_title)
     {
-        PHPUnit_Framework_Assert::assertCount(
-            intval($arg1),
-            $this->widgetpane
+        PHPUnit_Framework_Assert::assertSame(
+            $book_title,
+            $this->bookbeat->getBookTitle()
         );
-       
     }
 
     /**
-     * @Then the book title should be :arg1
+     * @Then I should see the Amazon sales rank of :arg1
      */
-    public function theBookTitleShouldBe($arg1)
+    public function iShouldSeeTheAmazonSalesRankOf($sales_rank)
+    {
+        PHPUnit_Framework_Assert::assertEquals(
+            $sales_rank,
+            $this->bookbeat->getSalesRank()
+        );
+    }
+
+    /**
+     * @Then I should see the number of reviews of :arg1
+     */
+    public function iShouldSeeTheNumberOfReviewsOf($num_reviews)
+    {
+        PHPUnit_Framework_Assert::assertEquals(
+            $num_reviews,
+            $this->bookbeat->getNumReviews()
+        );
+    }
+
+    /**
+     * @Then I should see the comments of :arg1
+     */
+    public function iShouldSeeTheCommentsOf($comments)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see the average rating of :arg1
+     */
+    public function iShouldSeeTheAverageRatingOf($avg_rating)
+    {
+        PHPUnit_Framework_Assert::assertEquals(
+            $avg_rating,
+            $this->bookbeat->getAvgRating()
+        );
+    }
+
+    /**
+     * @Then I should see the Amazon sales rank
+     */
+    public function iShouldSeeTheAmazonSalesRank()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see the number of reviews
+     */
+    public function iShouldSeeTheNumberOfReviews()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see the average rating
+     */
+    public function iShouldSeeTheAverageRating()
     {
         throw new PendingException();
     }
 }
-
+?>

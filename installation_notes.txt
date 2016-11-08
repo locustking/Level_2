@@ -1,0 +1,41 @@
+
+System: Ubuntu 16.04 64-bit
+
+Install PHP (or LAMP)
+sudo apt-get install php
+sudo apt-get install php7.0-mbstring
+sudo apt-get install php7.0-dom
+
+
+Install Composer
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === 'aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+
+Install Behat
+php composer.phar require --dev behat/behat
+vendor/bin/behat -V
+
+Init Behat
+vendor/bin/behat --init
+
+Write BDD feature
+use your favorite text editor
+
+Run Behat
+vendor/bin/behat
+
+Insert missing snippets:
+vendor/bin/behat --dry-run --append-snippets
+
+Install PHPUnit
+php composer.phar require --dev phpunit/phpunit
+
+Run Behat
+vendor/bin/behat
+
+
+Note:
+Put all new object implementation under "bootstrap" folder
+Run Behat to see the failed test

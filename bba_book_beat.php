@@ -23,10 +23,10 @@ Author URI: http://www.bookbeatapp.com
 function bookbeat_func($atts){
     $book_title = "Programming with Cucumber";
     $obj = new BookBeat;
-    $funcname = "setBookTitle";
-    $obj->$funcname($book_title);  
-    $funcname = "viewBookTitle";
-    $obj->$funcname($book_title); 
+//    $funcname = "setBookTitle";
+    $obj->setBookTitle($book_title);  
+//    $funcname = "viewBookTitle";
+    $obj->viewBookTitle($book_title); 
 }
 
 ?>

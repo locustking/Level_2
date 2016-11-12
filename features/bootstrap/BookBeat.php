@@ -6,19 +6,22 @@ final class BookBeat{
 	private $avg_rating; 
 	
 	public function setBookTitle($book_title){
-		$this->book_title = $book_title;
-		//read from csv, and populate the data
-		$filename = getcwd()."/features/bootstrap/"."AmazonData.csv";
-		if (($amazondata = fopen($filename, "r")) !== FALSE) {
-		  	$data = fgetcsv($amazondata, 1000, ",");
-		  	$this->sales_rank = $data[1];
-		  	$this->num_reviews = $data[2];
-		  	$this->avg_rating = $data[3];
-		}
-		fclose($amazondata);
+		$data = $this->scrapeamazon($book_title);
+		$this->book_title = $data[0];
+		$this->sales_rank = $data[1];
+		$this->num_reviews = $data[2];
+		$this->avg_rating = $data[3];
 	}
 
 	public function viewBookTitle($book_title){
+		echo "<H1>Book Result</H1>";
+		echo "Book Title: ".$this->getBookTitle()."<br />";
+		echo "Sales Rank: ".$this->getSalesRank()."<br />";
+		echo "Number of Reviews: ".$this->getNumReviews()."<br />";
+		echo "Average Rating: ".$this->getAvgRating()."<br />";
+	}
+	
+	public function viewBookbeatPage(){
 		echo "<H1>Book Result</H1>";
 		echo "Book Title: ".$this->getBookTitle()."<br />";
 		echo "Sales Rank: ".$this->getSalesRank()."<br />";
@@ -40,5 +43,42 @@ final class BookBeat{
 	public function getAvgRating(){
 		return $this->avg_rating;
 	}
+	
+	public function scrapeamazon($book_title){
+
+		$book_search_url = "https://www.amazon.com/s/ref=nb_sb_noss?field-keywords=".urlencode($book_title);
+		$page_content = file_get_contents($book_search_url);
+
+		$dom_doc = new DOMDocument();
+		libxml_use_internal_errors(true);
+		$dom_doc->loadHTML($page_content);
+		$xpath = new DOMXpath($dom_doc);
+
+		$element = $xpath->query('//li[@id="result_0"]/div/div/div/div[2]/div[2]/a/@href');
+		$search_result_url = $element->item(0)->nodeValue;
+
+		$page_content = file_get_contents($search_result_url);
+
+		$dom_doc = new DOMDocument();
+		libxml_use_internal_errors(true);
+		$dom_doc->loadHTML($page_content);
+		$xpath = new DOMXpath($dom_doc);
+
+		$element = $xpath->query('//span[@id="productTitle"]/text()');
+		$title = $element->item(0)->nodeValue;
+
+		$element = $xpath->query('//li[@id="SalesRank"]/text()');
+		$rank=preg_replace("/[^0-9]/","",$element->item(1)->nodeValue);
+
+		$element = $xpath->query('//*[@id="acrCustomerReviewText"]/text()');
+		$reviewers = preg_replace("/[^0-9]/","",$element->item(0)->nodeValue);
+
+		$element = $xpath->query('//*[@id="avgRating"]/span/a/span/text()');
+		$rating = floatval($element->item(0)->nodeValue);
+		libxml_clear_errors();
+
+		return array($title,$rank,$reviewers,$rating);
+	}
+
 }
 ?>

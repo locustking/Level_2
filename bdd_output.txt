@@ -1,0 +1,38 @@
+~/Github/Level_2$ vendor/bin/behat
+Feature: BB1
+  As an author
+  I want to find out about tools that can help my book online, in order to help my book sales.
+
+  Scenario: Find out about tools                               # features/bb1.feature:5
+    Given I am online                                          # FeatureContext::iAmOnline()
+      TODO: write pending definition
+    And I search for tools that can help my book sales         # FeatureContext::iSearchForToolsThatCanHelpMyBookSales()
+    When I google search for bookbeat                          # FeatureContext::iGoogleSearchForBookbeat()
+    And I view the page                                        # FeatureContext::iViewThePage()
+    Then I should have the bookbeat website describing its app # FeatureContext::iShouldHaveTheBookbeatWebsiteDescribingItsApp()
+
+Feature: BB2
+  As an author
+  I can see data that helps me understand what my sales are to better rank my work.
+
+  Scenario: See data that helps me understand my sales                                                                                               # features/bb2.feature:5
+    Given there is a "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)", which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon()
+    When I view the BookBeat page                                                                                                                    # FeatureContext::iViewTheBookbeatPage()
+      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 200201<br />Number of Reviews: 24<br />Average Rating: 4.5<br />
+    Then I should see "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)"                           # FeatureContext::iShouldSee()
+    And I should see the Amazon sales rank of greater than 0                                                                                         # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
+    And I should see the number of reviews of 0 or greater                                                                                           # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
+    And I should see the average rating of greater or equal than 0 and less or equal 5                                                               # FeatureContext::iShouldSeeTheAverageRatingOfGreaterOrEqualThanAndLessOrEqual()
+
+  Scenario: See data that helps me understand my sales                                                                             # features/bb2.feature:14
+    Given there is a title "BDD in Action: Behavior-driven development for the whole software lifecycle" which is listed on Amazon # FeatureContext::thereIsATitleWhichIsListedOnAmazon()
+    When I view the BookBeat page                                                                                                  # FeatureContext::iViewTheBookbeatPage()
+      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 203469<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
+    Then I should see "BDD in Action: Behavior-driven development for the whole software lifecycle"                                # FeatureContext::iShouldSee()
+    And I should see the Amazon sales rank of greater than 0                                                                       # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
+    And I should see the number of reviews of 0 or greater                                                                         # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
+    And I should see the average rating of greater or equal than 0 and less or equal 5                                             # FeatureContext::iShouldSeeTheAverageRatingOfGreaterOrEqualThanAndLessOrEqual()
+
+3 scenarios (2 passed, 1 pending)
+17 steps (12 passed, 1 pending, 4 skipped)
+0m6.72s (7.54Mb)

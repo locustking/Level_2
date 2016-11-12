@@ -12,7 +12,7 @@ And I should see the average rating of greater or equal than 0 and less or equal
 
 
 Scenario: See data that helps me understand my sales
-Given there is a title "BDD in Action: Behavior-driven development for the whole software lifecycle" which is listed on Amazon
+Given there is a "BDD in Action: Behavior-driven development for the whole software lifecycle" which is listed on Amazon
 When I view the BookBeat page
 Then I should see "BDD in Action: Behavior-driven development for the whole software lifecycle"
 And I should see the Amazon sales rank of greater than 0

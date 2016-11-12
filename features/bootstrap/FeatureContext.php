@@ -24,7 +24,6 @@ class FeatureContext implements Context
         $this->bookbeat = new BookBeat();
     }
 
-
     /**
      * @Given I am online
      */
@@ -68,114 +67,28 @@ class FeatureContext implements Context
     /**
      * @Given there is a :arg1, which is listed on Amazon
      */
-    public function thereIsAWhichIsListedOnAmazon($book_title)
+    public function thereIsAWhichIsListedOnAmazon($arg1)
     {
-        $this->bookbeat->setBookTitle($book_title);
+        $this->bookbeat->setBookTitle($arg1);
     }
 
     /**
-     * @When I view a :arg1
-     */
-    public function iViewA($book_title)
-    {
-        $this->bookbeat->viewBookTitle($book_title);
-    }
-
-    /**
-     * @Then I should see :arg1
-     */
-    public function iShouldSee($book_title)
-    {
-        PHPUnit_Framework_Assert::assertSame(
-            $book_title,
-            $this->bookbeat->getBookTitle()
-        );
-    }
-
-    /**
-     * @Then I should see the Amazon sales rank of :arg1
-     */
-    public function iShouldSeeTheAmazonSalesRankOf($sales_rank)
-    {
-        PHPUnit_Framework_Assert::assertEquals(
-            $sales_rank,
-            $this->bookbeat->getSalesRank()
-        );
-    }
-
-    /**
-     * @Then I should see the number of reviews of :arg1
-     */
-    public function iShouldSeeTheNumberOfReviewsOf($num_reviews)
-    {
-        PHPUnit_Framework_Assert::assertEquals(
-            $num_reviews,
-            $this->bookbeat->getNumReviews()
-        );
-    }
-
-    /**
-     * @Then I should see the comments of :arg1
-     */
-    public function iShouldSeeTheCommentsOf($comments)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then I should see the average rating of :arg1
-     */
-    public function iShouldSeeTheAverageRatingOf($avg_rating)
-    {
-        PHPUnit_Framework_Assert::assertEquals(
-            $avg_rating,
-            $this->bookbeat->getAvgRating()
-        );
-    }
-
-    /**
-     * @Then I should see the Amazon sales rank
-     */
-    public function iShouldSeeTheAmazonSalesRank()
-    {
-        PHPUnit_Framework_Assert::assertGreaterThan(
-            0,
-            $this->bookbeat->getAvgRating()
-        );
-    }
-
-    /**
-     * @Then I should see the number of reviews
-     */
-    public function iShouldSeeTheNumberOfReviews()
-    {
-        PHPUnit_Framework_Assert::assertGreaterThanOrEqual(
-            0,
-            $this->bookbeat->getAvgRating()
-        );
-    }
-
-    /**
-     * @Then I should see the average rating
-     */
-    public function iShouldSeeTheAverageRating()
-    {
-        PHPUnit_Framework_Assert::assertGreaterThanOrEqual(
-            0,
-            $this->bookbeat->getAvgRating()
-        );
-        PHPUnit_Framework_Assert::assertLessThanOrEqual(
-            5,
-            $this->bookbeat->getAvgRating()
-        );
-    }
-	
-	    /**
      * @When I view the BookBeat page
      */
     public function iViewTheBookbeatPage()
     {
         $this->bookbeat->viewBookbeatPage();
+    }
+
+    /**
+     * @Then I should see :arg1
+     */
+    public function iShouldSee($arg1)
+    {
+        PHPUnit_Framework_Assert::assertSame(
+            $arg1,
+            $this->bookbeat->getBookTitle()
+        );
     }
 
     /**
@@ -185,7 +98,7 @@ class FeatureContext implements Context
     {
         PHPUnit_Framework_Assert::assertGreaterThan(
             $arg1,
-            $this->bookbeat->getAvgRating()
+            $this->bookbeat->getSalesRank()
         );
     }
 
@@ -196,7 +109,7 @@ class FeatureContext implements Context
     {
         PHPUnit_Framework_Assert::assertGreaterThanOrEqual(
             $arg1,
-            $this->bookbeat->getAvgRating()
+            $this->bookbeat->getNumReviews()
         );
     }
 
@@ -216,13 +129,10 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Given there is a title :arg1 which is listed on Amazon
+     * @Given there is a :arg1 which is listed on Amazon
      */
-    public function thereIsATitleWhichIsListedOnAmazon($arg1)
+    public function thereIsAWhichIsListedOnAmazon2($arg1)
     {
         $this->bookbeat->setBookTitle($arg1);
     }
-
-	
 }
-?>

@@ -47,7 +47,7 @@ final class BookBeat{
 	public function scrapeamazon($book_title){
 
 		$book_search_url = "https://www.amazon.com/s/ref=nb_sb_noss?field-keywords=".urlencode($book_title);
-		$page_content = file_get_contents($book_search_url);
+		$page_content = $this->curl_get_contents($book_search_url);
 
 		$dom_doc = new DOMDocument();
 		libxml_use_internal_errors(true);
@@ -57,7 +57,7 @@ final class BookBeat{
 		$element = $xpath->query('//li[@id="result_0"]/div/div/div/div[2]/div[2]/a/@href');
 		$search_result_url = $element->item(0)->nodeValue;
 
-		$page_content = file_get_contents($search_result_url);
+		$page_content = $this->curl_get_contents($search_result_url);
 
 		$dom_doc = new DOMDocument();
 		libxml_use_internal_errors(true);
@@ -79,6 +79,15 @@ final class BookBeat{
 
 		return array($title,$rank,$reviewers,$rating);
 	}
-
+	
+	function curl_get_contents($url){
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_HEADER, false);
+		$contents = curl_exec($curl);
+		curl_close($curl);
+		return $contents;
+	}
 }
 ?>

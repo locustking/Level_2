@@ -138,7 +138,7 @@ Friday 11/11 at 12 PM EST (half hour)
 -> https://www.youtube.com/watch?v=wN8hXUVXbqI&feature=youtu.be
 
 Saturday (+2nd Mob/Pair Programming) 11/12 at 2:30 pm EST (half hour daily scrum + 2 hours programming)
-(Recording unfortunately did not save for this meeting)
+-> https://www.youtube.com/watch?v=wj0FurIEm5E&feature=youtu.be
 
 At the start of each daily scrum or programming meeting, we discussed what we did in the last 24 hours, and the work we'd do for the next 24 hours.
 

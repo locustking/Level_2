@@ -143,7 +143,7 @@ Saturday (+2nd Mob/Pair Programming) 11/12 at 2:30 pm EST (half hour daily scrum
 At the start of each daily scrum or programming meeting, we discussed what we did in the last 24 hours, and the work we'd do for the next 24 hours.
 
 ###Sprint Review:
-Sunday 11/13 ar 12:30 PM EST (Included the actual Stakeholder, Geri, and we went over the project, website, working software, and vision to gain feedback)
+Sunday 11/13 at 12:30 PM EST (Included the actual Stakeholder, Geri, and we went over the project, website, working software, and vision to gain feedback)
 -> https://www.youtube.com/watch?v=3vTG1kJmgao&feature=youtu.be
 
 ###TDD and BDD:

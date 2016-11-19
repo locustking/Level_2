@@ -77,7 +77,92 @@ We ordered our backlog based on the user use case (Authors first), then data sou
 - Must understand the dependency of the feature with other user stories (sub-groups).
 
 
+#README - Project Part 2 of 4
 
+## OPEN SOURCE PRODUCT NAME: 
+* Book Beat *(Book Author’s Competitive Analysis Tool)*
 
+## Team Members: 
+* Erica Abernathy
+* Kaushik Bhatta
+* Daryl Greer
+* Doug Walton
+* Basuki Winoto
 
+### Roles:
+* Scrum Master: Doug Walton
+* Product Owner: Kaushik Bhatta
+* Developers/Development Team: The entire team
 
+## Website and App:
+Our website is hosted and available at: http://bookbeatapp.com
+
+Our app, is currently at: http://bookbeatapp.com/book-beat/
+
+##Topics:
+
+###Points Forecast -
+Our user stories originally ranged from 3-34 Points. We forecast that we can do upwards of 7 story points 
+per sprint. Hence, we will break down future user stories into additional stories of smaller sizes as we work on them in the 
+Sprint backlog for future sprints.
+
+###Rationale for Forecast:
+Our rationale for how many points we can complete in a 2 week sprint, comes from our discussion of the complexity 
+of the work, and what we feel it would take to coordinate per sprint. 
+
+###Stories into Sprint Backlog
+We've since broken down a user story to 2 stories of 3 points each (total of 6 points, less than the 7 forecast), and brought it into our Backlog. 
+As well, all stories in the backlog are less than 50% of the forecast velocity we have set.
+
+###Stories into Tasks
+We've begun turning those stories into Tasks using a Trello list, and assigning responsibility for each.
+
+In order to develop and work, using BDD and TDD, we've designed simple behaviors and tests, to drive incremental development and completion of the tasks.
+
+##Schedule:
+(Playlist of all recordings we were able to save (parts of some meetings) are here: https://www.youtube.com/playlist?list=PLdSVN_Vqb9vonx5MU92msyQuFC5-4WME6)
+
+###Sprint Planning:
+Saturday 11/5 at 1:30 PM EST - Scheduled 1 hour, continued for ~2 hours.
+(Recording unfortunately did not save for this meeting, size limit)
+
+###Mob Programming
+Monday 11/7 at 5:30 PM EST (Scheduled 1-2 hours)
+-> https://www.youtube.com/watch?v=g_dy4aB6cjQ&feature=youtu.be 
+
+###Daily Scrum(s)
+Wednesday 11/9 at 12 PM EST (half hour)
+-> https://www.youtube.com/watch?v=GuUH-S_b5dM&feature=youtu.be
+
+Friday 11/11 at 12 PM EST (half hour)
+-> https://www.youtube.com/watch?v=wN8hXUVXbqI&feature=youtu.be
+
+Saturday (+2nd Mob/Pair Programming) 11/12 at 2:30 pm EST (half hour daily scrum + 2 hours programming)
+-> https://www.youtube.com/watch?v=wj0FurIEm5E&feature=youtu.be
+
+At the start of each daily scrum or programming meeting, we discussed what we did in the last 24 hours, and the work we'd do for the next 24 hours.
+
+###Sprint Review:
+Sunday 11/13 at 12:30 PM EST (Included the actual Stakeholder, Geri, and we went over the project, website, working software, and vision to gain feedback)
+-> https://www.youtube.com/watch?v=3vTG1kJmgao&feature=youtu.be
+
+###TDD and BDD:
+We designed all the increments of the software and the programming in a BDD and TDD manner. We developed features and tests (in the Github) that were automated unit tests for our working piece of software, we also kept an excel for a test plan that helped us aggregate the tests within Dropbox (file "CSCI_E71_Part2-Test_Plan").
+
+Proof of features: https://github.com/locustking/Level_2/tree/master/features
+
+Proof of our tests / unit tests: https://github.com/locustking/Level_2/blob/master/bdd_output.txt 
+(Also, under the Excel in Dropbox link labeled "CSCI_E71_Part2-Test_Plan"
+
+Implementation can be found here: https://github.com/locustking/Level_2/tree/master/features/bootstrap
+
+##URL of Backlog via Trello 
+###(Contains Backlog, Sprint Backlog, User Stories, Tasks, Timeline, and more):
+    https://trello.com/b/qDwMkuI6/book-beat-a-book-author-s-competitive-analysis-tool
+
+The Trello board also contains the Sprint Burndown chart (both link, and an image file).
+
+##Product Files - Listing breakdowns, files, personas, minutes, screenshots + recordings of some meetings):
+     https://www.dropbox.com/sh/0dt5bp4taqr8qzu/AAC17L79iNsP6t0wipnTAUnQa?dl=0 
+
+These also include minutes for all meetings, in which we checked in and reviewed the work over the prior 24 hours, the next 24 hours, and any impediments.

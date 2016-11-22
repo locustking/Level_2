@@ -11,6 +11,7 @@ use Behat\Gherkin\Node\TableNode;
 class FeatureContext implements Context
 {
     private $bookbeat;
+	private $bookbeatjson;
 
     /**
      * Initializes context.
@@ -134,5 +135,141 @@ class FeatureContext implements Context
     public function thereIsAWhichIsListedOnAmazon2($arg1)
     {
         $this->bookbeat->setBookTitle($arg1);
+    }
+
+    /**
+     * @Given there is a file :arg1 with ISBN numbers
+     */
+    public function thereIsAFileWithIsbnNumbers($arg1)
+    {
+        $this->bookbeatjson = new BookBeatJSON();
+		$this->bookbeatjson->setFilename($arg1);
+    }
+
+    /**
+     * @When I verify the file :arg1
+     */
+    public function iVerifyTheFile($arg1)
+    {
+        $this->bookbeatjson->verifyJSON($arg1);
+    }
+
+    /**
+     * @Then I should see ISBN numbers of greater or equal than :arg1 and less or equal :arg2
+     */
+    public function iShouldSeeIsbnNumbersOfGreaterOrEqualThanAndLessOrEqual($arg1, $arg2)
+    {
+        PHPUnit_Framework_Assert::assertGreaterThanOrEqual(
+            $arg1,
+            $this->bookbeatjson->countBooks()
+        );
+        PHPUnit_Framework_Assert::assertLessThanOrEqual(
+            $arg2,
+            $this->bookbeatjson->countBooks()
+        );
+    }
+
+    /**
+     * @Then I should see each ISBN digits of greater or equal than :arg1 and less or equal :arg2
+     */
+    public function iShouldSeeEachIsbnDigitsOfGreaterOrEqualThanAndLessOrEqual($arg1, $arg2)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see each ISBN has ASIN
+     */
+    public function iShouldSeeEachIsbnHasAsin()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see at least :arg1 author's book in the list
+     */
+    public function iShouldSeeAtLeastAuthorSBookInTheList($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I pull the sales rank
+     */
+    public function iPullTheSalesRank()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see the sales rank of each book
+     */
+    public function iShouldSeeTheSalesRankOfEachBook()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then the sales rank should be integer
+     */
+    public function theSalesRankShouldBeInteger()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see number of reviews
+     */
+    public function iShouldSeeNumberOfReviews()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then the number of reviews should be integer
+     */
+    public function theNumberOfReviewsShouldBeInteger()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see average ratings
+     */
+    public function iShouldSeeAverageRatings()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then the average rating should be integer
+     */
+    public function theAverageRatingShouldBeInteger()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then the list of book should be ranked by sales rank
+     */
+    public function theListOfBookShouldBeRankedBySalesRank()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I sort the order by :arg1
+     */
+    public function iSortTheOrderBy($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see the books are sorted by :arg1
+     */
+    public function iShouldSeeTheBooksAreSortedBy($arg1)
+    {
+        throw new PendingException();
     }
 }

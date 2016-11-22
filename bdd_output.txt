@@ -1,4 +1,3 @@
-~/Github/Level_2$ vendor/bin/behat
 Feature: BB1
   As an author
   I want to find out about tools that can help my book online, in order to help my book sales.
@@ -18,21 +17,84 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                                               # features/bb2.feature:5
     Given there is a "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)", which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon()
     When I view the BookBeat page                                                                                                                    # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 200201<br />Number of Reviews: 24<br />Average Rating: 4.5<br />
+      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 221794<br />Number of Reviews: 24<br />Average Rating: 4.5<br />
     Then I should see "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)"                           # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                                         # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                                           # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
     And I should see the average rating of greater or equal than 0 and less or equal 5                                                               # FeatureContext::iShouldSeeTheAverageRatingOfGreaterOrEqualThanAndLessOrEqual()
 
-  Scenario: See data that helps me understand my sales                                                                             # features/bb2.feature:14
-    Given there is a title "BDD in Action: Behavior-driven development for the whole software lifecycle" which is listed on Amazon # FeatureContext::thereIsATitleWhichIsListedOnAmazon()
-    When I view the BookBeat page                                                                                                  # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 203469<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
-    Then I should see "BDD in Action: Behavior-driven development for the whole software lifecycle"                                # FeatureContext::iShouldSee()
-    And I should see the Amazon sales rank of greater than 0                                                                       # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
-    And I should see the number of reviews of 0 or greater                                                                         # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
-    And I should see the average rating of greater or equal than 0 and less or equal 5                                             # FeatureContext::iShouldSeeTheAverageRatingOfGreaterOrEqualThanAndLessOrEqual()
+  Scenario: See data that helps me understand my sales                                                                       # features/bb2.feature:14
+    Given there is a "BDD in Action: Behavior-driven development for the whole software lifecycle" which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon2()
+    When I view the BookBeat page                                                                                            # FeatureContext::iViewTheBookbeatPage()
+      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 330902<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
+    Then I should see "BDD in Action: Behavior-driven development for the whole software lifecycle"                          # FeatureContext::iShouldSee()
+    And I should see the Amazon sales rank of greater than 0                                                                 # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
+    And I should see the number of reviews of 0 or greater                                                                   # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
+    And I should see the average rating of greater or equal than 0 and less or equal 5                                       # FeatureContext::iShouldSeeTheAverageRatingOfGreaterOrEqualThanAndLessOrEqual()
 
-3 scenarios (2 passed, 1 pending)
-17 steps (12 passed, 1 pending, 4 skipped)
-0m6.72s (7.54Mb)
+Feature: BB3
+  As an author I can specify books in order to see their stats
+
+  Scenario: The Author can specify books by ISBN                                       # features/bb3.feature:4
+    Given there is a file "booklist.json" with ISBN numbers                            # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I verify the file "booklist.json"                                             # FeatureContext::iVerifyTheFile()
+    Then I should see ISBN numbers of greater or equal than 2 and less or equal 10     # FeatureContext::iShouldSeeIsbnNumbersOfGreaterOrEqualThanAndLessOrEqual()
+    And I should see each ISBN digits of greater or equal than 10 and less or equal 13 # FeatureContext::iShouldSeeEachIsbnDigitsOfGreaterOrEqualThanAndLessOrEqual()
+    And I should see each ISBN has ASIN                                                # FeatureContext::iShouldSeeEachIsbnHasAsin()
+    And I should see at least 1 author's book in the list                              # FeatureContext::iShouldSeeAtLeastAuthorSBookInTheList()
+
+Feature: BB4
+  As an author I want to be able to see my book’ rank against other books to know how I am doing via Amazon sales data
+
+  Scenario: The Author can pull sales rank of the Author's selected books # features/bb4.feature:4
+    Given there is a file "booklist.json" with ISBN numbers               # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I pull the sales rank                                            # FeatureContext::iPullTheSalesRank()
+      Notice: Trying to get property of non-object in features/bootstrap/BookBeat.php line 146
+    Then I should see the sales rank of each book                         # FeatureContext::iShouldSeeTheSalesRankOfEachBook()
+    And the sales rank should be integer                                  # FeatureContext::theSalesRankShouldBeInteger()
+    And I should see number of reviews                                    # FeatureContext::iShouldSeeNumberOfReviews()
+    And the number of reviews should be integer                           # FeatureContext::theNumberOfReviewsShouldBeInteger()
+    And I should see average ratings                                      # FeatureContext::iShouldSeeAverageRatings()
+    And the average rating should be integer                              # FeatureContext::theAverageRatingShouldBeInteger()
+    And the list of book should be ranked by sales rank                   # FeatureContext::theListOfBookShouldBeRankedBySalesRank()
+
+Feature: BB5
+  As an author, I can sort the rankings to see how the rankings are via Amazon sales data (sub-group)
+
+  Scenario: The Author can sort the rank by sales rank      # features/bb5.feature:4
+    Given there is a file "booklist.json" with ISBN numbers # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I sort the order by "sales rank"                   # FeatureContext::iSortTheOrderBy()
+      TODO: write pending definition
+    Then I should see the books are sorted by "sales rank"  # FeatureContext::iShouldSeeTheBooksAreSortedBy()
+
+  Scenario: The Author can sort the rank by reviews         # features/bb5.feature:9
+    Given there is a file "booklist.json" with ISBN numbers # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I sort the order by "reviews"                      # FeatureContext::iSortTheOrderBy()
+      TODO: write pending definition
+    Then I should see the books are sorted by "reviews"     # FeatureContext::iShouldSeeTheBooksAreSortedBy()
+
+  Scenario: The Author can sort the rank by average rating      # features/bb5.feature:14
+    Given there is a file "booklist.json" with ISBN numbers     # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I sort the order by "average ratings"                  # FeatureContext::iSortTheOrderBy()
+      TODO: write pending definition
+    Then I should see the books are sorted by "average ratings" # FeatureContext::iShouldSeeTheBooksAreSortedBy()
+
+  Scenario: The Author can sort the rank by book title      # features/bb5.feature:19
+    Given there is a file "booklist.json" with ISBN numbers # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I sort the order by "book title"                   # FeatureContext::iSortTheOrderBy()
+      TODO: write pending definition
+    Then I should see the books are sorted by "book title"  # FeatureContext::iShouldSeeTheBooksAreSortedBy()
+
+  Scenario: The Author can sort the rank by author          # features/bb5.feature:24
+    Given there is a file "booklist.json" with ISBN numbers # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I sort the order by "author"                       # FeatureContext::iSortTheOrderBy()
+      TODO: write pending definition
+    Then I should see the books are sorted by "author"      # FeatureContext::iShouldSeeTheBooksAreSortedBy()
+
+--- Failed scenarios:
+
+    features/bb4.feature:4
+
+10 scenarios (3 passed, 1 failed, 6 pending)
+47 steps (24 passed, 1 failed, 6 pending, 16 skipped)
+0m9.21s (7.77Mb)

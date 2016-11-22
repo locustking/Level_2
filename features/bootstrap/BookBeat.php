@@ -4,6 +4,9 @@ final class BookBeat{
 	private $sales_rank;
 	private $num_reviews;
 	private $avg_rating; 
+	private $isbn;
+	private $asin;
+	private $authorname;
 	
 	public function setBookTitle($book_title){
 		$data = $this->scrapeamazon($book_title);
@@ -89,5 +92,70 @@ final class BookBeat{
 		curl_close($curl);
 		return $contents;
 	}
+	
+	public function setBookIsbn($isbn){
+		$data = $this->scrapeamazonbyisbn($isbn);
+		$this->book_title = $data[0];
+		$this->sales_rank = $data[1];
+		$this->num_reviews = $data[2];
+		$this->avg_rating = $data[3];
+		$this->isbn = $data[4];
+		$this->asin = $data[5];
+		$this->authorname = $data[6];
+
+	}
+	
+	public function getBookBeat(){
+		return [$this->isbn,$this->asin,$this->authorname,
+				$this->book_title,$this->sales_rank,
+				$this->num_reviews,$this->avg_rating];
+	}
+	
+	public function scrapeamazonbyisbn($isbn){
+		$book_search_url = "https://www.amazon.com/gp/search/ref=sr_adv_b/?field-isbn=".$isbn;
+		$page_content = $this->curl_get_contents($book_search_url);
+
+		$dom_doc = new DOMDocument();
+		libxml_use_internal_errors(true);
+		$dom_doc->loadHTML($page_content);
+		$xpath = new DOMXpath($dom_doc);
+
+		$element = $xpath->query('//li[@id="result_0"]/div/div/div/div[2]/div[2]/a/@href');
+		$search_result_url = $element->item(0)->nodeValue;
+
+		$page_content = $this->curl_get_contents($search_result_url);
+
+		$dom_doc = new DOMDocument();
+		libxml_use_internal_errors(true);
+		$dom_doc->loadHTML($page_content);
+		$xpath = new DOMXpath($dom_doc);
+
+		$element = $xpath->query('//span[@id="productTitle"]/text()');
+		$title = $element->item(0)->nodeValue;
+
+		$element = $xpath->query('//li[@id="SalesRank"]/text()');
+		$rank=preg_replace("/[^0-9]/","",$element->item(1)->nodeValue);
+
+		$element = $xpath->query('//*[@id="acrCustomerReviewText"]/text()');
+		$reviewers = preg_replace("/[^0-9]/","",$element->item(0)->nodeValue);
+
+		$element = $xpath->query('//*[@id="avgRating"]/span/a/span/text()');
+		$rating = floatval($element->item(0)->nodeValue);
+
+		$element = $xpath->query('//*[@id="isbn_feature_div"]/div/div[1]/span[2]/text()');
+		$isbn = $element->item(0)->nodeValue;
+
+		$element = $xpath->query('//*[@id="isbn_feature_div"]/div/div[2]/span[2]/text()');
+		$asin = $element->item(0)->nodeValue;
+
+		$element = $xpath->query('//*[@id="byline"]/span[1]/span[1]/a[1]/text()');
+		$authorname = $element->item(0)->nodeValue;
+		
+		
+		libxml_clear_errors();
+
+		return array($title,$rank,$reviewers,$rating,$isbn,$asin,$authorname);
+	}
+	
 }
 ?>

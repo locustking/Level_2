@@ -1,0 +1,14 @@
+{
+	"book":[
+		{"isbn":"921-1234567890", "asin":"1234567890", "isauthor":true},	
+		{"isbn":"921-1234567890", "asin":"1234567890", "isauthor":false},	
+		{"isbn":"921-1234567890", "asin":"1234567890", "isauthor":false},	
+		{"isbn":"921-1234567890", "asin":"1234567890", "isauthor":false},	
+		{"isbn":"921-1234567890", "asin":"1234567890", "isauthor":false},	
+		{"isbn":"921-1234567890", "asin":"1234567890", "isauthor":false},	
+		{"isbn":"921-1234567890", "asin":"1234567890", "isauthor":false},	
+		{"isbn":"921-1234567890", "asin":"1234567890", "isauthor":false},	
+		{"isbn":"921-1234567890", "asin":"1234567890", "isauthor":false},	
+		{"isbn":"921-1234567890", "asin":"1234567890", "isauthor":false}	
+	]	
+}

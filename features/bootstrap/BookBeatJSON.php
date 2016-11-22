@@ -10,7 +10,6 @@ final class BookBeatJSON{
 	public function verifyJSON($f){
 		//need a cleaner code to find the file
 		$file = "/home/bas/Github/Level_2/features/bootstrap/".$this->filename;
-		echo $file;
 		if (file_exists($file)){
 			//read json file
 			$json = file_get_contents($file);
@@ -20,17 +19,83 @@ final class BookBeatJSON{
 		} else {
 			echo "failed to find file";
 		}
-		echo var_dump($this->json_content);
 	}
 	
 	public function countBooks(){
-		// count the number of ISBN in the list
-		return count($this->json_content);
+		// count the number of books in the json content
+		// $this->json_content->{"book"} is an array
+		return count($this->json_content->{"book"});
 	}
 	
 	public function getFilename(){
 		return $this->filename;
 	}
 	
+	public function countLeastIsbnDigits(){
+		$books = $this->json_content->{"book"};
+		$isbn = $books[0]->{"isbn"};
+		$digits = preg_match_all( "/[0-9]/", $isbn );
+		foreach ($books as $book) {
+			if ($digits > preg_match_all( "/[0-9]/", $book->{"isbn"} )){
+				$digits = preg_match_all( "/[0-9]/", $book->{"isbn"} );
+			}
+		}
+		return $digits;
+	}
+
+	public function countMostIsbnDigits(){
+		$books = $this->json_content->{"book"};
+		$isbn = $books[0]->{"isbn"};
+		$digits = preg_match_all( "/[0-9]/", $isbn );
+		foreach ($books as $book) {
+			if ($digits < preg_match_all( "/[0-9]/", $book->{"isbn"} )){
+				$digits = preg_match_all( "/[0-9]/", $book->{"isbn"} );
+			}
+		}
+		return $digits;
+	}
+	
+	public function countAsin(){
+		$books = $this->json_content->{"book"};
+		$asin=0;
+		foreach ($books as $book){
+			if (isset($book->{"isbn"}) && isset($book->{"asin"})){
+				$asin++;
+			}
+		}
+		return $asin;
+	}
+	
+	public function countAuthorSBook(){
+		$books = $this->json_content->{"book"};
+		$authorsbook=0;
+		foreach ($books as $book){
+			if ($book->{"isauthor"}){
+				$authorsbook++;
+			}
+		}
+		return $authorsbook;
+	}
+
+	public function countSalesRanks(){
+		$books = $this->json_content->{"book"};
+		$salesranks=0;
+		foreach ($books as $book){
+			if (isset($book->{"isbn"}) && isset($book->{"salesrank"})){
+				$salesranks++;
+			}
+		}
+		return $salesranks;
+	}
+
+	public function getBooks(){
+		// count the number of books in the json content
+		// $this->json_content->{"book"} is an array
+		return $this->json_content->{"book"};
+	}
+	
+	public function updateJSONwithBookBeat(){
+	}
+
 }
 ?>

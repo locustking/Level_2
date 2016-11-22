@@ -12,6 +12,7 @@ class FeatureContext implements Context
 {
     private $bookbeat;
 	private $bookbeatjson;
+	private $bookbeatlist;
 
     /**
      * Initializes context.
@@ -23,6 +24,8 @@ class FeatureContext implements Context
     public function __construct()
     {
         $this->bookbeat = new BookBeat();
+        $this->bookbeatjson = new BookBeatJSON();
+        $this->bookbeatlist = new BookBeatList();
     }
 
     /**
@@ -142,8 +145,10 @@ class FeatureContext implements Context
      */
     public function thereIsAFileWithIsbnNumbers($arg1)
     {
-        $this->bookbeatjson = new BookBeatJSON();
 		$this->bookbeatjson->setFilename($arg1);
+		
+		//bb4
+		$this->bookbeatlist->setBookBeatJSON($this->bookbeatjson);
     }
 
     /**
@@ -174,7 +179,14 @@ class FeatureContext implements Context
      */
     public function iShouldSeeEachIsbnDigitsOfGreaterOrEqualThanAndLessOrEqual($arg1, $arg2)
     {
-        throw new PendingException();
+        PHPUnit_Framework_Assert::assertGreaterThanOrEqual(
+            $arg1,
+            $this->bookbeatjson->countLeastIsbnDigits()
+        );
+        PHPUnit_Framework_Assert::assertLessThanOrEqual(
+            $arg2,
+            $this->bookbeatjson->countMostIsbnDigits()
+        );
     }
 
     /**
@@ -182,7 +194,10 @@ class FeatureContext implements Context
      */
     public function iShouldSeeEachIsbnHasAsin()
     {
-        throw new PendingException();
+        PHPUnit_Framework_Assert::assertEquals(
+            $this->bookbeatjson->countBooks(),
+            $this->bookbeatjson->countAsin()
+        );
     }
 
     /**
@@ -190,7 +205,10 @@ class FeatureContext implements Context
      */
     public function iShouldSeeAtLeastAuthorSBookInTheList($arg1)
     {
-        throw new PendingException();
+        PHPUnit_Framework_Assert::assertGreaterThanOrEqual(
+            $arg1,
+            $this->bookbeatjson->countAuthorSBook()
+        );
     }
 
     /**
@@ -198,7 +216,7 @@ class FeatureContext implements Context
      */
     public function iPullTheSalesRank()
     {
-        throw new PendingException();
+		$this->bookbeatlist->updateSalesRank();
     }
 
     /**
@@ -206,8 +224,11 @@ class FeatureContext implements Context
      */
     public function iShouldSeeTheSalesRankOfEachBook()
     {
-        throw new PendingException();
-    }
+        PHPUnit_Framework_Assert::assertEquals(
+            $this->bookbeatlist->countBooks(),
+            $this->bookbeatlist->countSalesRanks()
+        );
+	}
 
     /**
      * @Then the sales rank should be integer

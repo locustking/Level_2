@@ -1,6 +1,24 @@
 {
-	"book":[
-		{"isbn":"978-1934356807", "asin":"1934356808", "isauthor":true},	
-		{"isbn":"978-1941222294", "asin":"1941222293", "isauthor":false}
-	]	
+    "book": [
+        {
+            "isbn": "978-1934356807",
+            "asin": "1934356808",
+            "isauthor": true,
+            "author_name": "Matt Wynne",
+            "book_title": "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)",
+            "sales_rank": 309891,
+            "num_reviews": 24,
+            "avg_ratings": 4.5
+        },
+        {
+            "isbn": "978-1941222294",
+            "asin": "1941222293",
+            "isauthor": false,
+            "author_name": "Seb Rose",
+            "book_title": "The Cucumber for Java Book: Behaviour-Driven Development for Testers and Developers",
+            "sales_rank": 62987,
+            "num_reviews": 29,
+            "avg_ratings": 4.9
+        }
+    ]
 }

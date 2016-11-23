@@ -31,11 +31,23 @@ final class BookBeatList{
 		$books = $this->bookbeatjson->getBooks();
 		$salesranks=0;
 		foreach ($books as $book){
-			if (isset($book->{"isbn"}) && isset($book->{"salesrank"})){
+			if (isset($book->{"isbn"}) && isset($book->{"sales_rank"})){
 				$salesranks++;
 			}
 		}
 		return $salesranks;		
+	}
+	
+	public function getAllRanks(){
+		$books = $this->bookbeatjson->getBooks();
+		$ranks=[];
+		foreach ($books as $book){
+			if (isset($book->{"sales_rank"})){
+				array_push($ranks,$book->{"sales_rank"});
+			}
+		}
+		return $ranks;		
+		
 	}
 	
 	

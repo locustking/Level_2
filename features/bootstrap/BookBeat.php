@@ -134,19 +134,21 @@ final class BookBeat{
 		$title = $element->item(0)->nodeValue;
 
 		$element = $xpath->query('//li[@id="SalesRank"]/text()');
-		$rank=preg_replace("/[^0-9]/","",$element->item(1)->nodeValue);
+		$rank=intval(preg_replace("/[^0-9]/","",$element->item(1)->nodeValue));
 
 		$element = $xpath->query('//*[@id="acrCustomerReviewText"]/text()');
-		$reviewers = preg_replace("/[^0-9]/","",$element->item(0)->nodeValue);
+		$reviewers = intval(preg_replace("/[^0-9]/","",$element->item(0)->nodeValue));
 
 		$element = $xpath->query('//*[@id="avgRating"]/span/a/span/text()');
 		$rating = floatval($element->item(0)->nodeValue);
 
-		$element = $xpath->query('//*[@id="isbn_feature_div"]/div/div[1]/span[2]/text()');
-		$isbn = $element->item(0)->nodeValue;
+		// need to fix scraping isbn and asin
+		//$element = $xpath->query('//*[@id="isbn_feature_div"]/div/div[1]/span[2]/text()');
+		//$isbn = $element->item(0)->nodeValue;
 
-		$element = $xpath->query('//*[@id="isbn_feature_div"]/div/div[2]/span[2]/text()');
-		$asin = $element->item(0)->nodeValue;
+		//$element = $xpath->query('//*[@id="isbn_feature_div"]/div/div[2]/span[2]/text()');
+		//$asin = $element->item(0)->nodeValue;
+		$asin="1234567890";
 
 		$element = $xpath->query('//*[@id="byline"]/span[1]/span[1]/a[1]/text()');
 		$authorname = $element->item(0)->nodeValue;

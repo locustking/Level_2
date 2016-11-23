@@ -94,7 +94,23 @@ final class BookBeatJSON{
 		return $this->json_content->{"book"};
 	}
 	
-	public function updateJSONwithBookBeat(){
+	public function updateJSONwithBookBeat($isbn,$data){
+		$books = $this->json_content->{"book"};
+		// update json_content
+		foreach ($books as $book){
+				if ($isbn==$book->{"isbn"}){
+					$book->{"author_name"}=$data[2];
+					$book->{"book_title"}=$data[3];
+					$book->{"sales_rank"}=$data[4];
+					$book->{"num_reviews"}=$data[5];
+					$book->{"avg_ratings"}=$data[6];
+				}
+		}
+
+		// write to booklist.json
+		//need a cleaner code to find the file
+		$file = "/home/bas/Github/Level_2/features/bootstrap/".$this->filename;
+		file_put_contents($file,json_encode($this->json_content, JSON_PRETTY_PRINT));
 	}
 
 }

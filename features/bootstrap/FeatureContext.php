@@ -235,7 +235,10 @@ class FeatureContext implements Context
      */
     public function theSalesRankShouldBeInteger()
     {
-        throw new PendingException();
+        PHPUnit_Framework_Assert::assertContainsOnly(
+            "integer",
+            $this->bookbeatlist->getAllRanks()
+        );
     }
 
     /**
@@ -243,7 +246,10 @@ class FeatureContext implements Context
      */
     public function iShouldSeeNumberOfReviews()
     {
-        throw new PendingException();
+        PHPUnit_Framework_Assert::assertEquals(
+            $this->bookbeatlist->countBooks(),
+            $this->bookbeatlist->countNumberofReviews()
+        );
     }
 
     /**

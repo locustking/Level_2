@@ -1,0 +1,21 @@
+known bugs:
+- booklist.json location - fixed
+- facility to access json content - fixed
+- scraping isbn and asin - low prio
+
+
+usage:
+// init BookBeat, BookBeatJSON and BookBeatList instances
+$this->bookbeat = new BookBeat();
+$this->bookbeatjson = new BookBeatJSON();
+$this->bookbeatlist = new BookBeatList();
+		
+// set json filename $arg1
+$this->bookbeatjson->setFilename($arg1);
+
+// wire up bookbeatjson object to bookbeatlist
+$this->bookbeatlist->setBookBeatJSON($this->bookbeatjson);
+
+// update bookbeatlist. this will collect the sales rank from amazon and update the json file.
+// returning an array with the updated list
+$result = $this->bookbeatlist->updateSalesRank();

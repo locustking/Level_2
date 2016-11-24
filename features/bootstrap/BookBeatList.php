@@ -21,6 +21,8 @@ final class BookBeatList{
 				$this->bookbeatjson->updateJSONwithBookBeat($book->{"isbn"},$this->bookbeat->getBookBeat());
 			}
 		}
+		
+		return $this->bookbeatjson->getBooks();
 	}
 	
 	public function countBooks(){
@@ -95,6 +97,5 @@ final class BookBeatList{
 		return $ratings;		
 		
 	}
-	
 }
 ?>

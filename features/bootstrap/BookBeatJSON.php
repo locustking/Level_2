@@ -9,7 +9,8 @@ final class BookBeatJSON{
 	
 	public function verifyJSON($f){
 		//need a cleaner code to find the file
-		$file = "/home/bas/Github/Level_2/features/bootstrap/".$this->filename;
+		$dir = dirname(__FILE__).DIRECTORY_SEPARATOR;
+		$file = $dir.$this->filename;
 		if (file_exists($file)){
 			//read json file
 			$json = file_get_contents($file);
@@ -89,7 +90,6 @@ final class BookBeatJSON{
 	}
 
 	public function getBooks(){
-		// count the number of books in the json content
 		// $this->json_content->{"book"} is an array
 		return $this->json_content->{"book"};
 	}
@@ -108,8 +108,8 @@ final class BookBeatJSON{
 		}
 
 		// write to booklist.json
-		//need a cleaner code to find the file
-		$file = "/home/bas/Github/Level_2/features/bootstrap/".$this->filename;
+		$dir = dirname(__FILE__).DIRECTORY_SEPARATOR;
+		$file = $dir.$this->filename;
 		file_put_contents($file,json_encode($this->json_content, JSON_PRETTY_PRINT));
 	}
 

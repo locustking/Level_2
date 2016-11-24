@@ -112,7 +112,7 @@ final class BookBeat{
 	}
 	
 	public function scrapeamazonbyisbn($isbn){
-		$book_search_url = "https://www.amazon.com/gp/search/ref=sr_adv_b/?field-isbn=".$isbn;
+		$book_search_url = "https://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&unfiltered=1&field-isbn=".$isbn."&p_n_feature_browse-bin=618083011";
 		$page_content = $this->curl_get_contents($book_search_url);
 
 		$dom_doc = new DOMDocument();
@@ -144,6 +144,7 @@ final class BookBeat{
 
 		// need to fix scraping isbn and asin
 		//$element = $xpath->query('//*[@id="isbn_feature_div"]/div/div[1]/span[2]/text()');
+		//print_r($element);
 		//$isbn = $element->item(0)->nodeValue;
 
 		//$element = $xpath->query('//*[@id="isbn_feature_div"]/div/div[2]/span[2]/text()');

@@ -9,6 +9,5 @@ And the sales rank should be integer
 And I should see number of reviews
 And the number of reviews should be integer
 And I should see average ratings
-And the average rating should be integer
-And the list of book should be ranked by sales rank
+And the average rating should be float
 

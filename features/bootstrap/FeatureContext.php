@@ -257,7 +257,10 @@ class FeatureContext implements Context
      */
     public function theNumberOfReviewsShouldBeInteger()
     {
-        throw new PendingException();
+        PHPUnit_Framework_Assert::assertContainsOnly(
+            "integer",
+            $this->bookbeatlist->getAllReviews()
+        );
     }
 
     /**
@@ -265,15 +268,21 @@ class FeatureContext implements Context
      */
     public function iShouldSeeAverageRatings()
     {
-        throw new PendingException();
+        PHPUnit_Framework_Assert::assertEquals(
+            $this->bookbeatlist->countBooks(),
+            $this->bookbeatlist->countAvgRatings()
+        );
     }
 
     /**
-     * @Then the average rating should be integer
+     * @Then the average rating should be float
      */
-    public function theAverageRatingShouldBeInteger()
+    public function theAverageRatingShouldBeFloat()
     {
-        throw new PendingException();
+        PHPUnit_Framework_Assert::assertContainsOnly(
+            "float",
+            $this->bookbeatlist->getAllRatings()
+        );
     }
 
     /**
@@ -299,4 +308,5 @@ class FeatureContext implements Context
     {
         throw new PendingException();
     }
+
 }

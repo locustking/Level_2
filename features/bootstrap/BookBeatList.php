@@ -50,6 +50,51 @@ final class BookBeatList{
 		
 	}
 	
+	public function countNumberofReviews(){
+		$books = $this->bookbeatjson->getBooks();
+		$numreviews=0;
+		foreach ($books as $book){
+			if (isset($book->{"isbn"}) && isset($book->{"num_reviews"})){
+				$numreviews++;
+			}
+		}
+		return $numreviews;		
+	}
+
+	public function getAllReviews(){
+		$books = $this->bookbeatjson->getBooks();
+		$reviews=[];
+		foreach ($books as $book){
+			if (isset($book->{"num_reviews"})){
+				array_push($reviews,$book->{"num_reviews"});
+			}
+		}
+		return $reviews;		
+		
+	}
+
+	public function countAvgRatings(){
+		$books = $this->bookbeatjson->getBooks();
+		$avgratings=0;
+		foreach ($books as $book){
+			if (isset($book->{"isbn"}) && isset($book->{"avg_ratings"})){
+				$avgratings++;
+			}
+		}
+		return $avgratings;		
+	}
+	
+	public function getAllRatings(){
+		$books = $this->bookbeatjson->getBooks();
+		$ratings=[];
+		foreach ($books as $book){
+			if (isset($book->{"avg_ratings"})){
+				array_push($ratings,$book->{"avg_ratings"});
+			}
+		}
+		return $ratings;		
+		
+	}
 	
 }
 ?>

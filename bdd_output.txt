@@ -17,7 +17,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                                               # features/bb2.feature:5
     Given there is a "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)", which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon()
     When I view the BookBeat page                                                                                                                    # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 319277<br />Number of Reviews: 24<br />Average Rating: 4.5<br />
+      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 347931<br />Number of Reviews: 24<br />Average Rating: 4.5<br />
     Then I should see "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)"                           # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                                         # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                                           # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -26,7 +26,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                       # features/bb2.feature:14
     Given there is a "BDD in Action: Behavior-driven development for the whole software lifecycle" which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon2()
     When I view the BookBeat page                                                                                            # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 251856<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
+      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 305024<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
     Then I should see "BDD in Action: Behavior-driven development for the whole software lifecycle"                          # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                 # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                   # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -52,11 +52,9 @@ Feature: BB4
     Then I should see the sales rank of each book                         # FeatureContext::iShouldSeeTheSalesRankOfEachBook()
     And the sales rank should be integer                                  # FeatureContext::theSalesRankShouldBeInteger()
     And I should see number of reviews                                    # FeatureContext::iShouldSeeNumberOfReviews()
-      Fatal error: Call to undefined method BookBeatList::countNumberofReviews() (Behat\Testwork\Call\Exception\FatalThrowableError)
     And the number of reviews should be integer                           # FeatureContext::theNumberOfReviewsShouldBeInteger()
     And I should see average ratings                                      # FeatureContext::iShouldSeeAverageRatings()
-    And the average rating should be integer                              # FeatureContext::theAverageRatingShouldBeInteger()
-    And the list of book should be ranked by sales rank                   # FeatureContext::theListOfBookShouldBeRankedBySalesRank()
+    And the average rating should be float                                # FeatureContext::theAverageRatingShouldBeFloat()
 
 Feature: BB5
   As an author, I can sort the rankings to see how the rankings are via Amazon sales data (sub-group)
@@ -91,10 +89,6 @@ Feature: BB5
       TODO: write pending definition
     Then I should see the books are sorted by "author"      # FeatureContext::iShouldSeeTheBooksAreSortedBy()
 
---- Failed scenarios:
-
-    features/bb4.feature:4
-
-10 scenarios (3 passed, 1 failed, 6 pending)
-47 steps (27 passed, 1 failed, 6 pending, 13 skipped)
-0m14.78s (7.66Mb)
+10 scenarios (4 passed, 6 pending)
+46 steps (31 passed, 6 pending, 9 skipped)
+0m9.33s (7.64Mb)

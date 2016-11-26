@@ -1,12 +1,12 @@
 <?php
 /**
- * @package BBA_DB_STAGE
+ * @package BBA_DB
  * @version 1.0
  */
 /*
-Plugin Name: Book Beat Staging
+Plugin Name: Book Beat
 Plugin URI: http://www.bookbeatapp.com
-Description: Staging Plugin for Book Beat. A tool for authors to do competitive analysis
+Description: A tool for authors to do competitive analysis
 Author: Havard E-71, Fall 2016, Level 2 SCRUM tam
 Version: 1.0
 Author URI: http://www.bookbeatapp.com
@@ -18,12 +18,10 @@ Author URI: http://www.bookbeatapp.com
         require dirname(__FILE__) . "/BookBeat.php";
 
     // Adds shortcode to call control loop from page
-    add_shortcode( 'bbastage_display', 'bookbeat_stage_func' );
+    add_shortcode( 'bba_display', 'bookbeat_func' );
 
-function bookbeat_stage_func($atts){
-
-    
-    //    Introduction Text    
+function bookbeat_func($atts){
+ //    Introduction Text    
     $content = "<p>The following App was designed and pushed to our site by the Level 2 team. It is an initial piece of working software to prove we are able to work with external data, and display it on our site. We connect to Amazon's API and the following snippet displays information pulled by our code, to display statistics about the selected books we've chosen. Our github repo is located @";
     $content = $content . "<a href = 'https://github.com/locustking/Level_2/' >https://github.com/locustking/Level_2/</a> - The implementation file can be found at our github at: <a href='https://github.com/locustking/Level_2/tree/master/features/bootstrap'>https://github.com/locustking/Level_2/tree/master/features/bootstrap</a></p><p>";
 

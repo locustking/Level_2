@@ -23,11 +23,11 @@ Author URI: http://www.bookbeatapp.com
 function bookbeat_func($atts){
  //    Introduction Text    
     $content = "<p>The following App was designed and pushed to our site by the Level 2 team. It is an initial piece of working software to prove we are able to work with external data, and display it on our site. We connect to Amazon's API and the following snippet displays information pulled by our code, to display statistics about the selected books we've chosen. Our github repo is located @";
-    $content = $content . "<a href = 'https://github.com/locustking/Level_2/' >https://github.com/locustking/Level_2/</a> - The implementation file can be found at our github at: <a href='https://github.com/locustking/Level_2/tree/master/features/bootstrap'>https://github.com/locustking/Level_2/tree/master/features/bootstrap</a></p><p>";
+    $content = $content . "<a href = 'https://github.com/locustking/Level_2/' >https://github.com/locustking/Level_2/</a> - The implementation file can be found at our github at: <a href='https://github.com/locustking/Level_2/tree/master/features/bootstrap'>https://github.com/locustking/Level_2/tree/master/features/bootstrap</a></p><p>Click on the column heads to sort.";
 
     // Table form
     $content = $content . "<div>";
-    $content = $content .  "<TABLE id='booklist' class='tablesorter'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
+    $content = $content .  "<TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
     
     // Get Book Data
     // init BookBeat, BookBeatJSON and BookBeatList instances

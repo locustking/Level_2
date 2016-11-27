@@ -169,15 +169,16 @@ These also include minutes for all meetings, in which we checked in and reviewed
 
 #README - Project Part 3 of 4
 
-##Continuous Integration/Continuous Delivery:
+###Continuous Integration/Continuous Delivery:
 
 Our CI/CD tool of choice is Jenkins
 It is hosted at http://www.bookbeatjenkins.com  
 
 There are three jobs setup to support our CI/CD pipeline.  They are as follows:
-bookbeat
-bookbeat-prod-deploy
-bookbeat-stage-deploy
+
+- bookbeat
+- bookbeat-prod-deploy
+- bookbeat-stage-deploy
 
 Each commit to the master branch of our Level_2.git repository master branch triggers the 'bookbeat' build job.  This job
 runs our test suite for our BDD and TDD test cases.  If the tests pass successfully, it triggers the bookbeat-stage-deploy job.
@@ -185,5 +186,8 @@ This pushes the files to our bookbeat app staging environment.  Once the team ve
 of the bookbeat-prod-deploy will push our code to our production environment.
 
 To see our Jenkins setup, go to the above mentioned URL and supply the following credentials:
-username: testuser
-password: 1password
+
+- username: testuser
+- password: 1password
+
+Screencast - xxxxxxxxxxxxxx

@@ -233,6 +233,8 @@ Saturday (+2nd Mob/Pair Programming) 11/26 at 12:30 pm EST (half hour daily scru
 
 At the start of each daily scrum or programming meeting, we discussed what we did in the last 24 hours, and the work we'd do for the next 24 hours.
 
+We didn't face major impediments in our work, with the exception of the Thanksgiving holiday. This forced us to consider planning ahead of holiday weekends, to avoid scheduling problems.
+
 ###Sprint Review:
 Sunday 11/27 at 11:30 PM EST (Included the actual Stakeholder, Geri, and we went over the project, new website, updated working software, and vision to gain feedback)
 -> https://www.youtube.com/playlist?list=PLdSVN_Vqb9vpJtJ4-UMkpSDz_aOFoHGf2

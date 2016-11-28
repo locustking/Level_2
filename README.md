@@ -237,7 +237,7 @@ We didn't face major impediments in our work, with the exception of the Thanksgi
 
 ###Sprint Review:
 Sunday 11/27 at 11:30 PM EST (Included the actual Stakeholder, Geri, and we went over the project, new website, updated working software, and vision to gain feedback)
--> https://www.youtube.com/playlist?list=PLdSVN_Vqb9vpJtJ4-UMkpSDz_aOFoHGf2
+-> https://www.youtube.com/watch?v=79lKKMbkG8A&list=PLdSVN_Vqb9vpJtJ4-UMkpSDz_aOFoHGf2&index=7
 
 Geri noted she wanted to see inputs from other countries (like the UK), and gave suggestions which we'll use to order the backlog (submitting files, etc.). We also spoke as a team, and came up with a new tip we'll use for future sprints which is to have the Sprint Planning session earlier in order to give more time to development.
 

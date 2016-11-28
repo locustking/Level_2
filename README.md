@@ -169,6 +169,28 @@ These also include minutes for all meetings, in which we checked in and reviewed
 
 #README - Project Part 3 of 4
 
+## OPEN SOURCE PRODUCT NAME: 
+* Book Beat *(Book Author’s Competitive Analysis Tool)*
+
+## Team Members: 
+* Erica Abernathy
+* Kaushik Bhatta
+* Daryl Greer
+* Doug Walton
+* Basuki Winoto
+
+### Roles:
+* Scrum Master: Doug Walton
+* Product Owner: Kaushik Bhatta
+* Developers/Development Team: The entire team
+
+## Website and App:
+Our website is hosted and available at: http://bookbeatapp.com
+
+Our app, is currently at: http://bookbeatapp.com/book-beat/
+
+##Topics:
+
 ###Continuous Integration/Continuous Delivery:
 
 Our CI/CD tool of choice is Jenkins
@@ -191,3 +213,15 @@ To see our Jenkins setup, go to the above mentioned URL and supply the following
 - password: 1password
 
 Screencast - xxxxxxxxxxxxxx
+
+###BDD and TDD:
+The third of 4 sprints of development we continued to use Behat Cucumber.
+We used a behavior driven development method. Features and automated tests were developed before coding the application. Evidence of this can be seen in the Pair and Mob programming recordings for this sprint: https://www.youtube.com/playlist?list=PLdSVN_Vqb9vpJtJ4-UMkpSDz_aOFoHGf2
+
+3 new behavioral features BB3, BB4, and BB5 were added in this sprint. The new features resulted in 19 new unit tests. Including the previous sprint, there are 31 total unit tests that are passing with no failures.
+
+Currently there are 5 defined Cucumber features are located:
+https://github.com/locustking/Level_2/tree/master/features
+Behat Cucumber testing output is located:
+https://github.com/locustking/Level_2/blob/master/bdd_output.txt
+

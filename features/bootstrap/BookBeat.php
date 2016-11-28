@@ -68,7 +68,11 @@ final class BookBeat{
 		$xpath = new DOMXpath($dom_doc);
 
 		$element = $xpath->query('//span[@id="productTitle"]/text()');
-		$title = $element->item(0)->nodeValue;
+		if (0 == $element->length){
+			$title = $book_title;
+		} else {
+			$title = $element->item(0)->nodeValue;
+		}
 
 		$element = $xpath->query('//li[@id="SalesRank"]/text()');
 		$rank=preg_replace("/[^0-9]/","",$element->item(1)->nodeValue);

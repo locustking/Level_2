@@ -49,7 +49,7 @@ final class BookBeat{
 	
 	public function scrapeamazon($book_title){
 
-		$book_search_url = "https://www.amazon.com/s/ref=nb_sb_noss?field-keywords=".urlencode($book_title);
+		$book_search_url = "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=".urlencode($book_title);
 		$page_content = $this->curl_get_contents($book_search_url);
 
 		$dom_doc = new DOMDocument();
@@ -137,10 +137,18 @@ final class BookBeat{
 		$rank=intval(preg_replace("/[^0-9]/","",$element->item(1)->nodeValue));
 
 		$element = $xpath->query('//*[@id="acrCustomerReviewText"]/text()');
-		$reviewers = intval(preg_replace("/[^0-9]/","",$element->item(0)->nodeValue));
+		if (0 == $element->length){
+			$reviewers = 0;
+		} else {
+			$reviewers = intval(preg_replace("/[^0-9]/","",$element->item(0)->nodeValue));
+		}
 
 		$element = $xpath->query('//*[@id="avgRating"]/span/a/span/text()');
-		$rating = floatval($element->item(0)->nodeValue);
+		if (0 == $element->length){
+			$rating = 0.;
+		} else {
+			$rating = floatval($element->item(0)->nodeValue);
+		}
 
 		// need to fix scraping isbn and asin
 		//$element = $xpath->query('//*[@id="isbn_feature_div"]/div/div[1]/span[2]/text()');
@@ -151,8 +159,12 @@ final class BookBeat{
 		//$asin = $element->item(0)->nodeValue;
 		$asin="1234567890";
 
-		$element = $xpath->query('//*[@id="byline"]/span[1]/span[1]/a[1]/text()');
-		$authorname = $element->item(0)->nodeValue;
+		$element = $xpath->query('//*[@id="byline"]/span/span[1]/a[1]/text()');
+		if (0 == $element->length){
+			$authorname = "";
+		} else {
+			$authorname = $element->item(0)->nodeValue;
+		}
 		
 		
 		libxml_clear_errors();

@@ -17,7 +17,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                                               # features/bb2.feature:5
     Given there is a "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)", which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon()
     When I view the BookBeat page                                                                                                                    # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 369780<br />Number of Reviews: 24<br />Average Rating: 4.5<br />
+      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 271929<br />Number of Reviews: 24<br />Average Rating: 4.4<br />
     Then I should see "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)"                           # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                                         # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                                           # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -26,7 +26,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                       # features/bb2.feature:14
     Given there is a "BDD in Action: Behavior-driven development for the whole software lifecycle" which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon2()
     When I view the BookBeat page                                                                                            # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 358864<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
+      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 301141<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
     Then I should see "BDD in Action: Behavior-driven development for the whole software lifecycle"                          # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                 # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                   # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -91,4 +91,4 @@ Feature: BB5
 
 10 scenarios (4 passed, 6 pending)
 46 steps (31 passed, 6 pending, 9 skipped)
-0m11.59s (7.64Mb)
+0m15.89s (7.64Mb)

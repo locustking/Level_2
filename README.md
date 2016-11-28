@@ -4,7 +4,7 @@
 * Book Beat *(Book Author’s Competitive Analysis Tool)*
 
 ## Team Members: 
-* Erica T Abernathy
+* Erica Abernathy
 * Kaushik Bhatta
 * Daryl Greer
 * Doug Walton

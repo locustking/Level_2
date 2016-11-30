@@ -20,6 +20,14 @@ final class BookBeatJSON{
 		} else {
 			echo "failed to find file";
 		}
+		
+		//bugfix rating float value
+		$books = $this->json_content->{"book"};
+		foreach ($books as $key => $book) {
+			if(isset($this->json_content->{"book"}[$key]->{"avg_ratings"})){
+				$this->json_content->{"book"}[$key]->{"avg_ratings"} = floatval($this->json_content->{"book"}[$key]->{"avg_ratings"});
+			}
+		}
 	}
 	
 	public function countBooks(){
@@ -71,7 +79,7 @@ final class BookBeatJSON{
 		$books = $this->json_content->{"book"};
 		$authorsbook=0;
 		foreach ($books as $book){
-			if ($book->{"isauthor"}){
+			if ($book->{"is_author"}){
 				$authorsbook++;
 			}
 		}
@@ -94,6 +102,13 @@ final class BookBeatJSON{
 		return $this->json_content->{"book"};
 	}
 	
+	public function writeContentToJSON(){
+		// write to booklist.json
+		$dir = dirname(__FILE__).DIRECTORY_SEPARATOR;
+		$file = $dir.$this->filename;
+		file_put_contents($file,json_encode($this->json_content, JSON_PRETTY_PRINT));
+	}
+	
 	public function updateJSONwithBookBeat($isbn,$data){
 		$books = $this->json_content->{"book"};
 		// update json_content
@@ -106,12 +121,42 @@ final class BookBeatJSON{
 					$book->{"avg_ratings"}=$data[6];
 				}
 		}
-
-		// write to booklist.json
-		$dir = dirname(__FILE__).DIRECTORY_SEPARATOR;
-		$file = $dir.$this->filename;
-		file_put_contents($file,json_encode($this->json_content, JSON_PRETTY_PRINT));
+		$this->writeContentToJSON();
+	}
+	
+	public function deleteBook($isbn){
+		$books = $this->json_content->{"book"};
+		// delete json_content
+		foreach ($books as $key => $book){
+			if ($isbn==$book->{"isbn"}){
+				unset($this->json_content->{"book"}[$key]);
+			}
+		}
+		$this->writeContentToJSON();
+	}
+	
+	public function addBook($isbn,$asin,$is_author,$author_name){
+		$books = $this->json_content->{"book"};
+		$book = (object)[];
+		$book->{"isbn"} = $isbn;
+		$book->{"asin"} = $asin;
+		$book->{"is_author"} = boolval($is_author);
+		$book->{"author_name"} = $author_name;
+		array_push($this->json_content->{"book"}, $book);
+		$this->writeContentToJSON();
 	}
 
+	public function updateBook($isbn,$asin,$is_author,$author_name){
+		$books = $this->json_content->{"book"};
+		// delete json_content
+		foreach ($books as $key => $book){
+			if ($isbn==$book->{"isbn"}){
+				$book->{"asin"} = $asin;
+				$book->{"is_author"} = boolval($is_author);
+				$book->{"author_name"} = $author_name;
+			}
+		}
+		$this->writeContentToJSON();
+	}
 }
 ?>

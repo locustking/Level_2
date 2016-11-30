@@ -57,7 +57,8 @@ final class BookBeat{
 		$dom_doc->loadHTML($page_content);
 		$xpath = new DOMXpath($dom_doc);
 
-		$element = $xpath->query('//li[@id="result_0"]/div/div/div/div[2]/div[2]/a/@href');
+		//$element = $xpath->query('//li[@id="result_0"]/div/div/div/div[2]/div[2]/a/@href');
+		$element = $xpath->query("//*[@id='result_0']/div/div/div/div[2]/div[2]/div[1]/a/@href");
 		$search_result_url = $element->item(0)->nodeValue;
 
 		$page_content = $this->curl_get_contents($search_result_url);
@@ -124,7 +125,8 @@ final class BookBeat{
 		$dom_doc->loadHTML($page_content);
 		$xpath = new DOMXpath($dom_doc);
 
-		$element = $xpath->query('//li[@id="result_0"]/div/div/div/div[2]/div[2]/a/@href');
+		//$element = $xpath->query('//li[@id="result_0"]/div/div/div/div[2]/div[2]/a/@href');
+		$element = $xpath->query("//*[@id='result_0']/div/div/div/div[2]/div[2]/div[1]/a/@href");
 		$search_result_url = $element->item(0)->nodeValue;
 
 		$page_content = $this->curl_get_contents($search_result_url);
@@ -149,7 +151,7 @@ final class BookBeat{
 
 		$element = $xpath->query('//*[@id="avgRating"]/span/a/span/text()');
 		if (0 == $element->length){
-			$rating = 0.;
+			$rating = 0.0;
 		} else {
 			$rating = floatval($element->item(0)->nodeValue);
 		}

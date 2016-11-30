@@ -17,7 +17,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                                               # features/bb2.feature:5
     Given there is a "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)", which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon()
     When I view the BookBeat page                                                                                                                    # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 271929<br />Number of Reviews: 24<br />Average Rating: 4.4<br />
+      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 290435<br />Number of Reviews: 24<br />Average Rating: 4.4<br />
     Then I should see "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)"                           # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                                         # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                                           # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -26,7 +26,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                       # features/bb2.feature:14
     Given there is a "BDD in Action: Behavior-driven development for the whole software lifecycle" which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon2()
     When I view the BookBeat page                                                                                            # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 301141<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
+      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 438341<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
     Then I should see "BDD in Action: Behavior-driven development for the whole software lifecycle"                          # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                 # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                   # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -89,6 +89,35 @@ Feature: BB5
       TODO: write pending definition
     Then I should see the books are sorted by "author"      # FeatureContext::iShouldSeeTheBooksAreSortedBy()
 
-10 scenarios (4 passed, 6 pending)
-46 steps (31 passed, 6 pending, 9 skipped)
-0m15.89s (7.64Mb)
+Feature: BB6
+  As an author I can edit, and reload sets of books through the website interface
+
+  Scenario: The Author can clean the booklist               # features/bb6.feature:4
+    Given there is a file "booklist.json" with ISBN numbers # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I clean the booklist                               # FeatureContext::iCleanTheBooklist()
+    Then I should see the file has "0" books                # FeatureContext::iShouldSeeTheFileHasBooks()
+
+  Scenario: The Author can add a book                                                                                       # features/bb6.feature:9
+    Given there is a file "booklist.json" with ISBN numbers                                                                 # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I add with isbn "978-1473853331", asin "1473853338", author name "Geri Walton" and is author "true"                # FeatureContext::iAddWithIsbnAsinAuthorNameAndIsAuthor()
+    Then I should see the file has isbn "978-1473853331", asin "1473853338", author name "Geri Walton" and is author "true" # FeatureContext::iShouldSeeTheFileHasIsbnAsinAuthorNameAndIsAuthor()
+
+  Scenario: The Author can edit a book by isbn                                                                              # features/bb6.feature:14
+    Given there is a file "booklist.json" with ISBN numbers                                                                 # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I edit book with isbn "978-1473853331", asin "1473853338", author name "Geri Walton" and is author "true"          # FeatureContext::iEditBookWithIsbnAsinAuthorNameAndIsAuthor()
+    Then I should see the file has isbn "978-1473853331", asin "1473853338", author name "Geri Walton" and is author "true" # FeatureContext::iShouldSeeTheFileHasIsbnAsinAuthorNameAndIsAuthor()
+
+  Scenario: The Author can load a book data                                          # features/bb6.feature:19
+    Given there is a file "booklist.json" with ISBN numbers                          # FeatureContext::thereIsAFileWithIsbnNumbers()
+    And the file has isbn "978-1473853331"                                           # FeatureContext::theFileHasIsbn()
+    When I load book isbn "978-1473853331"                                           # FeatureContext::iLoadBookIsbn()
+    Then I should get asin "1473853338", author name "Geri Walton", is author "true" # FeatureContext::iShouldGetAsinAuthorNameIsAuthor()
+
+  Scenario: The Author can load sets of books                       # features/bb6.feature:25
+    Given there is a file "booklist.json" with ISBN numbers         # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I load all books                                           # FeatureContext::iLoadAllBooks()
+    Then I should get all isbns, asins, author names and is authors # FeatureContext::iShouldGetAllIsbnsAsinsAuthorNamesAndIsAuthors()
+
+15 scenarios (9 passed, 6 pending)
+62 steps (47 passed, 6 pending, 9 skipped)
+0m12.66s (7.68Mb)

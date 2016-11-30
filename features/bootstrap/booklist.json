@@ -3,62 +3,14 @@
         {
             "isbn": "978-1473853331",
             "asin": "1473853338",
-            "isauthor": true,
-            "author_name": "Geri Walton",
-            "book_title": "Marie Antoinette\u2019s Confidante: The Rise and Fall of the Princesse de Lamballe",
-            "sales_rank": 1259172,
-            "num_reviews": 0,
-            "avg_ratings": 0
-        },
-        {
-            "isbn": "978-1492803812",
-            "asin": "1492803812",
-            "isauthor": false,
-            "author_name": "",
-            "book_title": "Madame de Lamballe",
-            "sales_rank": 5763609,
-            "num_reviews": 0,
-            "avg_ratings": 0
+            "is_author": true,
+            "author_name": "Geri Walton"
         },
         {
             "isbn": "978-0385489492",
             "asin": "0385489498",
-            "isauthor": false,
-            "author_name": "Antonia Fraser",
-            "book_title": "Marie Antoinette: The Journey",
-            "sales_rank": 32230,
-            "num_reviews": 236,
-            "avg_ratings": 4.3
-        },
-        {
-            "isbn": "978-1442254992",
-            "asin": "1442254998",
-            "isauthor": false,
-            "author_name": "Will Bashor",
-            "book_title": "Marie Antoinette's Darkest Days: Prisoner No. 280 in the Conciergerie",
-            "sales_rank": 79888,
-            "num_reviews": 2,
-            "avg_ratings": 4
-        },
-        {
-            "isbn": "978-1606064832",
-            "asin": "1606064835",
-            "isauthor": false,
-            "author_name": "",
-            "book_title": "Marie-Antoinette",
-            "sales_rank": 378777,
-            "num_reviews": 4,
-            "avg_ratings": 4.2
-        },
-        {
-            "isbn": "978-1473845510",
-            "asin": "1473845513",
-            "isauthor": false,
-            "author_name": "Catherine Curzon",
-            "book_title": "Life in the Georgian Court",
-            "sales_rank": 653471,
-            "num_reviews": 5,
-            "avg_ratings": 4.8
+            "is_author": false,
+            "author_name": "Antonia Fraser"
         }
     ]
 }

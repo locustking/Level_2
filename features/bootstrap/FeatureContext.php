@@ -13,6 +13,8 @@ class FeatureContext implements Context
     private $bookbeat;
 	private $bookbeatjson;
 	private $bookbeatlist;
+	private $book;
+	private $books;
 
     /**
      * Initializes context.
@@ -146,9 +148,10 @@ class FeatureContext implements Context
     public function thereIsAFileWithIsbnNumbers($arg1)
     {
 		$this->bookbeatjson->setFilename($arg1);
-		
-		//bb4
 		$this->bookbeatlist->setBookBeatJSON($this->bookbeatjson);
+		$this->bookbeatlist->resetJSON();
+		$this->bookbeatlist->addBook("978-1473853331","1473853338", true, "Geri Walton");
+		$this->bookbeatlist->addBook("978-0385489492","0385489498", false, "Antonia Fraser");
     }
 
     /**
@@ -217,6 +220,7 @@ class FeatureContext implements Context
     public function iPullTheSalesRank()
     {
 		$this->bookbeatlist->updateSalesRank();
+		$this->bookbeatlist->updateSalesRankFromJSON();
     }
 
     /**
@@ -309,4 +313,115 @@ class FeatureContext implements Context
         throw new PendingException();
     }
 
+
+    /**
+     * @When I clean the booklist
+     */
+    public function iCleanTheBooklist()
+    {
+        $this->bookbeatlist->resetJSON();
+    }
+
+    /**
+     * @Then I should see the file has :arg1 books
+     */
+    public function iShouldSeeTheFileHasBooks($arg1)
+    {
+        PHPUnit_Framework_Assert::assertEquals(
+			0,
+            $this->bookbeatlist->countBooks()
+        );
+    }
+
+    /**
+     * @When I add with isbn :arg1, asin :arg2, author name :arg3 and is author :arg4
+     */
+    public function iAddWithIsbnAsinAuthorNameAndIsAuthor($arg1, $arg2, $arg3, $arg4)
+    {
+        $this->bookbeatlist->addBook($arg1,$arg2,$arg4,$arg3);
+    }
+
+    /**
+     * @Then I should see the file has isbn :arg1, asin :arg2, author name :arg3 and is author :arg4
+     */
+    public function iShouldSeeTheFileHasIsbnAsinAuthorNameAndIsAuthor($arg1, $arg2, $arg3, $arg4)
+    {
+        PHPUnit_Framework_Assert::assertSame(
+			$this->bookbeatlist->getBookbyIsbn($arg1)->{"asin"},
+            $arg2
+        );
+        PHPUnit_Framework_Assert::assertSame(
+			$this->bookbeatlist->getBookbyIsbn($arg1)->{"is_author"},
+            boolval($arg4)
+        );
+        PHPUnit_Framework_Assert::assertSame(
+			$this->bookbeatlist->getBookbyIsbn($arg1)->{"author_name"},
+            $arg3
+        );
+    }
+
+    /**
+     * @When I edit book with isbn :arg1, asin :arg2, author name :arg3 and is author :arg4
+     */
+    public function iEditBookWithIsbnAsinAuthorNameAndIsAuthor($arg1, $arg2, $arg3, $arg4)
+    {
+        $this->bookbeatlist->updateBook($arg1,$arg2,$arg4,$arg3);
+    }
+
+    /**
+     * @Given the file has isbn :arg1
+     */
+    public function theFileHasIsbn($arg1)
+    {
+        $this->book = $this->bookbeatlist->getBookbyIsbn($arg1);
+		if ($this->book->{"isbn"}!=$arg1){
+			$this->bookbeatlist->addBook($arg1,"","","");
+		}
+    }
+
+    /**
+     * @When I load book isbn :arg1
+     */
+    public function iLoadBookIsbn($arg1)
+    {
+        $this->book = $this->bookbeatlist->getBookbyIsbn($arg1);
+    }
+
+    /**
+     * @Then I should get asin :arg1, author name :arg2, is author :arg3
+     */
+    public function iShouldGetAsinAuthorNameIsAuthor($arg1, $arg2, $arg3)
+    {
+        PHPUnit_Framework_Assert::assertSame(
+			$this->book->{"asin"},
+            $arg1
+        );
+        PHPUnit_Framework_Assert::assertSame(
+			$this->book->{"author_name"},
+            $arg2
+        );
+        PHPUnit_Framework_Assert::assertSame(
+			$this->book->{"is_author"},
+            boolval($arg3)
+        );
+    }
+
+    /**
+     * @When I load all books
+     */
+    public function iLoadAllBooks()
+    {
+        $this->books = $this->bookbeatlist->getBooks();
+    }
+
+    /**
+     * @Then I should get all isbns, asins, author names and is authors
+     */
+    public function iShouldGetAllIsbnsAsinsAuthorNamesAndIsAuthors()
+    {
+        PHPUnit_Framework_Assert::assertSame(
+			$this->bookbeatlist->getBooks(),
+            $this->books
+        );
+    }
 }

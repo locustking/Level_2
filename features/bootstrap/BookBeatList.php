@@ -97,5 +97,42 @@ final class BookBeatList{
 		return $ratings;		
 		
 	}
+	
+	public function resetJSON(){
+		$books = $this->bookbeatjson->getBooks();
+		foreach ($books as $book){
+			$this->bookbeatjson->deleteBook($book->{"isbn"});
+		}
+	}
+	
+	public function addBook($isbn,$asin,$is_author,$author_name){
+		$this->bookbeatjson->addBook($isbn,$asin,$is_author,$author_name);
+	}
+	
+	public function getBookbyIsbn($isbn){
+		$books = $this->bookbeatjson->getBooks();
+		$book = (object)[];
+		foreach ($books as $book){
+			if ($book->{"isbn"}==$isbn){
+				return $book;
+			}
+		}
+		return $book;		
+	}
+	
+	public function updateBook($isbn,$asin,$is_author,$author_name){
+		$this->bookbeatjson->updateBook($isbn,$asin,$is_author,$author_name);
+	}
+	
+	public function getBooks(){
+		return $this->bookbeatjson->getBooks();
+	}
+
+	public function updateSalesRankFromJSON(){
+		$this->bookbeatjson->verifyJSON($this->bookbeatjson->getFilename());
+		return $this->bookbeatjson->getBooks();
+	}
+	
+	
 }
 ?>

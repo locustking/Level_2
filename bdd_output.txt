@@ -120,4 +120,4 @@ Feature: BB6
 
 15 scenarios (9 passed, 6 pending)
 62 steps (47 passed, 6 pending, 9 skipped)
-0m12.66s (7.68Mb)
+0m10.94s (7.68Mb)

@@ -127,12 +127,18 @@ final class BookBeatJSON{
 	public function deleteBook($isbn){
 		$books = $this->json_content->{"book"};
 		// delete json_content
-		foreach ($books as $key => $book){
-			if ($isbn==$book->{"isbn"}){
-				unset($books[$key]);
+		$json_array = json_decode(json_encode($books),true);
+		$delete = [];
+		foreach($json_array as $i => $val){
+			if ($isbn==$json_array[$i]["isbn"]){
+				array_push($delete,$i);
 			}
 		}
-		$this->json_content->{"book"} = $books;
+		foreach($delete as $d){
+			unset($json_array[$d]);
+		}
+		$this->json_content->{"book"} = json_decode(json_encode($json_array));
+
 		$this->writeContentToJSON();
 	}
 	

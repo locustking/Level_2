@@ -24,7 +24,7 @@ final class BookBeatJSON{
 		//bugfix rating float value
 		$books = $this->json_content->{"book"};
 		foreach ($books as $key => $book) {
-			if(isset($this->json_content->{"book"}[$key]->{"avg_ratings"})){
+			if(isset($book->{"avg_ratings"})){
 				$this->json_content->{"book"}[$key]->{"avg_ratings"} = floatval($this->json_content->{"book"}[$key]->{"avg_ratings"});
 			}
 		}

@@ -129,9 +129,10 @@ final class BookBeatJSON{
 		// delete json_content
 		foreach ($books as $key => $book){
 			if ($isbn==$book->{"isbn"}){
-				unset($this->json_content->{"book"}[$key]);
+				unset($books[$key]);
 			}
 		}
+		$this->json_content->{"book"} = $books;
 		$this->writeContentToJSON();
 	}
 	

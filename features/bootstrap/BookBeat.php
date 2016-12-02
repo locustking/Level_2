@@ -89,7 +89,7 @@ final class BookBeat{
 	}
 	
 	function curl_get_contents($url){
-		$debug = true;
+		$debug = false;
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

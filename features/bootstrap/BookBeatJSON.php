@@ -113,7 +113,7 @@ final class BookBeatJSON{
 		$books = $this->json_content->{"book"};
 		// update json_content
 		foreach ($books as $book){
-				if ($isbn==$book->{"isbn"}){
+				if ($isbn==preg_replace("/[^0-9]/", "",$book->{"isbn"})){
 					$book->{"author_name"}=$data[2];
 					$book->{"book_title"}=$data[3];
 					$book->{"sales_rank"}=$data[4];

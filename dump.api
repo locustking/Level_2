@@ -1,0 +1,289 @@
+Feature: BB4
+  As an author I want to be able to see my book’ rank against other books to know how I am doing via Amazon sales data
+
+  Scenario: The Author can pull sales rank of the Author's selected books # features/bb4.feature:4
+    Given there is a file "booklist.json" with ISBN numbers               # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I pull the sales rank                                            # FeatureContext::iPullTheSalesRank()
+      │ asinSimpleXMLElement Object
+      │ (
+      │     [OperationRequest] => SimpleXMLElement Object
+      │         (
+      │             [RequestId] => b501bc51-8068-4112-80b5-a25228108e62
+      │             [Arguments] => SimpleXMLElement Object
+      │                 (
+      │                     [Argument] => Array
+      │                         (
+      │                             [0] => SimpleXMLElement Object
+      │                                 (
+      │                                     [@attributes] => Array
+      │                                         (
+      │                                             [Name] => AWSAccessKeyId
+      │                                             [Value] => AKIAJZ4AZRVCPCBSKNUA
+      │                                         )
+      │ 
+      │                                 )
+      │ 
+      │                             [1] => SimpleXMLElement Object
+      │                                 (
+      │                                     [@attributes] => Array
+      │                                         (
+      │                                             [Name] => AssociateTag
+      │                                             [Value] => bookbeatapp-20
+      │                                         )
+      │ 
+      │                                 )
+      │ 
+      │                             [2] => SimpleXMLElement Object
+      │                                 (
+      │                                     [@attributes] => Array
+      │                                         (
+      │                                             [Name] => IncludeReviewsSummary
+      │                                             [Value] => 1
+      │                                         )
+      │ 
+      │                                 )
+      │ 
+      │                             [3] => SimpleXMLElement Object
+      │                                 (
+      │                                     [@attributes] => Array
+      │                                         (
+      │                                             [Name] => ItemId
+      │                                             [Value] => 1473853338
+      │                                         )
+      │ 
+      │                                 )
+      │ 
+      │                             [4] => SimpleXMLElement Object
+      │                                 (
+      │                                     [@attributes] => Array
+      │                                         (
+      │                                             [Name] => Operation
+      │                                             [Value] => ItemLookup
+      │                                         )
+      │ 
+      │                                 )
+      │ 
+      │                             [5] => SimpleXMLElement Object
+      │                                 (
+      │                                     [@attributes] => Array
+      │                                         (
+      │                                             [Name] => ResponseGroup
+      │                                             [Value] => ItemAttributes,SalesRank,Reviews
+      │                                         )
+      │ 
+      │                                 )
+      │ 
+      │                             [6] => SimpleXMLElement Object
+      │                                 (
+      │                                     [@attributes] => Array
+      │                                         (
+      │                                             [Name] => Service
+      │                                             [Value] => AWSECommerceService
+      │                                         )
+      │ 
+      │                                 )
+      │ 
+      │                             [7] => SimpleXMLElement Object
+      │                                 (
+      │                                     [@attributes] => Array
+      │                                         (
+      │                                             [Name] => Timestamp
+      │                                             [Value] => 2016-12-02T22:33:42Z
+      │                                         )
+      │ 
+      │                                 )
+      │ 
+      │                             [8] => SimpleXMLElement Object
+      │                                 (
+      │                                     [@attributes] => Array
+      │                                         (
+      │                                             [Name] => Signature
+      │                                             [Value] => 8hlc2x4VAedh8lZvmtz25WDy4iMiJQ8zWf0RNunoYR0=
+      │                                         )
+      │ 
+      │                                 )
+      │ 
+      │                         )
+      │ 
+      │                 )
+      │ 
+      │             [RequestProcessingTime] => 0.0147209430000000
+      │         )
+      │ 
+      │     [Items] => SimpleXMLElement Object
+      │         (
+      │             [Request] => SimpleXMLElement Object
+      │                 (
+      │                     [IsValid] => True
+      │                     [ItemLookupRequest] => SimpleXMLElement Object
+      │                         (
+      │                             [IdType] => ASIN
+      │                             [ItemId] => 1473853338
+      │                             [ResponseGroup] => Array
+      │                                 (
+      │                                     [0] => ItemAttributes
+      │                                     [1] => SalesRank
+      │                                     [2] => Reviews
+      │                                 )
+      │ 
+      │                             [VariationPage] => All
+      │                             [IncludeReviewsSummary] => 1
+      │                         )
+      │ 
+      │                 )
+      │ 
+      │             [Item] => SimpleXMLElement Object
+      │                 (
+      │                     [ASIN] => 1473853338
+      │                     [DetailPageURL] => https://www.amazon.com/Marie-Antoinettes-Confidante-Princesse-Lamballe/dp/1473853338%3FSubscriptionId%3DAKIAJZ4AZRVCPCBSKNUA%26tag%3Dbookbeatapp-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1473853338
+      │                     [ItemLinks] => SimpleXMLElement Object
+      │                         (
+      │                             [ItemLink] => Array
+      │                                 (
+      │                                     [0] => SimpleXMLElement Object
+      │                                         (
+      │                                             [Description] => Technical Details
+      │                                             [URL] => https://www.amazon.com/Marie-Antoinettes-Confidante-Princesse-Lamballe/dp/tech-data/1473853338%3FSubscriptionId%3DAKIAJZ4AZRVCPCBSKNUA%26tag%3Dbookbeatapp-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1473853338
+      │                                         )
+      │ 
+      │                                     [1] => SimpleXMLElement Object
+      │                                         (
+      │                                             [Description] => Add To Baby Registry
+      │                                             [URL] => https://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3D1473853338%26SubscriptionId%3DAKIAJZ4AZRVCPCBSKNUA%26tag%3Dbookbeatapp-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1473853338
+      │                                         )
+      │ 
+      │                                     [2] => SimpleXMLElement Object
+      │                                         (
+      │                                             [Description] => Add To Wedding Registry
+      │                                             [URL] => https://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3D1473853338%26SubscriptionId%3DAKIAJZ4AZRVCPCBSKNUA%26tag%3Dbookbeatapp-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1473853338
+      │                                         )
+      │ 
+      │                                     [3] => SimpleXMLElement Object
+      │                                         (
+      │                                             [Description] => Add To Wishlist
+      │                                             [URL] => https://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3D1473853338%26SubscriptionId%3DAKIAJZ4AZRVCPCBSKNUA%26tag%3Dbookbeatapp-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1473853338
+      │                                         )
+      │ 
+      │                                     [4] => SimpleXMLElement Object
+      │                                         (
+      │                                             [Description] => Tell A Friend
+      │                                             [URL] => https://www.amazon.com/gp/pdp/taf/1473853338%3FSubscriptionId%3DAKIAJZ4AZRVCPCBSKNUA%26tag%3Dbookbeatapp-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1473853338
+      │                                         )
+      │ 
+      │                                     [5] => SimpleXMLElement Object
+      │                                         (
+      │                                             [Description] => All Customer Reviews
+      │                                             [URL] => https://www.amazon.com/review/product/1473853338%3FSubscriptionId%3DAKIAJZ4AZRVCPCBSKNUA%26tag%3Dbookbeatapp-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1473853338
+      │                                         )
+      │ 
+      │                                     [6] => SimpleXMLElement Object
+      │                                         (
+      │                                             [Description] => All Offers
+      │                                             [URL] => https://www.amazon.com/gp/offer-listing/1473853338%3FSubscriptionId%3DAKIAJZ4AZRVCPCBSKNUA%26tag%3Dbookbeatapp-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1473853338
+      │                                         )
+      │ 
+      │                                 )
+      │ 
+      │                         )
+      │ 
+      │                     [SalesRank] => 691022
+      │                     [ItemAttributes] => SimpleXMLElement Object
+      │                         (
+      │                             [Author] => Geri Walton
+      │                             [Binding] => Hardcover
+      │                             [EAN] => 9781473853331
+      │                             [EANList] => SimpleXMLElement Object
+      │                                 (
+      │                                     [EANListElement] => 9781473853331
+      │                                 )
+      │ 
+      │                             [ISBN] => 1473853338
+      │                             [ItemDimensions] => SimpleXMLElement Object
+      │                                 (
+      │                                     [Height] => 929
+      │                                     [Length] => 1087
+      │                                     [Weight] => 0
+      │                                     [Width] => 114
+      │                                 )
+      │ 
+      │                             [Label] => Pen and Sword
+      │                             [Languages] => SimpleXMLElement Object
+      │                                 (
+      │                                     [Language] => Array
+      │                                         (
+      │                                             [0] => SimpleXMLElement Object
+      │                                                 (
+      │                                                     [Name] => English
+      │                                                     [Type] => Published
+      │                                                 )
+      │ 
+      │                                             [1] => SimpleXMLElement Object
+      │                                                 (
+      │                                                     [Name] => English
+      │                                                     [Type] => Original Language
+      │                                                 )
+      │ 
+      │                                             [2] => SimpleXMLElement Object
+      │                                                 (
+      │                                                     [Name] => English
+      │                                                     [Type] => Unknown
+      │                                                 )
+      │ 
+      │                                         )
+      │ 
+      │                                 )
+      │ 
+      │                             [ListPrice] => SimpleXMLElement Object
+      │                                 (
+      │                                     [Amount] => 3995
+      │                                     [CurrencyCode] => USD
+      │                                     [FormattedPrice] => $39.95
+      │                                 )
+      │ 
+      │                             [Manufacturer] => Pen and Sword
+      │                             [NumberOfItems] => 1
+      │                             [NumberOfPages] => 272
+      │                             [PackageDimensions] => SimpleXMLElement Object
+      │                                 (
+      │                                     [Height] => 110
+      │                                     [Length] => 929
+      │                                     [Weight] => 137
+      │                                     [Width] => 646
+      │                                 )
+      │ 
+      │                             [ProductGroup] => Book
+      │                             [ProductTypeName] => ABIS_BOOK
+      │                             [PublicationDate] => 2017-01-19
+      │                             [Publisher] => Pen and Sword
+      │                             [ReleaseDate] => 2017-02-02
+      │                             [Studio] => Pen and Sword
+      │                             [Title] => Marie Antoinette's Confidante: The Rise and Fall of the Princesse de Lamballe
+      │                         )
+      │ 
+      │                     [CustomerReviews] => SimpleXMLElement Object
+      │                         (
+      │                             [IFrameURL] => https://www.amazon.com/reviews/iframe?akid=AKIAJZ4AZRVCPCBSKNUA&alinkCode=xm2&asin=1473853338&atag=bookbeatapp-20&exp=2016-12-03T22%3A33%3A42Z&summary=1&v=2&sig=pTyFQkleEeHrcN8ZO7vaKi%2B0e50G3MAEs6%2FYcdbOIPA%3D
+      │                             [HasReviews] => true
+      │                         )
+      │ 
+      │                 )
+      │ 
+      │         )
+      │ 
+      │ )
+      │ 
+      Notice: Undefined variable: isbn in features/bootstrap/BookBeat.php line 242
+    Then I should see the sales rank of each book                         # FeatureContext::iShouldSeeTheSalesRankOfEachBook()
+    And the sales rank should be integer                                  # FeatureContext::theSalesRankShouldBeInteger()
+    And I should see number of reviews                                    # FeatureContext::iShouldSeeNumberOfReviews()
+    And the number of reviews should be integer                           # FeatureContext::theNumberOfReviewsShouldBeInteger()
+    And I should see average ratings                                      # FeatureContext::iShouldSeeAverageRatings()
+    And the average rating should be float                                # FeatureContext::theAverageRatingShouldBeFloat()
+
+--- Failed scenarios:
+
+    features/bb4.feature:4
+
+1 scenario (1 failed)
+8 steps (1 passed, 1 failed, 6 skipped)
+0m0.24s (7.17Mb)

@@ -16,9 +16,17 @@ final class BookBeatList{
 	public function updateSalesRank(){
 		$books = $this->bookbeatjson->getBooks();
 		foreach ($books as $book){
+			/*
 			if (isset($book->{"isbn"})){
 				$this->bookbeat->setBookIsbn($book->{"isbn"});
 				$this->bookbeatjson->updateJSONwithBookBeat($book->{"isbn"},$this->bookbeat->getBookBeat());
+			}
+			*/
+			if(isset($book->{"asin"})){
+				$this->bookbeat->setBookAsin($book->{"asin"});
+				$result = $this->bookbeat->updateBookBeatWithAmazon("asin");
+				$bookbeat = $this->bookbeat->getBookBeat();
+				$this->bookbeatjson->updateJSONwithBookBeat($bookbeat[0],$bookbeat);
 			}
 		}
 		

@@ -121,7 +121,7 @@ final class BookBeat{
 				$this->book_title,$this->sales_rank,
 				$this->num_reviews,$this->avg_rating];
 	}
-	
+
 	public function scrapeamazonbyisbn($isbn){
 		$book_search_url = "https://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&unfiltered=1&field-isbn=".$isbn."&p_n_feature_browse-bin=618083011";
 		$page_content = $this->curl_get_contents($book_search_url);
@@ -182,7 +182,78 @@ final class BookBeat{
 		libxml_clear_errors();
 
 		return array($title,$rank,$reviewers,$rating,$isbn,$asin,$authorname);
+		
 	}
 	
+	public function setBookAsin($asin){
+		$this->asin = $asin;
+	}
+	
+	function updateBookBeatWithAmazon($key="asin"){
+		// AWS key and Secret
+		$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
+		$aws_secret_key = "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";
+
+		// Lookup parameters
+		$endpoint = "webservices.amazon.com";
+		$uri = "/onca/xml";
+		$params = array(
+			"Service" => "AWSECommerceService",
+			"Operation" => "ItemLookup",
+			"AWSAccessKeyId" => "AKIAJZ4AZRVCPCBSKNUA",
+			"AssociateTag" => "bookbeatapp-20",
+			"IncludeReviewsSummary"=> true,
+			"ItemId" => $this->asin,
+			"ResponseGroup" => "ItemAttributes,SalesRank,Reviews"
+		);
+		
+		// Set ISBN parameter if lookup by isbn
+		if($key=="isbn"){
+			$param["IdType"]="EAN";
+			$param["ItemId"]=preg_replace("/[^0-9]/", "", $this->isbn);
+		}
+		
+		// Set current timestamp if not set
+		if (!isset($params["Timestamp"])) {
+			$params["Timestamp"] = gmdate('Y-m-d\TH:i:s\Z');
+		}
+		
+		// Sort the parameters by key
+		ksort($params);
+		$pairs = array();
+		foreach ($params as $key => $value) {
+			array_push($pairs, rawurlencode($key)."=".rawurlencode($value));
+		}
+
+		// Generate request URL
+		$canonical_query_string = join("&", $pairs);
+		$string_to_sign = "GET\n".$endpoint."\n".$uri."\n".$canonical_query_string;
+		$signature = base64_encode(hash_hmac("sha256", $string_to_sign, $aws_secret_key, true));		// Generate the signed URL
+		$request_url = 'https://'.$endpoint.$uri.'?'.$canonical_query_string.'&Signature='.rawurlencode($signature);
+
+		// Get XML output
+		$xml = file_get_contents($request_url);
+		$simple_xml=simplexml_load_string($xml);
+
+		// Parse XML, set this object's attributes
+		$this->book_title = $simple_xml->Items->Item->ItemAttributes->Title;
+		$this->sales_rank=intval($simple_xml->Items->Item->SalesRank);
+		$reviews_url = $simple_xml->Items->Item->CustomerReviews->IFrameURL;
+		$page_content = $this->curl_get_contents($reviews_url);
+		$dom_doc = new DOMDocument();
+		libxml_use_internal_errors(true);
+		$dom_doc->loadHTML($page_content);
+		$xpath = new DOMXpath($dom_doc);
+		$element = $xpath->query("//span[@class='crAvgStars']/span/a/img/@title");
+		$this->avg_rating = floatval(explode(" ",trim($element->item(0)->nodeValue))[0]);
+		$element = $xpath->query("//span[@class='crAvgStars']/a/text()");
+		$this->num_reviews=intval(explode(" ",trim($element->item(0)->nodeValue))[0]);
+		libxml_clear_errors();
+		$this->isbn = $simple_xml->Items->Item->ItemAttributes->EAN;
+		$this->asin = $simple_xml->Items->Item->ASIN;
+		$this->authorname = $simple_xml->Items->Item->ItemAttributes->Author;
+		return array($this->getBookBeat());
+	}
+
 }
 ?>

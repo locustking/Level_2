@@ -14,17 +14,18 @@ Author URI: http://www.bookbeatapp.com
 
 /*
 TODO:
-a. create helpers/functions files: to render, set globals
-b. make basic loop that shows bba_booklist_view.php
-c. add button to show search form; make it just show test message for now.
-d. add call back to bba_booklist_view to other php
-e. add in tablesorter using enqueue
+a. link up actual search
+b. add in tablesorter using enqueue
 */
 
+   // display errors, warnings, and notices
+    ini_set("display_errors", true);
+    error_reporting(E_ALL);
+
     // configuration
-//        require dirname(__FILE__) . "/BookBeatList.php"; 
-//        require dirname(__FILE__) . "/BookBeatJSON.php";
-//        require dirname(__FILE__) . "/BookBeat.php";
+        require dirname(__FILE__) . "/BookBeatList.php"; 
+        require dirname(__FILE__) . "/BookBeatJSON.php";
+        require dirname(__FILE__) . "/BookBeat.php";
         require dirname(__FILE__) . "/bba_booklist_views.php";
 
     // Adds shortcode to call control loop from page
@@ -69,6 +70,53 @@ function bookbeat_func($atts){
     return $content;
  
 }
+
+/*
+Displays the booklist and related data
+*/
+function bba_booklist_display(){
+
+
+    // Begin building tht table form
+    $content = "<div>";
+    $content = $content .  "<TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
+    
+    // Get Book Data
+    // init BookBeat, BookBeatJSON and BookBeatList instances
+    $bookbeat = new BookBeat();
+    $bookbeatjson = new BookBeatJSON();
+    $bookbeatlist = new BookBeatList();
+		
+    // set json filename $arg1
+    $bookbeatjson->setFilename("booklist.json");
+
+    // wire up bookbeatjson object to bookbeatlist
+    $bookbeatlist->setBookBeatJSON($bookbeatjson);
+
+    // update bookbeatlist. this will collect the sales rank from amazon and update the json file.
+    // returning an array with the updated list
+    $result = $bookbeatlist->updateSalesRank();
+    
+    // Display book list
+    foreach ($result as $res){
+        $content = $content .  "<tr><td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->sales_rank . "</TD><TD>" . $res->num_reviews . "</TD><TD>" . $res->avg_ratings . "</TD></TR>";
+    }
+        
+
+     $content = $content . "</TBODY></TABLE></div>";
+
+//HOLD UNTIL WE IMPLEMENT THIS CORRECTLY
+//     $content = $content . "<script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+//<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.26.0/js/jquery.tablesorter.min.js' type='text/javascript'> </script>
+//<script type='text/javascript'>
+//			$(document).ready(function()
+//			{
+//				$('#booklist').tablesorter();
+//			}
+//			);
+//		</script>";
+    return $content;
+    }
 
 ?>
 

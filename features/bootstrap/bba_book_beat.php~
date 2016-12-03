@@ -28,6 +28,7 @@ c. add in tablesorter using enqueue
         require dirname(__FILE__) . "/BookBeatJSON.php";
         require dirname(__FILE__) . "/BookBeat.php";
         require dirname(__FILE__) . "/bba_booklist_views.php";
+        require dirname(__FILE__) . "/BookBeatSearch.php";
 
     // Adds shortcode to call control loop from page
     add_shortcode( 'bba_display', 'bookbeat_func' );
@@ -44,8 +45,9 @@ function bookbeat_func($atts){
                 // clicked to edit booklist 
                 case 'buildlist' :
                     $pageheader = bba_searchheader();
-                    $pagecontent = "<p>This will show the form to add books to the list. For now, click <a href='http://hotpug.com/bookbeat/search.php' target = '_blank'>here to see the mockup</a>";
-                    break;
+                    $pagecontent = bba_book_search($_POST['textSearch']);
+						  //$pagecontent = "<p>This will show the form to add books to the list. For now, click <a href='http://hotpug.com/bookbeat/search.php' target = '_blank'>here to see the mockup</a>";
+  						  break;
                 // redisplay booklist after editing it
                 case 'results' :
                     $pageheader = bba_pageheader();
@@ -53,6 +55,9 @@ function bookbeat_func($atts){
                     break; 
                 // Added item to JSON
                 case 'addItem' :
+						$pageheader = bba_searchheader();
+						//$isbn,$asin,$is_author,$author_name
+						$pagecontent = bba_book_add($_POST['ISBN'],$_POST['ASIN'],$_POST['Is_Author'],$_POST['AuthorName']);                
                    // will say something about item added to JSON
                    break;
             } 
@@ -115,6 +120,35 @@ function bba_booklist_display() {
 			);
 		</script>";
     return $content;
+}
+function bba_book_search($searchText){
+	$bookbeatsearch = new BookBeatSearch();	
+	$bookbeatsearch->clearSearch(); 
+
+	$content = "<div id='searchForm'>";
+	$content = $content . $this->bookbeatsearch->getSearchForm($searchText);
+	
+	if (strlen($searchText) > 0){
+		$bookbeatsearch->BookSearch($searchText);
+		$content = "<div id='searchResults>";
+		$content = $content . $this->bookbeatsearch->getSearchResultsTable();
+	}
+	return $content;
+}
+
+function bba_book_add($isbn,$asin,$is_author,$author_name){
+
+    $bookbeatjson = new BookBeatJSON();
+    		
+    // set json filename $arg1
+    $bookbeatjson->setFilename("booklist.json");
+	 
+	 $bookbeatjson->addBook($isbn,$asin,$is_author,$author_name);
+    
+    $content = "<div id=\"addcomplete\">";
+    $content = $content . "Book added. ISBN:" . $isbn;
+	 $return $content;
+	
 }
 
 ?>

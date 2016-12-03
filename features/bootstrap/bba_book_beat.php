@@ -22,9 +22,9 @@ e. add in tablesorter using enqueue
 */
 
     // configuration
-        require dirname(__FILE__) . "/BookBeatList.php"; 
-        require dirname(__FILE__) . "/BookBeatJSON.php";
-        require dirname(__FILE__) . "/BookBeat.php";
+//        require dirname(__FILE__) . "/BookBeatList.php"; 
+//        require dirname(__FILE__) . "/BookBeatJSON.php";
+//        require dirname(__FILE__) . "/BookBeat.php";
         require dirname(__FILE__) . "/bba_booklist_views.php";
 
     // Adds shortcode to call control loop from page

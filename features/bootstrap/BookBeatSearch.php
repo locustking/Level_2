@@ -111,14 +111,14 @@ public function BookSearch($searchText){
 			
 				//the form portion of the row
 				$tableRow = $tableRow . "<form action=\"bba_book_beat.php\" method=\"post\">";
-				$tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"AuthorBook\" value=\"true\"></td>" . "</form>";			
+				$tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=\"true\"></td>" . "</form>";			
 				$tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Add\"></td>"; 
 
 				//hidden attributes to send to the jason 
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"addItem\" \>";				
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $FoundBook->ItemAttributes->ISBN . "\">";
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"Title\" value=\"" . $FoundBook->ItemAttributes->Title . "\">";
-				$tableRow = $tableRow . "<input type=\"hidden\" name=\"Author\" value=\"" . $FoundBook->ItemAttributes->Author . "\">";
+				$tableRow = $tableRow . "<input type=\"hidden\" name=\"AuthorName\" value=\"" . $FoundBook->ItemAttributes->Author . "\">";
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"Publisher\" value=\"" . $FoundBook->ItemAttributes->Publisher . "\">";
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"PublicationDate\" value=\"" . $FoundBook->ItemAttributes->PublicationDate . "\">";
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"EAN\" value=\"" . $FoundBook->ItemAttributes->EAN . "\">";

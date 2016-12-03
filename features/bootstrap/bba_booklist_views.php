@@ -5,6 +5,15 @@ Latest Date: 12/2016
 Contains view functions to be called from bba_bookbeat.php
 */
 
+// display errors, warnings, and notices
+    ini_set("display_errors", true);
+    error_reporting(E_ALL);
+
+// Configure
+        require dirname(__FILE__) . "/BookBeatList.php"; 
+        require dirname(__FILE__) . "/BookBeatJSON.php";
+        require dirname(__FILE__) . "/BookBeat.php";
+
 /*
 Shows the introductory information and buttons
 */

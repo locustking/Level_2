@@ -121,6 +121,7 @@ final class BookBeatJSON{
 					$book->{"avg_ratings"}=$data[6];
 				}
 		}
+		$this->setTimestamp();
 		$this->writeContentToJSON();
 	}
 	
@@ -164,6 +165,20 @@ final class BookBeatJSON{
 			}
 		}
 		$this->writeContentToJSON();
+	}
+	
+	public function getTimestamp(){
+		return $this->json_content->{"timestamp"};
+	}
+	
+	public function setTimestamp(){
+		$now = date("Y-m-d H:i:s");
+		if(isset($this->json_content->{"timestamp"})){
+			$this->json_content->{"timestamp"} = $now;
+		} else {
+			$this->json_content->{"timestamp"} = $now;
+		}
+		return $this->getTimestamp();
 	}
 }
 ?>

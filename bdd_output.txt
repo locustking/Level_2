@@ -17,7 +17,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                                               # features/bb2.feature:5
     Given there is a "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)", which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon()
     When I view the BookBeat page                                                                                                                    # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 290435<br />Number of Reviews: 24<br />Average Rating: 4.4<br />
+      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 533912<br />Number of Reviews: 24<br />Average Rating: 4.4<br />
     Then I should see "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)"                           # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                                         # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                                           # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -26,7 +26,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                       # features/bb2.feature:14
     Given there is a "BDD in Action: Behavior-driven development for the whole software lifecycle" which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon2()
     When I view the BookBeat page                                                                                            # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 438341<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
+      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 631738<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
     Then I should see "BDD in Action: Behavior-driven development for the whole software lifecycle"                          # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                 # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                   # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -55,6 +55,20 @@ Feature: BB4
     And the number of reviews should be integer                           # FeatureContext::theNumberOfReviewsShouldBeInteger()
     And I should see average ratings                                      # FeatureContext::iShouldSeeAverageRatings()
     And the average rating should be float                                # FeatureContext::theAverageRatingShouldBeFloat()
+    And I should see a timestamp                                          # FeatureContext::iShouldSeeATimestamp()
+    And the delta timestamp should be positive integer                    # FeatureContext::theDeltaTimestampShouldBePositiveInteger()
+
+  Scenario: The Author can pull sales rank of the Author's selected books from JSON cache # features/bb4.feature:16
+    Given there is a file "booklist.json" with ISBN numbers                               # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I pull the sales rank from JSON cache                                            # FeatureContext::iPullTheSalesRankFromJsonCache()
+    Then I should see the sales rank of each book                                         # FeatureContext::iShouldSeeTheSalesRankOfEachBook()
+    And the sales rank should be integer                                                  # FeatureContext::theSalesRankShouldBeInteger()
+    And I should see number of reviews                                                    # FeatureContext::iShouldSeeNumberOfReviews()
+    And the number of reviews should be integer                                           # FeatureContext::theNumberOfReviewsShouldBeInteger()
+    And I should see average ratings                                                      # FeatureContext::iShouldSeeAverageRatings()
+    And the average rating should be float                                                # FeatureContext::theAverageRatingShouldBeFloat()
+    And I should see a timestamp                                                          # FeatureContext::iShouldSeeATimestamp()
+    And the delta timestamp should be positive integer                                    # FeatureContext::theDeltaTimestampShouldBePositiveInteger()
 
 Feature: BB5
   As an author, I can sort the rankings to see how the rankings are via Amazon sales data (sub-group)
@@ -118,6 +132,6 @@ Feature: BB6
     When I load all books                                           # FeatureContext::iLoadAllBooks()
     Then I should get all isbns, asins, author names and is authors # FeatureContext::iShouldGetAllIsbnsAsinsAuthorNamesAndIsAuthors()
 
-15 scenarios (9 passed, 6 pending)
-62 steps (47 passed, 6 pending, 9 skipped)
-0m10.94s (7.68Mb)
+16 scenarios (10 passed, 6 pending)
+74 steps (59 passed, 6 pending, 9 skipped)
+0m6.73s (7.70Mb)

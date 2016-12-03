@@ -10,4 +10,17 @@ And I should see number of reviews
 And the number of reviews should be integer
 And I should see average ratings
 And the average rating should be float
+And I should see a timestamp
+And the delta timestamp should be positive integer
 
+Scenario: The Author can pull sales rank of the Author's selected books from JSON cache
+Given there is a file "booklist.json" with ISBN numbers
+When I pull the sales rank from JSON cache
+Then I should see the sales rank of each book
+And the sales rank should be integer
+And I should see number of reviews
+And the number of reviews should be integer
+And I should see average ratings
+And the average rating should be float
+And I should see a timestamp
+And the delta timestamp should be positive integer

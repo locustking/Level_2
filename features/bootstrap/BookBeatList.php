@@ -141,6 +141,8 @@ final class BookBeatList{
 		return $this->bookbeatjson->getBooks();
 	}
 	
-	
+	public function getTimestamp(){
+		return $this->bookbeatjson->getTimeStamp();
+	}
 }
 ?>

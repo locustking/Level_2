@@ -220,7 +220,6 @@ class FeatureContext implements Context
     public function iPullTheSalesRank()
     {
 		$this->bookbeatlist->updateSalesRank();
-		$this->bookbeatlist->updateSalesRankFromJSON();
     }
 
     /**
@@ -423,5 +422,37 @@ class FeatureContext implements Context
 			$this->bookbeatlist->getBooks(),
             $this->books
         );
+    }
+
+    /**
+     * @Then I should see a timestamp
+     */
+    public function iShouldSeeATimestamp()
+    {
+        PHPUnit_Framework_Assert::assertTrue(
+            !empty($this->bookbeatlist->getTimestamp())
+        );
+    }
+
+    /**
+     * @Then the delta timestamp should be positive integer
+     */
+    public function theDeltaTimestampShouldBePositiveInteger()
+    {
+		$date = new DateTime($this->bookbeatlist->getTimestamp());
+		$now = new DateTime(date("Y-m-d H:i:s"));
+        PHPUnit_Framework_Assert::assertGreaterThanOrEqual(
+			0,
+            date_diff($date,$now)->format("%s")
+        );
+    }
+
+    /**
+     * @When I pull the sales rank from JSON cache
+     */
+    public function iPullTheSalesRankFromJsonCache()
+    {
+		$this->bookbeatlist->updateSalesRank();
+		$this->bookbeatlist->updateSalesRankFromJSON();
     }
 }

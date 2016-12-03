@@ -35,6 +35,11 @@ php composer.phar require --dev phpunit/phpunit
 Run Behat
 vendor/bin/behat
 
+Run Behat for a single feature
+vendor/bin/behat features/bb1.feature 
+
+Unit Tests are defined in 
+features/FeatureContext.php
 
 Note:
 Put all new object implementation under "bootstrap" folder

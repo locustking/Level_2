@@ -34,3 +34,6 @@ $this->book = $this->bookbeatlist->getBookbyIsbn($isbn);
 
 // load all books data
 $this->books = $this->bookbeatlist->getBooks();
+
+// get timestamp
+$result = $this->bookbeatlist->getTimestamp()

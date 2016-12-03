@@ -439,6 +439,7 @@ class FeatureContext implements Context
      */
     public function theDeltaTimestampShouldBePositiveInteger()
     {
+		date_default_timezone_set('America/New_York');
 		$date = new DateTime($this->bookbeatlist->getTimestamp());
 		$now = new DateTime(date("Y-m-d H:i:s"));
         PHPUnit_Framework_Assert::assertGreaterThanOrEqual(

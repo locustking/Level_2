@@ -172,6 +172,7 @@ final class BookBeatJSON{
 	}
 	
 	public function setTimestamp(){
+		date_default_timezone_set('America/New_York');
 		$now = date("Y-m-d H:i:s");
 		if(isset($this->json_content->{"timestamp"})){
 			$this->json_content->{"timestamp"} = $now;

@@ -13,7 +13,7 @@ final class BookBeatList{
 		$this->bookbeatjson->verifyJSON($this->bookbeatjson->getFilename());
 	}
 		
-	public function updateSalesRank(){
+	public function updateSalesRank($source="amazon"){
 		$books = $this->bookbeatjson->getBooks();
 		foreach ($books as $book){
 			/*
@@ -24,9 +24,9 @@ final class BookBeatList{
 			*/
 			if(isset($book->{"asin"})){
 				$this->bookbeat->setBookAsin($book->{"asin"});
-				$result = $this->bookbeat->updateBookBeatWithAmazon("asin");
+				$result = $this->bookbeat->updateBookBeat("asin",$source);
 				$bookbeat = $this->bookbeat->getBookBeat();
-				$this->bookbeatjson->updateJSONwithBookBeat($bookbeat[0],$bookbeat);
+				$this->bookbeatjson->updateJSONwithBookBeat($bookbeat[0],$bookbeat,$source);					
 			}
 		}
 		
@@ -37,69 +37,69 @@ final class BookBeatList{
 		return $this->bookbeatjson->countBooks();
 	}
 	
-	public function countSalesRanks(){
+	public function countSalesRanks($source="amazon"){
 		$books = $this->bookbeatjson->getBooks();
 		$salesranks=0;
 		foreach ($books as $book){
-			if (isset($book->{"isbn"}) && isset($book->{"sales_rank"})){
+			if (isset($book->{"isbn"}) && isset($book->{$source}->{"sales_rank"})){
 				$salesranks++;
 			}
 		}
 		return $salesranks;		
 	}
 	
-	public function getAllRanks(){
+	public function getAllRanks($source="amazon"){
 		$books = $this->bookbeatjson->getBooks();
 		$ranks=[];
 		foreach ($books as $book){
-			if (isset($book->{"sales_rank"})){
-				array_push($ranks,$book->{"sales_rank"});
+			if (isset($book->{$source}->{"sales_rank"})){
+				array_push($ranks,$book->{$source}->{"sales_rank"});
 			}
 		}
 		return $ranks;		
 		
 	}
 	
-	public function countNumberofReviews(){
+	public function countNumberofReviews($source="amazon"){
 		$books = $this->bookbeatjson->getBooks();
 		$numreviews=0;
 		foreach ($books as $book){
-			if (isset($book->{"isbn"}) && isset($book->{"num_reviews"})){
+			if (isset($book->{"isbn"}) && isset($book->{$source}->{"num_reviews"})){
 				$numreviews++;
 			}
 		}
 		return $numreviews;		
 	}
 
-	public function getAllReviews(){
+	public function getAllReviews($source="amazon"){
 		$books = $this->bookbeatjson->getBooks();
 		$reviews=[];
 		foreach ($books as $book){
-			if (isset($book->{"num_reviews"})){
-				array_push($reviews,$book->{"num_reviews"});
-			}
+				if (isset($book->{$source}->{"num_reviews"})){
+					array_push($reviews,$book->{$source}->{"num_reviews"});
+				}
 		}
 		return $reviews;		
 		
 	}
 
-	public function countAvgRatings(){
+	public function countAvgRatings($source="amazon"){
 		$books = $this->bookbeatjson->getBooks();
 		$avgratings=0;
 		foreach ($books as $book){
-			if (isset($book->{"isbn"}) && isset($book->{"avg_ratings"})){
+			if (isset($book->{"isbn"}) && isset($book->{$source}->{"avg_ratings"})){
 				$avgratings++;
-			}
+			}				
 		}
 		return $avgratings;		
 	}
 	
-	public function getAllRatings(){
+	public function getAllRatings($source="amazon"){
 		$books = $this->bookbeatjson->getBooks();
 		$ratings=[];
 		foreach ($books as $book){
 			if (isset($book->{"avg_ratings"})){
-				array_push($ratings,$book->{"avg_ratings"});
+				array_push($ratings,$book->{$source}->{"avg_ratings"});
 			}
 		}
 		return $ratings;		

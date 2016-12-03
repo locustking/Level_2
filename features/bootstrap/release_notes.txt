@@ -15,7 +15,8 @@ $this->bookbeatlist->setBookBeatJSON($this->bookbeatjson);
 
 // update bookbeatlist. this will collect the sales rank from amazon and update the json file.
 // returning an array with the updated list
-$result = $this->bookbeatlist->updateSalesRank();
+$source = "amazon"; // or "amazon_uk"
+$result = $this->bookbeatlist->updateSalesRank($source);
 
 // update bookbeatlist from JSON file cache. this will read the json file without scraping the web.
 $result = $this->bookbeatlist->updateSalesRankFromJSON();

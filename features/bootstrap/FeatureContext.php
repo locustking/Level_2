@@ -229,7 +229,7 @@ class FeatureContext implements Context
     {
         PHPUnit_Framework_Assert::assertEquals(
             $this->bookbeatlist->countBooks(),
-            $this->bookbeatlist->countSalesRanks()
+            $this->bookbeatlist->countSalesRanks("amazon")
         );
 	}
 
@@ -240,7 +240,7 @@ class FeatureContext implements Context
     {
         PHPUnit_Framework_Assert::assertContainsOnly(
             "integer",
-            $this->bookbeatlist->getAllRanks()
+            $this->bookbeatlist->getAllRanks("amazon")
         );
     }
 
@@ -251,7 +251,7 @@ class FeatureContext implements Context
     {
         PHPUnit_Framework_Assert::assertEquals(
             $this->bookbeatlist->countBooks(),
-            $this->bookbeatlist->countNumberofReviews()
+            $this->bookbeatlist->countNumberofReviews("amazon")
         );
     }
 
@@ -262,7 +262,7 @@ class FeatureContext implements Context
     {
         PHPUnit_Framework_Assert::assertContainsOnly(
             "integer",
-            $this->bookbeatlist->getAllReviews()
+            $this->bookbeatlist->getAllReviews("amazon")
         );
     }
 
@@ -273,7 +273,7 @@ class FeatureContext implements Context
     {
         PHPUnit_Framework_Assert::assertEquals(
             $this->bookbeatlist->countBooks(),
-            $this->bookbeatlist->countAvgRatings()
+            $this->bookbeatlist->countAvgRatings("amazon")
         );
     }
 
@@ -284,7 +284,7 @@ class FeatureContext implements Context
     {
         PHPUnit_Framework_Assert::assertContainsOnly(
             "float",
-            $this->bookbeatlist->getAllRatings()
+            $this->bookbeatlist->getAllRatings("amazon")
         );
     }
 
@@ -455,5 +455,80 @@ class FeatureContext implements Context
     {
 		$this->bookbeatlist->updateSalesRank();
 		$this->bookbeatlist->updateSalesRankFromJSON();
+    }
+
+    /**
+     * @When I pull the sales rank from Amazon UK
+     */
+    public function iPullTheSalesRankFromAmazonUk()
+    {
+		$this->bookbeatlist->updateSalesRank("amazon");
+		$this->bookbeatlist->updateSalesRank("amazon_uk");
+    }
+
+    /**
+     * @Then I should see the sales rank of each book from Amazon UK
+     */
+    public function iShouldSeeTheSalesRankOfEachBookFromAmazonUk()
+    {
+        PHPUnit_Framework_Assert::assertEquals(
+            $this->bookbeatlist->countBooks(),
+            $this->bookbeatlist->countAvgRatings("amazon_uk")
+        );
+    }
+
+    /**
+     * @Then the sales rank should be integer from Amazon UK
+     */
+    public function theSalesRankShouldBeIntegerFromAmazonUk()
+    {
+        PHPUnit_Framework_Assert::assertContainsOnly(
+            "integer",
+            $this->bookbeatlist->getAllRanks("amazon_uk")
+        );
+    }
+
+    /**
+     * @Then I should see number of reviews from Amazon UK
+     */
+    public function iShouldSeeNumberOfReviewsFromAmazonUk()
+    {
+        PHPUnit_Framework_Assert::assertEquals(
+            $this->bookbeatlist->countBooks(),
+            $this->bookbeatlist->countNumberofReviews("amazon_uk")
+        );
+    }
+
+    /**
+     * @Then the number of reviews should be integer from Amazon UK
+     */
+    public function theNumberOfReviewsShouldBeIntegerFromAmazonUk()
+    {
+        PHPUnit_Framework_Assert::assertContainsOnly(
+            "integer",
+            $this->bookbeatlist->getAllReviews("amazon_uk")
+        );
+    }
+
+    /**
+     * @Then I should see average ratings from Amazon UK
+     */
+    public function iShouldSeeAverageRatingsFromAmazonUk()
+    {
+        PHPUnit_Framework_Assert::assertEquals(
+            $this->bookbeatlist->countBooks(),
+            $this->bookbeatlist->countAvgRatings("amazon_uk")
+        );
+    }
+
+    /**
+     * @Then the average rating should be float from Amazon UK
+     */
+    public function theAverageRatingShouldBeFloatFromAmazonUk()
+    {
+        PHPUnit_Framework_Assert::assertContainsOnly(
+            "float",
+            $this->bookbeatlist->getAllRatings("amazon_uk")
+        );
     }
 }

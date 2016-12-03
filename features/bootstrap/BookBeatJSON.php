@@ -109,16 +109,29 @@ final class BookBeatJSON{
 		file_put_contents($file,json_encode($this->json_content, JSON_PRETTY_PRINT));
 	}
 	
-	public function updateJSONwithBookBeat($isbn,$data){
+	public function updateJSONwithBookBeat($isbn,$data,$source="amazon"){
+		$version=1;
 		$books = $this->json_content->{"book"};
 		// update json_content
 		foreach ($books as $book){
 				if ($isbn==preg_replace("/[^0-9]/", "",$book->{"isbn"})){
 					$book->{"author_name"}=$data[2];
 					$book->{"book_title"}=$data[3];
-					$book->{"sales_rank"}=$data[4];
-					$book->{"num_reviews"}=$data[5];
-					$book->{"avg_ratings"}=$data[6];
+					if($source=="amazon" && $version==0){
+						$book->{"sales_rank"}=$data[4];
+						$book->{"num_reviews"}=$data[5];
+						$book->{"avg_ratings"}=$data[6];
+					} else if($source=="amazon" && $version==1){
+						$book->{"amazon"}=(object)[];
+						$book->{"amazon"}->{"sales_rank"}=$data[4];
+						$book->{"amazon"}->{"num_reviews"}=$data[5];
+						$book->{"amazon"}->{"avg_ratings"}=$data[6];
+					} else if($source=="amazon_uk"){
+						$book->{"amazon_uk"}=(object)[];
+						$book->{"amazon_uk"}->{"sales_rank"}=$data[4];
+						$book->{"amazon_uk"}->{"num_reviews"}=$data[5];
+						$book->{"amazon_uk"}->{"avg_ratings"}=$data[6];
+					}
 				}
 		}
 		$this->setTimestamp();

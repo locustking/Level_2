@@ -190,6 +190,8 @@ final class BookBeat{
 	}
 	
 	function updateBookBeatWithAmazon($key="asin"){
+		//deprecated
+		
 		// AWS key and Secret
 		$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
 		$aws_secret_key = "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";
@@ -236,7 +238,7 @@ final class BookBeat{
 		$simple_xml=simplexml_load_string($xml);
 
 		// Parse XML, set this object's attributes
-		$this->book_title = $simple_xml->Items->Item->ItemAttributes->Title;
+		$this->book_title = $simple_xml->Items->Item->ItemAttributes->Title->__toString();
 		$this->sales_rank=intval($simple_xml->Items->Item->SalesRank);
 		$reviews_url = $simple_xml->Items->Item->CustomerReviews->IFrameURL;
 		$page_content = $this->curl_get_contents($reviews_url);
@@ -249,11 +251,154 @@ final class BookBeat{
 		$element = $xpath->query("//span[@class='crAvgStars']/a/text()");
 		$this->num_reviews=intval(explode(" ",trim($element->item(0)->nodeValue))[0]);
 		libxml_clear_errors();
-		$this->isbn = $simple_xml->Items->Item->ItemAttributes->EAN;
-		$this->asin = $simple_xml->Items->Item->ASIN;
-		$this->authorname = $simple_xml->Items->Item->ItemAttributes->Author;
+		$this->isbn = $simple_xml->Items->Item->ItemAttributes->EAN->__toString();
+		$this->asin = $simple_xml->Items->Item->ASIN->__toString();
+		$this->authorname = $simple_xml->Items->Item->ItemAttributes->Author->__toString();
 		return array($this->getBookBeat());
 	}
 
+	function updateBookBeatWithAmazonUK($key="asin"){
+		//deprecated
+		
+		// AWS key and Secret for amazon UK
+		$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
+		$aws_secret_key = "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";
+
+		// Lookup parameters
+		$endpoint = "webservices.amazon.com"; // change this to co uk
+		$uri = "/onca/xml";
+		$params = array(
+			"Service" => "AWSECommerceService",
+			"Operation" => "ItemLookup",
+			"AWSAccessKeyId" => "AKIAJZ4AZRVCPCBSKNUA",
+			"AssociateTag" => "bookbeatapp-20",
+			"IncludeReviewsSummary"=> true,
+			"ItemId" => $this->asin,
+			"ResponseGroup" => "ItemAttributes,SalesRank,Reviews"
+		);
+		
+		// Set ISBN parameter if lookup by isbn
+		if($key=="isbn"){
+			$param["IdType"]="EAN";
+			$param["ItemId"]=preg_replace("/[^0-9]/", "", $this->isbn);
+		}
+		
+		// Set current timestamp if not set
+		if (!isset($params["Timestamp"])) {
+			$params["Timestamp"] = gmdate('Y-m-d\TH:i:s\Z');
+		}
+		
+		// Sort the parameters by key
+		ksort($params);
+		$pairs = array();
+		foreach ($params as $key => $value) {
+			array_push($pairs, rawurlencode($key)."=".rawurlencode($value));
+		}
+
+		// Generate request URL
+		$canonical_query_string = join("&", $pairs);
+		$string_to_sign = "GET\n".$endpoint."\n".$uri."\n".$canonical_query_string;
+		$signature = base64_encode(hash_hmac("sha256", $string_to_sign, $aws_secret_key, true));		// Generate the signed URL
+		$request_url = 'https://'.$endpoint.$uri.'?'.$canonical_query_string.'&Signature='.rawurlencode($signature);
+
+		// Get XML output
+		$xml = file_get_contents($request_url);
+		$simple_xml=simplexml_load_string($xml);
+
+		// Parse XML, set this object's attributes
+		$this->book_title = $simple_xml->Items->Item->ItemAttributes->Title->__toString();
+		$this->sales_rank=intval($simple_xml->Items->Item->SalesRank);
+		$reviews_url = $simple_xml->Items->Item->CustomerReviews->IFrameURL;
+		$page_content = $this->curl_get_contents($reviews_url);
+		$dom_doc = new DOMDocument();
+		libxml_use_internal_errors(true);
+		$dom_doc->loadHTML($page_content);
+		$xpath = new DOMXpath($dom_doc);
+		$element = $xpath->query("//span[@class='crAvgStars']/span/a/img/@title");
+		$this->avg_rating = floatval(explode(" ",trim($element->item(0)->nodeValue))[0]);
+		$element = $xpath->query("//span[@class='crAvgStars']/a/text()");
+		$this->num_reviews=intval(explode(" ",trim($element->item(0)->nodeValue))[0]);
+		libxml_clear_errors();
+		$this->isbn = $simple_xml->Items->Item->ItemAttributes->EAN->__toString();
+		$this->asin = $simple_xml->Items->Item->ASIN->__toString();
+		$this->authorname = $simple_xml->Items->Item->ItemAttributes->Author->__toString();
+		return array($this->getBookBeat());
+	}
+
+	function updateBookBeat($key="asin",$source="amazon"){
+		if($source=="amazon"){
+			// AWS key and Secret for amazon
+			$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
+			$aws_secret_key = "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";
+			$endpoint = "webservices.amazon.com";
+		}else if($source=="amazon_uk"){
+			// AWS key and Secret for amazon UK
+			$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
+			$aws_secret_key = "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";
+			$endpoint = "webservices.amazon.com"; // change this to co uk
+		}
+
+		// Lookup parameters
+		$uri = "/onca/xml";
+		$params = array(
+			"Service" => "AWSECommerceService",
+			"Operation" => "ItemLookup",
+			"AWSAccessKeyId" => "AKIAJZ4AZRVCPCBSKNUA",
+			"AssociateTag" => "bookbeatapp-20",
+			"IncludeReviewsSummary"=> true,
+			"ItemId" => $this->asin,
+			"ResponseGroup" => "ItemAttributes,SalesRank,Reviews"
+		);
+
+		
+		// Set ISBN parameter if lookup by isbn
+		if($key=="isbn"){
+			$param["IdType"]="EAN";
+			$param["ItemId"]=preg_replace("/[^0-9]/", "", $this->isbn);
+		}
+		
+		// Set current timestamp if not set
+		if (!isset($params["Timestamp"])) {
+			$params["Timestamp"] = gmdate('Y-m-d\TH:i:s\Z');
+		}
+		
+		// Sort the parameters by key
+		ksort($params);
+		$pairs = array();
+		foreach ($params as $key => $value) {
+			array_push($pairs, rawurlencode($key)."=".rawurlencode($value));
+		}
+
+		// Generate request URL
+		$canonical_query_string = join("&", $pairs);
+		$string_to_sign = "GET\n".$endpoint."\n".$uri."\n".$canonical_query_string;
+		$signature = base64_encode(hash_hmac("sha256", $string_to_sign, $aws_secret_key, true));		// Generate the signed URL
+		$request_url = 'https://'.$endpoint.$uri.'?'.$canonical_query_string.'&Signature='.rawurlencode($signature);
+
+		// Get XML output
+		$xml = file_get_contents($request_url);
+		$simple_xml=simplexml_load_string($xml);
+
+		// Parse XML, set this object's attributes
+		$this->book_title = $simple_xml->Items->Item->ItemAttributes->Title->__toString();
+		$this->sales_rank=intval($simple_xml->Items->Item->SalesRank);
+		$reviews_url = $simple_xml->Items->Item->CustomerReviews->IFrameURL;
+		$page_content = $this->curl_get_contents($reviews_url);
+		$dom_doc = new DOMDocument();
+		libxml_use_internal_errors(true);
+		$dom_doc->loadHTML($page_content);
+		$xpath = new DOMXpath($dom_doc);
+		$element = $xpath->query("//span[@class='crAvgStars']/span/a/img/@title");
+		$this->avg_rating = floatval(explode(" ",trim($element->item(0)->nodeValue))[0]);
+		$element = $xpath->query("//span[@class='crAvgStars']/a/text()");
+		$this->num_reviews=intval(explode(" ",trim($element->item(0)->nodeValue))[0]);
+		libxml_clear_errors();
+		$this->isbn = $simple_xml->Items->Item->ItemAttributes->EAN->__toString();
+		$this->asin = $simple_xml->Items->Item->ASIN->__toString();
+		$this->authorname = $simple_xml->Items->Item->ItemAttributes->Author->__toString();
+		return array($this->getBookBeat());
+	}
+
+	
 }
 ?>

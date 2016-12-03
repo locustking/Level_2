@@ -147,7 +147,7 @@ function bba_book_add($isbn,$asin,$is_author,$author_name){
     
     $content = "<div id=\"addcomplete\">";
     $content = $content . "Book added. ISBN:" . $isbn;
-	 $return $content;
+	 return $content;
 	
 }
 

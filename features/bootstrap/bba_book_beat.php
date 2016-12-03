@@ -43,11 +43,12 @@ function bookbeat_func($atts){
 
     // update bookbeatlist. this will collect the sales rank from amazon and update the json file.
     // returning an array with the updated list
-    $result = $bookbeatlist->updateSalesRank();
+	$source = "amazon";
+    $result = $bookbeatlist->updateSalesRank($source);
     
     // Display book list
     foreach ($result as $res){
-        $content = $content .  "<tr><td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->sales_rank . "</TD><TD>" . $res->num_reviews . "</TD><TD>" . $res->avg_ratings . "</TD></TR>";
+        $content = $content .  "<tr><td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->$source->sales_rank . "</TD><TD>" . $res->$source->num_reviews . "</TD><TD>" . $res->$source->avg_ratings . "</TD></TR>";
     }
         
 

@@ -53,7 +53,7 @@ function bba_booklist_display(){
 
 
     // Begin building tht table form
-    $content = $content . "<div>";
+    $content = "<div>";
     $content = $content .  "<TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
     
     // Get Book Data

@@ -3,6 +3,24 @@
 final class BookBeatSearch{
 	private $searchResultsXML;
 
+	public function clearSearch(){
+		$this->searchResultsXML = "";	
+	}
+	
+	public function getSearchForm($searchText){
+		
+		$searchForm = "<form action=\"bba_book_beat.php\" method=\"post\">";
+		$searchForm = $searchForm . "<input type=\"hidden\" name=\"formtype\" value=\"buildlist\" \>";
+		$searchForm = $searchForm . "<label for=\"textSearch\">Search for:</label>";
+		$searchForm = $searchForm . "<input type=\"text\" name=\"mysearch\" id=\"textSearch\" value=\"";
+		$searchForm = $searchForm . $searchText;
+		$searchForm = $searchForm .  "\">";
+		$searchForm = $searchForm . "<input type=\"submit\" Value=\"Search\"></form>";
+		
+		return $searchForm;
+		
+	}		
+	
 public function BookSearch($searchText){
 				
 		// Your AWS Access Key ID, as taken from the AWS Your Account page
@@ -92,11 +110,12 @@ public function BookSearch($searchText){
 				$tableRow = $tableRow . "<td>" . $FoundBook->ItemAttributes->PublicationDate . "</td>";
 			
 				//the form portion of the row
-				$tableRow = $tableRow . "<form action=\"AddToList.php\" method=\"post\">";
+				$tableRow = $tableRow . "<form action=\"bba_book_beat.php\" method=\"post\">";
 				$tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"AuthorBook\" value=\"true\"></td>" . "</form>";			
 				$tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Add\"></td>"; 
 
 				//hidden attributes to send to the jason 
+				$tableRow = $tableRow . . "<input type=\"hidden\" name=\"formtype\" value=\"addItem\" \>";				
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $FoundBook->ItemAttributes->ISBN . "\">";
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"Title\" value=\"" . $FoundBook->ItemAttributes->Title . "\">";
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"Author\" value=\"" . $FoundBook->ItemAttributes->Author . "\">";

@@ -45,7 +45,10 @@ function bookbeat_func($atts){
                 // clicked to edit booklist 
                 case 'buildlist' :
                     $pageheader = bba_searchheader();
-                    $pagecontent = bba_book_search($_POST['textSearch']);
+                    if(isset($_POST['textSearch'])){
+                    		$searchText = $_POST['textSearch'];
+                    }
+                    $pagecontent = bba_book_search($searchText);
 						  //$pagecontent = "<p>This will show the form to add books to the list. For now, click <a href='http://hotpug.com/bookbeat/search.php' target = '_blank'>here to see the mockup</a>";
   						  break;
                 // redisplay booklist after editing it
@@ -126,7 +129,7 @@ function bba_book_search($searchText){
 	$bookbeatsearch->clearSearch(); 
 
 	$content = "<div id='searchForm'>";
-	$content = $content . $this->bookbeatsearch->getSearchForm($searchText);
+	$content = $content . $bookbeatsearch->getSearchForm($searchText);
 	
 	if (strlen($searchText) > 0){
 		$bookbeatsearch->BookSearch($searchText);

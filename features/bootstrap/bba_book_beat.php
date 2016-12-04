@@ -45,6 +45,7 @@ function bookbeat_func($atts){
                 // clicked to edit booklist 
                 case 'buildlist' :
                     $pageheader = bba_searchheader();
+                    $pagecontent ="";
 						  $searchText = "";                    
                     if(isset($_POST['textSearch'])){
 								$pagecontent = "<BR>Searching for:" . $_POST['textSearch'] ;                  		

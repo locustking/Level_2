@@ -66,7 +66,7 @@ function bookbeat_func($atts){
                 case 'addItem' :
 						$pageheader = bba_searchheader();
 						//$isbn,$asin,$is_author,$author_name
-						$pagecontent = bba_book_add($_POST['ISBN'],$_POST['ASIN'],$_POST['Is_Author'],$_POST['AuthorName']);                
+						$pagecontent = bba_book_add($_POST['EAN'],$_POST['ASIN'],$_POST['Is_Author'],$_POST['AuthorName']);                
                    // will say something about item added to JSON
                    break;
             } 

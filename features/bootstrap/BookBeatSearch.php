@@ -111,7 +111,7 @@ public function BookSearch($searchText){
 			
 				//the form portion of the row
 				$tableRow = $tableRow . "<form action name=\"addItem\" method=\"post\">";
-				$tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=\"true\"></td>" . "</form>";			
+				$tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=\"true\"></td>" ;			
 				$tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Add\"></td>"; 
 
 				//hidden attributes to send to the jason 
@@ -123,7 +123,7 @@ public function BookSearch($searchText){
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"PublicationDate\" value=\"" . $FoundBook->ItemAttributes->PublicationDate . "\">";
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"EAN\" value=\"" . $FoundBook->ItemAttributes->EAN . "\">";
 				$tableRow = $tableRow . "<input type=\"hidden\" name=\"ASIN\" value=\"". $FoundBook->ASIN . "\">"; 
-			
+				$tableRow = $tableRow .  "</form>";
 				$tableRow = $tableRow . "</tr>";
 			
 				$tableBody = $tableBody . $tableRow;

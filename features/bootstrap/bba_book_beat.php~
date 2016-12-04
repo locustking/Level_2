@@ -47,7 +47,7 @@ function bookbeat_func($atts){
                     $pageheader = bba_searchheader();
 						  $searchText = "";                    
                     if(isset($_POST['textSearch'])){
-								$pagecontent = "<BR>Searching for:" . $_POST['textSearch']) ;                  		
+								$pagecontent = "<BR>Searching for:" . $_POST['textSearch'] ;                  		
                     		$searchText = $_POST['textSearch'];
                     }
                     if($searchText == ""){
@@ -140,7 +140,7 @@ function bba_book_search($searchText){
 	if (strlen($searchText) > 0){
 		$bookbeatsearch->BookSearch($searchText);
 		$content = "<div id='searchResults>";
-		$content = $content . $this->bookbeatsearch->getSearchResultsTable();
+		$content = $content . bookbeatsearch->getSearchResultsTable();
 	}
 	return $content;
 }

@@ -17,7 +17,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                                               # features/bb2.feature:5
     Given there is a "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)", which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon()
     When I view the BookBeat page                                                                                                                    # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 83598<br />Number of Reviews: 24<br />Average Rating: 4.4<br />
+      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 194057<br />Number of Reviews: 24<br />Average Rating: 4.4<br />
     Then I should see "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)"                           # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                                         # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                                           # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -26,7 +26,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                       # features/bb2.feature:14
     Given there is a "BDD in Action: Behavior-driven development for the whole software lifecycle" which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon2()
     When I view the BookBeat page                                                                                            # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 659207<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
+      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 682864<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
     Then I should see "BDD in Action: Behavior-driven development for the whole software lifecycle"                          # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                 # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                   # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -103,6 +103,31 @@ Feature: BB5
       TODO: write pending definition
     Then I should see the books are sorted by "author"      # FeatureContext::iShouldSeeTheBooksAreSortedBy()
 
+Feature: BB6-2
+  In order to add new books to my watch list
+  As an author
+  I need to be able to search for books
+
+  Scenario: The Author search Amazon by book title.                                             # features/bb6-2.feature:6
+    Given The author searches for a book                                                        # FeatureContext::theAuthorSearchesForABook()
+    When I search for "I Love You Madly: Marie-Antoinette and Count Fersen: The Secret Letters" # FeatureContext::iSearchFor()
+    Then Search results return ISBN "0720618770"                                                # FeatureContext::searchResultsReturnIsbn()
+
+  Scenario: The Author can search Amazon by ISBN # features/bb6-2.feature:11
+    Given the author searches for an ISBN        # FeatureContext::theAuthorSearchesForAnIsbn()
+    When I search for "1606064835"               # FeatureContext::iSearchFor()
+    Then Search results return ASIN "1606064835" # FeatureContext::searchResultsReturnAsin()
+
+  Scenario: The Author can search Amazon by Author # features/bb6-2.feature:16
+    Given the author searches for an Author        # FeatureContext::theAuthorSearchesForAnAuthor()
+    When I search for "Geri Walton"                # FeatureContext::iSearchFor()
+    Then Search results return ISBN "1473853338"   # FeatureContext::searchResultsReturnIsbn()
+
+  Scenario: The Search results are returned as an HTML table # features/bb6-2.feature:21
+    Given The author searches for a book                     # FeatureContext::theAuthorSearchesForABook()
+    When I search for "Windows 10 For Seniors For Dummies"   # FeatureContext::iSearchFor()
+    Then search results return a HTML table                  # FeatureContext::searchResultsReturnAHtmlTable()
+
 Feature: BB6
   As an author I can edit, and reload sets of books through the website interface
 
@@ -147,6 +172,6 @@ Feature: BB7
     And I should see a timestamp                                                         # FeatureContext::iShouldSeeATimestamp()
     And the delta timestamp should be positive integer                                   # FeatureContext::theDeltaTimestampShouldBePositiveInteger()
 
-17 scenarios (11 passed, 6 pending)
-84 steps (69 passed, 6 pending, 9 skipped)
-0m10.08s (7.74Mb)
+21 scenarios (15 passed, 6 pending)
+96 steps (81 passed, 6 pending, 9 skipped)
+0m13.51s (7.84Mb)

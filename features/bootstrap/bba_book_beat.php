@@ -50,9 +50,9 @@ function bookbeat_func($atts){
 								$pagecontent = "<BR>Searching for:" . $_POST['textSearch'] ;                  		
                     		$searchText = $_POST['textSearch'];
                     }
-                    if($searchText == ""){
+                    /*if($searchText == ""){
                     	 $pagecontent = $pagecontent . "<BR>Searching for Nothing" ; 
-                    }
+                    }*/
                    
                     $pagecontent = $pagecontent . bba_book_search($searchText);
 						  //$pagecontent = "<p>This will show the form to add books to the list. For now, click <a href='http://hotpug.com/bookbeat/search.php' target = '_blank'>here to see the mockup</a>";
@@ -145,8 +145,14 @@ function bba_book_search($searchText){
 	return $content;
 }
 
-function bba_book_add($isbn,$asin,$is_author,$author_name){
+function bba_book_add($isbn,$asin,$is_author_check,$author_name){
 
+	if($is_author_check  == "Yes"){
+		$is_author = true;	
+	}else{
+		$is_author = false;	
+	}  
+    
     // init BookBeat, BookBeatJSON and BookBeatList instances
     $bookbeat = new BookBeat();
     $bookbeatjson = new BookBeatJSON();

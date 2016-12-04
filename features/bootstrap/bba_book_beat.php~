@@ -147,16 +147,22 @@ function bba_book_search($searchText){
 
 function bba_book_add($isbn,$asin,$is_author,$author_name){
 
+    // init BookBeat, BookBeatJSON and BookBeatList instances
+    $bookbeat = new BookBeat();
     $bookbeatjson = new BookBeatJSON();
-    		
+    $bookbeatlist = new BookBeatList();
+        
     // set json filename $arg1
     $bookbeatjson->setFilename("booklist.json");
-	 
-	 $bookbeatjson->addBook($isbn,$asin,$is_author,$author_name);
+
+    // wire up bookbeatjson object to bookbeatlist
+    $bookbeatlist->setBookBeatJSON($bookbeatjson);
+     
+    $bookbeatlist->addBook($isbn,$asin,$is_author,$author_name);
     
     $content = "<div id=\"addcomplete\">";
     $content = $content . "Book added. ISBN:" . $isbn;
-	 return $content;
+    return $content;
 	
 }
 

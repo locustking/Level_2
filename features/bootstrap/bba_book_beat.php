@@ -47,9 +47,14 @@ function bookbeat_func($atts){
                     $pageheader = bba_searchheader();
 						  $searchText = "";                    
                     if(isset($_POST['textSearch'])){
+								$pagecontent = "<BR>Searching for:" . $_POST['textSearch']) ;                  		
                     		$searchText = $_POST['textSearch'];
                     }
-                    $pagecontent = bba_book_search($searchText);
+                    if($searchText == ""){
+                    	 $pagecontent = $pagecontent . "<BR>Searching for Nothing" ; 
+                    }
+                   
+                    $pagecontent = $pagecontent . bba_book_search($searchText);
 						  //$pagecontent = "<p>This will show the form to add books to the list. For now, click <a href='http://hotpug.com/bookbeat/search.php' target = '_blank'>here to see the mockup</a>";
   						  break;
                 // redisplay booklist after editing it

@@ -9,7 +9,7 @@ final class BookBeatSearch{
 	
 	public function getSearchForm($searchText){
 		
-		$searchForm = "<form action=\"buildlist\" method=\"post\">";
+		$searchForm = "<form action name=\"buildlist\" method=\"post\">";
 		$searchForm = $searchForm . "<input type=\"hidden\" name=\"formtype\" value=\"buildlist\" \>";
 		$searchForm = $searchForm . "<label for=\"textSearch\">Search for:</label>";
 		$searchForm = $searchForm . "<input type=\"text\" name=\"mysearch\" id=\"textSearch\" value=\"";
@@ -110,7 +110,7 @@ public function BookSearch($searchText){
 				$tableRow = $tableRow . "<td>" . $FoundBook->ItemAttributes->PublicationDate . "</td>";
 			
 				//the form portion of the row
-				$tableRow = $tableRow . "<form action=\"addItem\" method=\"post\">";
+				$tableRow = $tableRow . "<form action name=\"addItem\" method=\"post\">";
 				$tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=\"true\"></td>" . "</form>";			
 				$tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Add\"></td>"; 
 

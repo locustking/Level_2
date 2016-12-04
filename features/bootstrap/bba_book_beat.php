@@ -139,7 +139,7 @@ function bba_book_search($searchText){
 	
 	if (strlen($searchText) > 0){
 		$bookbeatsearch->BookSearch($searchText);
-		$content = "<div id='searchResults>";
+		$content = "<div id='searchResults'>";
 		$content = $content . $bookbeatsearch->getSearchResultsTable();
 	}
 	return $content;

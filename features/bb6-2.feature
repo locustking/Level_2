@@ -18,4 +18,8 @@ Scenario: The Author can search Amazon by Author
  When I search for "Geri Walton"
  Then Search results return ISBN "1473853338"
 
-
+Scenario: The Search results are returned as an HTML table
+ Given The author searches for a book 
+ When I search for "Windows 10 For Seniors For Dummies"
+ Then search results return a HTML table
+ 

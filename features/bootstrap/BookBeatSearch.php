@@ -81,9 +81,9 @@ public function BookSearch($searchText){
 	
 	public function getSearchResultsTable(){
 		$xml = $this->searchResultsXML;
-		$table = "";		
+		$table = "<table id='searchresults' class='tablesorter'>";		
 		
-		$tableHeader = $tableHeader . "<table class='tablesorter'><thead>";
+		$tableHeader = "<thead>";
 		$tableHeader = $tableHeader . "<tr>";
 		$tableHeader = $tableHeader . "<th></th>";
 		$tableHeader = $tableHeader . "<th>Title</th>";
@@ -93,9 +93,9 @@ public function BookSearch($searchText){
 		$tableHeader = $tableHeader . "<th>Author Book</th>";
 		$tableHeader = $tableHeader . "<th>Add To List</th>";
 		$tableHeader = $tableHeader . "</tr>";
-		$tableHeader = $tableHeader . "</thead><tbody>";
+		$tableHeader = $tableHeader . "</thead>";
 	
-		$tableBody = "";
+		$tableBody = "<tbody>";
 		
 		//printf("there are %d items found",  $xml->Items->Item->count());
 		if($xml->Items->Item->count() > 0){
@@ -129,9 +129,9 @@ public function BookSearch($searchText){
 				$tableBody = $tableBody . $tableRow;
 			
 			endforeach;
-			$tableBody = $tableBody ." </tbody></table>";		
+			$tableBody = $tableBody ." </tbody>";		
 		}
-		$table = $tableHeader . $tableBody; 
+		$table = $table . $tableHeader . $tableBody . "</table>"; 
 		
 		return $table;
 		}		

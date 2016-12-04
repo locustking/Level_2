@@ -83,7 +83,7 @@ public function BookSearch($searchText){
 		$xml = $this->searchResultsXML;
 		$table = "";		
 		
-		$tableHeader = $tableHeader . "<table class='tablesorter'><thead>";
+		$tableHeader = $tableHeader . "<table id='searchresults' class='tablesorter'><thead>";
 		$tableHeader = $tableHeader . "<tr>";
 		$tableHeader = $tableHeader . "<th></th>";
 		$tableHeader = $tableHeader . "<th>Title</th>";
@@ -93,7 +93,7 @@ public function BookSearch($searchText){
 		$tableHeader = $tableHeader . "<th>Author Book</th>";
 		$tableHeader = $tableHeader . "<th>Add To List</th>";
 		$tableHeader = $tableHeader . "</tr>";
-		$tableHeader = $tableHeader . "</thead><tbody>";
+		$tableHeader = $tableHeader . "</thead>";
 	
 		$tableBody = "";
 		
@@ -101,7 +101,7 @@ public function BookSearch($searchText){
 		if($xml->Items->Item->count() > 0){
 			foreach ($xml->Items->Item as $FoundBook) :
 			
-				$tableRow = "";
+				$tableRow = "<tbody>";
 				$tableRow = $tableRow . "<tr>";
 				$tableRow = $tableRow . "<td><img src=\"" . $FoundBook->SmallImage->URL . "\" height=\"75\" width=\"50\"></td>";
 				$tableRow = $tableRow . "<td>" . $FoundBook->ItemAttributes->Title . "</td>";

@@ -593,5 +593,12 @@ class FeatureContext implements Context
         PHPUnit_Framework_Assert::assertSame($arg1,$bookISBN);
     }
 
-
+    /**
+     * @Then search results return a HTML table
+     */
+    public function searchResultsReturnAHtmlTable()
+    {
+        $results = $this->bookbeatsearch->getSearchResultsTable();
+        PHPUnit_Framework_Assert::assertRegExp("/<table.*<thead>.*<\/thead>.*<tbody>.*<\/tbody><\/table>/",$results);
+    }
 }

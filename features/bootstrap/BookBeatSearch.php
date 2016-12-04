@@ -80,7 +80,7 @@ public function BookSearch($searchText){
 	}
 	
 	public function getSearchResultsTable(){
-		$xml = $this.searchResultsXML;
+		$xml = $this->searchResultsXML;
 		$table = "";		
 		
 		$tableHeader = $tableHeader . "<table class='tablesorter'><thead>";

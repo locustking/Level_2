@@ -161,7 +161,7 @@ final class BookBeatJSON{
 		$book = (object)[];
 		$book->{"isbn"} = $isbn;
 		$book->{"asin"} = $asin;
-		$book->{"is_author"} = boolval($is_author);
+		$book->{"is_author"} = ($is_author=="true" || $is_author); // boolval($is_author);
 		$book->{"author_name"} = $author_name;
 		array_push($this->json_content->{"book"}, $book);
 		$this->writeContentToJSON();

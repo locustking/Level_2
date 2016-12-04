@@ -335,7 +335,7 @@ final class BookBeat{
 			// AWS key and Secret for amazon UK
 			$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
 			$aws_secret_key = "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";
-			$endpoint = "webservices.amazon.com"; // change this to co uk
+			$endpoint = "webservices.amazon.co.uk"; // change this to co uk
 		}
 
 		// Lookup parameters

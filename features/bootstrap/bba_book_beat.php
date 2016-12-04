@@ -47,7 +47,7 @@ function bookbeat_func($atts){
                     $pageheader = bba_searchheader();
 						  $searchText = "";                    
                     if(isset($_POST['textSearch'])){
-								$pagecontent = "<BR>Searching for:" . $_POST['textSearch']) ;                  		
+								$pagecontent = "<BR>Searching for:" . $_POST['textSearch'] ;                  		
                     		$searchText = $_POST['textSearch'];
                     }
                     if($searchText == ""){

@@ -22,12 +22,12 @@ final class BookBeatSearch{
 	}		
 	
 public function BookSearch($searchText){
-				
-		// Your AWS Access Key ID, as taken from the AWS Your Account page
-		$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
-
-		// Your AWS Secret Key corresponding to the above ID, as taken from the AWS Your Account page
-		$aws_secret_key = "hhihlbGQ7/7UA66aOiN0dr3nmQf1he/0Y2FbCGPx";
+		if(file_exists('aws_key.php')){
+    		include 'aws_key.php';
+		} else{
+			$aws_access_key_id = "aws_id";
+			$aws_secret_key = "aws_secret";
+		}
 
 		// The region you are interested in
 		$endpoint = "webservices.amazon.com";

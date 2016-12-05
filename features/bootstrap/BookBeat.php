@@ -326,15 +326,16 @@ final class BookBeat{
 	}
 
 	function updateBookBeat($key="asin",$source="amazon"){
+		if(file_exists('aws_key.php')){
+    		include 'aws_key.php';
+		} else{
+			$aws_access_key_id = "aws_id";
+			$aws_secret_key = "aws_secret";
+		}
+		
 		if($source=="amazon"){
-			// AWS key and Secret for amazon
-			$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
-			$aws_secret_key = "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";
 			$endpoint = "webservices.amazon.com";
 		}else if($source=="amazon_uk"){
-			// AWS key and Secret for amazon UK
-			$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
-			$aws_secret_key = "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";
 			$endpoint = "webservices.amazon.co.uk"; // change this to co uk
 		}
 

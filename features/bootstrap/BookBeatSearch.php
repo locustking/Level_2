@@ -22,7 +22,9 @@ final class BookBeatSearch{
 	}		
 	
 public function BookSearch($searchText){
-		if(file_exists('aws_key.php')){
+		$dir = dirname(__FILE__).DIRECTORY_SEPARATOR;
+		$file = $dir."aws_key.php";
+		if(file_exists($file)){
     		include 'aws_key.php';
 		} else{
 			$aws_access_key_id = "aws_id";
@@ -35,7 +37,7 @@ public function BookSearch($searchText){
 		$params = array(
 			"Service" => "AWSECommerceService",
 			"Operation" => "ItemSearch",
-			"AWSAccessKeyId" => "AKIAJZ4AZRVCPCBSKNUA",
+			"AWSAccessKeyId" => $aws_access_key_id,
 			"AssociateTag" => "bookbeatapp-20",
 			"SearchIndex" => "Books",
 			//"Keywords" => "marie antoinette",

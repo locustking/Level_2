@@ -192,9 +192,12 @@ final class BookBeat{
 	function updateBookBeatWithAmazon($key="asin"){
 		//deprecated
 		
-		// AWS key and Secret
-		$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
-		$aws_secret_key = "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";
+		if(file_exists('aws_key.php')){
+    		include 'aws_key.php';
+		} else{
+			$aws_access_key_id = "aws_id";
+			$aws_secret_key = "aws_secret";
+		}
 
 		// Lookup parameters
 		$endpoint = "webservices.amazon.com";
@@ -260,9 +263,12 @@ final class BookBeat{
 	function updateBookBeatWithAmazonUK($key="asin"){
 		//deprecated
 		
-		// AWS key and Secret for amazon UK
-		$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
-		$aws_secret_key = "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";
+		if(file_exists('aws_key.php')){
+    		include 'aws_key.php';
+		} else{
+			$aws_access_key_id = "aws_id";
+			$aws_secret_key = "aws_secret";
+		}
 
 		// Lookup parameters
 		$endpoint = "webservices.amazon.com"; // change this to co uk
@@ -326,7 +332,9 @@ final class BookBeat{
 	}
 
 	function updateBookBeat($key="asin",$source="amazon"){
-		if(file_exists('aws_key.php')){
+		$dir = dirname(__FILE__).DIRECTORY_SEPARATOR;
+		$file = $dir."aws_key.php";
+		if(file_exists($file)){
     		include 'aws_key.php';
 		} else{
 			$aws_access_key_id = "aws_id";
@@ -344,7 +352,7 @@ final class BookBeat{
 		$params = array(
 			"Service" => "AWSECommerceService",
 			"Operation" => "ItemLookup",
-			"AWSAccessKeyId" => "AKIAJZ4AZRVCPCBSKNUA",
+			"AWSAccessKeyId" => $aws_access_key_id,
 			"AssociateTag" => "bookbeatapp-20",
 			"IncludeReviewsSummary"=> true,
 			"ItemId" => $this->asin,

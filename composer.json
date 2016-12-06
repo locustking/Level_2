@@ -1,6 +1,7 @@
 {
     "require-dev": {
         "behat/behat": "^3.2",
-        "phpunit/phpunit": "^5.6"
+        "phpunit/phpunit": "^5.6",
+        "phpunit/phpunit-selenium": "^3.0"
     }
 }

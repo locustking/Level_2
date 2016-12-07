@@ -75,9 +75,13 @@ function bookbeat_func($atts){
 						//$isbn,$asin,$is_author,$author_name
 						if(isset($_POST['editAction'])){
 							if ($_POST['editAction']=="update"){
-							
+								if(isset($_POST['isbn']) && isset($_POST['is_author'])){
+							    	bba_book_update_is_author($_POST['isbn'],$_POST['is_author'])
+							    }
 							}elseif($_POST['editAction']=="delete"){
-							
+							    if(isset($_POST['isbn'])){
+							    	bba_book_delete($_POST['isbn'])
+							    }
 							}
 						}	
 	               $pagecontent = bba_edit_book_list();   
@@ -254,13 +258,13 @@ function bba_edit_book_list(){
       $tableRow = $tableRow . "<td>" . $res->publish_date . "</td>";
 		//update the is author flag      
       $tableRow = $tableRow . "<form action name=\"editList\" method=\"post\">";
-      $tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $res->isbn . "\">";
+      $tableRow = $tableRow . "<input type=\"hidden\" name=\"isbn\" value=\"" . $res->isbn . "\">";
 		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"update\">";      
-      $tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=\"" . $res->is_author . "\"></td>";  
+      $tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"is_author\" value=\"" . $res->is_author . "\"></td>";  
       $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Update\"></td>";
       //delete the book from list
-      $tableRow = $tableRow . "<td>form action name=\"editList\" method=\"post\">";
-      $tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $res->ISBN . "\">";
+      $tableRow = $tableRow . "<td><form action name=\"editList\" method=\"post\">";
+      $tableRow = $tableRow . "<input type=\"hidden\" name=\"isbn\" value=\"" . $res->isbn . "\">";
 		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"delete\">";      
       $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Delete\"></td>"; 
  

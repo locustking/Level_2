@@ -196,7 +196,7 @@ function bba_book_update_is_author($isbn,$is_author_check){
     // wire up bookbeatjson object to bookbeatlist
     $bookbeatlist->setBookBeatJSON($bookbeatjson);
      
-    $bookbeatlist->updateBookIsAuthor($isbn,$is_author);
+    $bookbeatlist->setAsAuthor($isbn,$is_author);
 }
 
 function bba_book_delete($isbn){

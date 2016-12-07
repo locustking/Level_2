@@ -188,7 +188,7 @@ function bba_book_add($isbn,$asin,$is_author_check,$author_name){
     return $content;
 	
 }
-function bba_book_update_is_author($isbn,$is_author_check){
+function bba_book_update_is_author($isbn,$is_author){
     // init BookBeat, BookBeatJSON and BookBeatList instances
     $bookbeat = new BookBeat();
     $bookbeatjson = new BookBeatJSON();
@@ -213,9 +213,9 @@ function bba_book_delete($isbn){
     $bookbeatjson->setFilename("booklist.json");
 
     // wire up bookbeatjson object to bookbeatlist
-    $bookbeatlist->setBookBeatJSON($bookbeatjson);
+    //$bookbeatlist->setBookBeatJSON($bookbeatjson);
      
-    $bookbeatlist->deleteBook($isbn);
+    $bookbeatjson->deleteBook($isbn);
 }
 
 function bba_edit_book_list(){

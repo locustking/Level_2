@@ -4,21 +4,18 @@ final class BookBeatJSON{
 	private $json_content;
 	
 	public function setFilename($f){
+		// set filename attribute
 		$this->filename = $f;
 	}
 	
 	public function verifyJSON($f){
-		//need a cleaner code to find the file
+		// set json_content attribute with JSON file content
 		$dir = dirname(__FILE__).DIRECTORY_SEPARATOR;
 		$file = $dir.$this->filename;
+
 		if (file_exists($file)){
-			//read json file
 			$json = file_get_contents($file);
-				
-			//put on json content
 			$this->json_content = json_decode($json);
-		} else {
-			echo "failed to find file";
 		}
 		
 		//bugfix rating float value
@@ -31,16 +28,17 @@ final class BookBeatJSON{
 	}
 	
 	public function countBooks(){
-		// count the number of books in the json content
-		// $this->json_content->{"book"} is an array
+		// returns the number of books in the json content
 		return count($this->json_content->{"book"});
 	}
 	
 	public function getFilename(){
+		// returns filename attribute value
 		return $this->filename;
 	}
 	
 	public function countLeastIsbnDigits(){
+		// returns the least count of ISBN digits
 		$books = $this->json_content->{"book"};
 		$isbn = $books[0]->{"isbn"};
 		$digits = preg_match_all( "/[0-9]/", $isbn );
@@ -53,6 +51,7 @@ final class BookBeatJSON{
 	}
 
 	public function countMostIsbnDigits(){
+		// returns the most count of ISBN digits
 		$books = $this->json_content->{"book"};
 		$isbn = $books[0]->{"isbn"};
 		$digits = preg_match_all( "/[0-9]/", $isbn );
@@ -65,6 +64,7 @@ final class BookBeatJSON{
 	}
 	
 	public function countAsin(){
+		// returns the number of ASIN
 		$books = $this->json_content->{"book"};
 		$asin=0;
 		foreach ($books as $book){
@@ -76,6 +76,7 @@ final class BookBeatJSON{
 	}
 	
 	public function countAuthorSBook(){
+		// returns the number of Author books
 		$books = $this->json_content->{"book"};
 		$authorsbook=0;
 		foreach ($books as $book){
@@ -87,6 +88,7 @@ final class BookBeatJSON{
 	}
 
 	public function countSalesRanks(){
+		// returns the number of sales ranks
 		$books = $this->json_content->{"book"};
 		$salesranks=0;
 		foreach ($books as $book){
@@ -98,39 +100,38 @@ final class BookBeatJSON{
 	}
 
 	public function getBooks(){
-		// $this->json_content->{"book"} is an array
+		// returns the JSON objects of all books
 		return $this->json_content->{"book"};
 	}
 	
 	public function writeContentToJSON(){
-		// write to booklist.json
+		// writes json_content attribute value to file indicated by filename attribute value
 		$dir = dirname(__FILE__).DIRECTORY_SEPARATOR;
 		$file = $dir.$this->filename;
 		file_put_contents($file,json_encode($this->json_content, JSON_PRETTY_PRINT));
 	}
 	
 	public function updateJSONwithBookBeat($isbn,$data,$source="amazon"){
-		$version=1;
+		// updates json_content attribute with $data by $isbn
 		$books = $this->json_content->{"book"};
-		// update json_content
 		foreach ($books as $book){
 				if ($isbn==preg_replace("/[^0-9]/", "",$book->{"isbn"})){
 					$book->{"author_name"}=$data[2];
 					$book->{"book_title"}=$data[3];
-					if($source=="amazon" && $version==0){
-						$book->{"sales_rank"}=$data[4];
-						$book->{"num_reviews"}=$data[5];
-						$book->{"avg_ratings"}=$data[6];
-					} else if($source=="amazon" && $version==1){
+					if($source=="amazon"){
 						$book->{"amazon"}=(object)[];
 						$book->{"amazon"}->{"sales_rank"}=$data[4];
 						$book->{"amazon"}->{"num_reviews"}=$data[5];
 						$book->{"amazon"}->{"avg_ratings"}=$data[6];
+						$book->{"amazon"}->{"publisher_name"}=$data[7];
+						$book->{"amazon"}->{"publish_date"}=$data[8];
 					} else if($source=="amazon_uk"){
 						$book->{"amazon_uk"}=(object)[];
 						$book->{"amazon_uk"}->{"sales_rank"}=$data[4];
 						$book->{"amazon_uk"}->{"num_reviews"}=$data[5];
 						$book->{"amazon_uk"}->{"avg_ratings"}=$data[6];
+						$book->{"amazon_uk"}->{"publisher_name"}=$data[7];
+						$book->{"amazon_uk"}->{"publish_date"}=$data[8];
 					}
 				}
 		}
@@ -139,8 +140,8 @@ final class BookBeatJSON{
 	}
 	
 	public function deleteBook($isbn){
+		// deletes a book from json_content attribute by $isbn
 		$books = $this->json_content->{"book"};
-		// delete json_content
 		$json_array = json_decode(json_encode($books),true);
 		$delete = [];
 		foreach($json_array as $i => $val){
@@ -157,6 +158,7 @@ final class BookBeatJSON{
 	}
 	
 	public function addBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date){
+		// adds a book to json_content attribute
 		$books = $this->json_content->{"book"};
 		$book = (object)[];
 		$book->{"isbn"} = $isbn;
@@ -170,8 +172,8 @@ final class BookBeatJSON{
 	}
 
 	public function updateBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date){
+		// updates a book to json_content attribute by $isbn
 		$books = $this->json_content->{"book"};
-		// delete json_content
 		foreach ($books as $key => $book){
 			if ($isbn==$book->{"isbn"}){
 				$book->{"asin"} = $asin;
@@ -185,10 +187,12 @@ final class BookBeatJSON{
 	}
 	
 	public function getTimestamp(){
+		// returns timestamp from json_content attribute
 		return $this->json_content->{"timestamp"};
 	}
 	
 	public function setTimestamp(){
+		// set timestamp to json_content attribute
 		date_default_timezone_set('America/New_York');
 		$now = date("Y-m-d H:i:s");
 		if(isset($this->json_content->{"timestamp"})){

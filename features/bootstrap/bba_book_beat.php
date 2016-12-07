@@ -239,6 +239,7 @@ function bba_edit_book_list(){
 		$tableHeader = $tableHeader . "<th>Publication Date</th>";
 		$tableHeader = $tableHeader . "<th>Is this your book</th>";
 		$tableHeader = $tableHeader . "<th>Update</th>";
+		$tableHeader = $tableHeader . "<th>Delete</th>";
 		$tableHeader = $tableHeader . "</tr>";
 	$tableHeader = $tableHeader . "</thead>";
 	
@@ -246,20 +247,20 @@ function bba_edit_book_list(){
 
    // Display book list
 	foreach ($result as $res){
-		$tableRow = $tableRow . "<tr>";        
+		$tableRow = "<tr>";        
       $tableRow = $tableRow . "<td>" . $res->book_title . "</td>";
       $tableRow = $tableRow . "<td>" . $res->author_name . "</td>";
       $tableRow = $tableRow . "<td>" . $res->publisher_name . "</td>";
       $tableRow = $tableRow . "<td>" . $res->publish_date . "</td>";
 		//update the is author flag      
       $tableRow = $tableRow . "<form action name=\"editList\" method=\"post\">";
-      $tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $FoundBook->ItemAttributes->ISBN . "\">";
+      $tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $res->isbn . "\">";
 		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"update\">";      
       $tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=\"" . $res->is_author . "\"></td>";  
-      $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Update\">";
+      $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Update\"></td>";
       //delete the book from list
-      $tableRow = $tableRow . "<form action name=\"editList\" method=\"post\">";
-      $tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $FoundBook->ItemAttributes->ISBN . "\">";
+      $tableRow = $tableRow . "<td>form action name=\"editList\" method=\"post\">";
+      $tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $res->ISBN . "\">";
 		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"delete\">";      
       $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Delete\"></td>"; 
  

@@ -213,9 +213,9 @@ function bba_book_delete($isbn){
     $bookbeatjson->setFilename("booklist.json");
 
     // wire up bookbeatjson object to bookbeatlist
-    //$bookbeatlist->setBookBeatJSON($bookbeatjson);
+    $bookbeatlist->setBookBeatJSON($bookbeatjson);
      
-    $bookbeatjson->deleteBook($isbn);
+    //$bookbeatlist->deleteBook($isbn);
 }
 
 function bba_edit_book_list(){

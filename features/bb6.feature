@@ -26,3 +26,8 @@ Scenario: The Author can load sets of books
 Given there is a file "booklist.json" with ISBN numbers
 When I load all books
 Then I should get all isbns, asins, author names and is authors
+
+Scenario: The Author can add a book with publisher info
+Given there is a file "booklist.json" with ISBN numbers
+When I add with isbn "978-1473853331", asin "1473853338", author name "Geri Walton", is author "true", publisher name "Pen and Sword", and publish date "January 19, 2017"
+Then I should see the file has isbn "978-1473853331", asin "1473853338", author name "Geri Walton", is author "true", publisher name "Pen and Sword", and publish date "January 19, 2017"

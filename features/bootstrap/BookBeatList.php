@@ -113,8 +113,13 @@ final class BookBeatList{
 		}
 	}
 	
-	public function addBook($isbn,$asin,$is_author,$author_name){
-		$this->bookbeatjson->addBook($isbn,$asin,$is_author,$author_name);
+	public function addBook($isbn,$asin,$is_author,$author_name,$publisher_name="",$publish_date=""){
+		$book = $this->getBookbyIsbn($isbn);
+		if(isset($book->{"isbn"}) && $book->{"isbn"}==$isbn){
+			$this->bookbeatjson->updateBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date);
+		}else{
+			$this->bookbeatjson->addBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date);
+		}
 	}
 	
 	public function getBookbyIsbn($isbn){
@@ -128,8 +133,8 @@ final class BookBeatList{
 		return $book;		
 	}
 	
-	public function updateBook($isbn,$asin,$is_author,$author_name){
-		$this->bookbeatjson->updateBook($isbn,$asin,$is_author,$author_name);
+	public function updateBook($isbn,$asin,$is_author,$author_name,$publisher_name="",$publish_date=""){
+		$this->bookbeatjson->updateBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date);
 	}
 	
 	public function getBooks(){

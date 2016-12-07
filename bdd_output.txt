@@ -17,7 +17,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                                               # features/bb2.feature:5
     Given there is a "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)", which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon()
     When I view the BookBeat page                                                                                                                    # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 306498<br />Number of Reviews: 24<br />Average Rating: 4.4<br />
+      │ <H1>Book Result</H1>Book Title: The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)<br />Sales Rank: 457700<br />Number of Reviews: 24<br />Average Rating: 4.4<br />
     Then I should see "The Cucumber Book: Behaviour-Driven Development for Testers and Developers (Pragmatic Programmers)"                           # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                                         # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                                           # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -26,7 +26,7 @@ Feature: BB2
   Scenario: See data that helps me understand my sales                                                                       # features/bb2.feature:14
     Given there is a "BDD in Action: Behavior-driven development for the whole software lifecycle" which is listed on Amazon # FeatureContext::thereIsAWhichIsListedOnAmazon2()
     When I view the BookBeat page                                                                                            # FeatureContext::iViewTheBookbeatPage()
-      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 532848<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
+      │ <H1>Book Result</H1>Book Title: BDD in Action: Behavior-driven development for the whole software lifecycle<br />Sales Rank: 654674<br />Number of Reviews: 29<br />Average Rating: 4.6<br />
     Then I should see "BDD in Action: Behavior-driven development for the whole software lifecycle"                          # FeatureContext::iShouldSee()
     And I should see the Amazon sales rank of greater than 0                                                                 # FeatureContext::iShouldSeeTheAmazonSalesRankOfGreaterThan()
     And I should see the number of reviews of 0 or greater                                                                   # FeatureContext::iShouldSeeTheNumberOfReviewsOfOrGreater()
@@ -157,14 +157,17 @@ Feature: BB6
     When I load all books                                           # FeatureContext::iLoadAllBooks()
     Then I should get all isbns, asins, author names and is authors # FeatureContext::iShouldGetAllIsbnsAsinsAuthorNamesAndIsAuthors()
 
+  Scenario: The Author can add a book with publisher info                                                                                                                                     # features/bb6.feature:30
+    Given there is a file "booklist.json" with ISBN numbers                                                                                                                                   # FeatureContext::thereIsAFileWithIsbnNumbers()
+    When I add with isbn "978-1473853331", asin "1473853338", author name "Geri Walton", is author "true", publisher name "Pen and Sword", and publish date "January 19, 2017"                # FeatureContext::iAddWithIsbnAsinAuthorNameIsAuthorPublisherNameAndPublishDate()
+    Then I should see the file has isbn "978-1473853331", asin "1473853338", author name "Geri Walton", is author "true", publisher name "Pen and Sword", and publish date "January 19, 2017" # FeatureContext::iShouldSeeTheFileHasIsbnAsinAuthorNameIsAuthorPublisherNameAndPublishDate()
+
 Feature: BB7
   As an author I want to be able to see my book’ number reviewers, sales rank, ratings and comments via Amazon UK
 
   Scenario: The Author can pull sales rank of the Author's selected books from Amazon UK # features/bb7.feature:4
     Given there is a file "booklist.json" with ISBN numbers                              # FeatureContext::thereIsAFileWithIsbnNumbers()
     When I pull the sales rank from Amazon UK                                            # FeatureContext::iPullTheSalesRankFromAmazonUk()
-      Warning: file_get_contents(https://webservices.amazon.co.uk/onca/xml?AWSAccessKeyId=AKIAJEMFMZIACWATMEYA&AssociateTag=bookbeatapp-20&IncludeReviewsSummary=1&ItemId=1473853338&Operation=ItemLookup&ResponseGroup=ItemAttributes%2CSalesRank%2CReviews&Service=AWSECommerceService&Timestamp=2016-12-05T22%3A21%3A10Z&Signature=pgBUMO0UOBIUdm%2BfNXuYvB1iCQb9vTdXQSzvZipueP8%3D): failed to open stream: HTTP request failed! HTTP/1.1 503 Service Unavailable
-       in features/bootstrap/BookBeat.php line 388
     Then I should see the sales rank of each book from Amazon UK                         # FeatureContext::iShouldSeeTheSalesRankOfEachBookFromAmazonUk()
     And the sales rank should be integer from Amazon UK                                  # FeatureContext::theSalesRankShouldBeIntegerFromAmazonUk()
     And I should see number of reviews from Amazon UK                                    # FeatureContext::iShouldSeeNumberOfReviewsFromAmazonUk()
@@ -174,10 +177,6 @@ Feature: BB7
     And I should see a timestamp                                                         # FeatureContext::iShouldSeeATimestamp()
     And the delta timestamp should be positive integer                                   # FeatureContext::theDeltaTimestampShouldBePositiveInteger()
 
---- Failed scenarios:
-
-    features/bb7.feature:4
-
-21 scenarios (14 passed, 1 failed, 6 pending)
-96 steps (72 passed, 1 failed, 6 pending, 17 skipped)
-0m9.34s (7.85Mb)
+22 scenarios (16 passed, 6 pending)
+99 steps (84 passed, 6 pending, 9 skipped)
+0m11.87s (7.87Mb)

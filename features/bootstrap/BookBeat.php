@@ -7,6 +7,8 @@ final class BookBeat{
 	private $isbn;
 	private $asin;
 	private $authorname;
+	private $publisher_name;
+	private $publish_date;
 	
 	public function setBookTitle($book_title){
 		$data = $this->scrapeamazon($book_title);

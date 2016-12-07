@@ -25,10 +25,10 @@ $result = $this->bookbeatlist->updateSalesRankFromJSON();
 $this->bookbeatlist->resetJSON();
 
 // add a book isbn, asin, is_author, author_name
-$this->bookbeatlist->addBook($isbn,$asin,$is_author,$author_name);
+$this->bookbeatlist->addBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date);
 
 // edit a book by isbn
-$this->bookbeatlist->updateBook($isbn,$asin,$is_author,$author_name);
+$this->bookbeatlist->updateBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date);
 
 // load a book data
 $this->book = $this->bookbeatlist->getBookbyIsbn($isbn);

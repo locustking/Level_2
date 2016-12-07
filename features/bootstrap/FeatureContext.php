@@ -601,4 +601,39 @@ class FeatureContext implements Context
         $results = $this->bookbeatsearch->getSearchResultsTable();
         PHPUnit_Framework_Assert::assertRegExp("/<table.*<thead>.*<\/thead>.*<tbody>.*<\/tbody><\/table>/",$results);
     }
+
+    /**
+     * @When I add with isbn :arg1, asin :arg2, author name :arg3, is author :arg4, publisher name :arg5, and publish date :arg6
+     */
+    public function iAddWithIsbnAsinAuthorNameIsAuthorPublisherNameAndPublishDate($arg1, $arg2, $arg3, $arg4, $arg5, $arg6)
+    {
+        $this->bookbeatlist->addBook($arg1,$arg2,$arg4,$arg3, $arg5, $arg6);
+    }
+
+    /**
+     * @Then I should see the file has isbn :arg1, asin :arg2, author name :arg3, is author :arg4, publisher name :arg5, and publish date :arg6
+     */
+    public function iShouldSeeTheFileHasIsbnAsinAuthorNameIsAuthorPublisherNameAndPublishDate($arg1, $arg2, $arg3, $arg4, $arg5, $arg6)
+    {
+        PHPUnit_Framework_Assert::assertSame(
+			$this->bookbeatlist->getBookbyIsbn($arg1)->{"asin"},
+            $arg2
+        );
+        PHPUnit_Framework_Assert::assertSame(
+			$this->bookbeatlist->getBookbyIsbn($arg1)->{"is_author"},
+            boolval($arg4)
+        );
+        PHPUnit_Framework_Assert::assertSame(
+			$this->bookbeatlist->getBookbyIsbn($arg1)->{"author_name"},
+            $arg3
+        );
+        PHPUnit_Framework_Assert::assertSame(
+			$this->bookbeatlist->getBookbyIsbn($arg1)->{"publisher_name"},
+            $arg5
+        );
+        PHPUnit_Framework_Assert::assertSame(
+			$this->bookbeatlist->getBookbyIsbn($arg1)->{"publish_date"},
+            $arg6
+        );
+    }
 }

@@ -39,7 +39,11 @@ function bba_searchheader(){
     $content = $content . "<p>To return to the current book list, use this button.</p><p><form action = '' name='results' method = 'post'>
                 <input type = 'hidden' name='formtype' value='results' />
                 <button type='submit'>Show Results</button>
-                </form>";
+                </form>" .
+                "<form action = '' name='results' method = 'post'>
+                <input type = 'hidden' name='formtype' value='editList' />
+                <button type='submit'>Edit List</button>
+                </form>"
     return $content;
 }
     

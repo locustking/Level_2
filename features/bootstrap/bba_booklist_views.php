@@ -43,7 +43,7 @@ function bba_searchheader(){
                 "<form action = '' name='results' method = 'post'>
                 <input type = 'hidden' name='formtype' value='editList' />
                 <button type='submit'>Edit List</button>
-                </form>"
+                </form>";
     return $content;
 }
     

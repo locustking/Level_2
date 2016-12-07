@@ -636,4 +636,23 @@ class FeatureContext implements Context
             $arg6
         );
     }
+
+    /**
+     * @When I set as the author of isbn :arg1
+     */
+    public function iSetAsTheAuthorOfIsbn($arg1)
+    {
+		$this->bookbeatlist->setAsAuthor($arg1,true);
+    }
+
+    /**
+     * @Then I should get the author of isbn :arg1 as :arg2
+     */
+    public function iShouldGetTheAuthorOfIsbnAs($arg1, $arg2)
+    {
+        PHPUnit_Framework_Assert::assertSame(
+			$this->bookbeatlist->getBookbyIsbn($arg1)->{"is_author"},
+            boolval($arg2)
+        );
+    }
 }

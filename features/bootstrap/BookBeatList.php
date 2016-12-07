@@ -157,5 +157,12 @@ final class BookBeatList{
 		// returns timestamp from bookbeat json
 		return $this->bookbeatjson->getTimeStamp();
 	}
+	
+	public function setAsAuthor($isbn,$is_author="true"){
+		// set is_author attribute of book $isbn to $is_author
+		// returns a book by ISBM
+		$book = $this->getBookbyIsbn($isbn);
+		$this->updateBook($isbn,$book->{"asin"},$is_author,$book->{"author_name"},$book->{"publisher_name"},$book->{"publish_date"});
+	}
 }
 ?>

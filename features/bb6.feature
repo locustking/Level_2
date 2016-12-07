@@ -31,3 +31,8 @@ Scenario: The Author can add a book with publisher info
 Given there is a file "booklist.json" with ISBN numbers
 When I add with isbn "978-1473853331", asin "1473853338", author name "Geri Walton", is author "true", publisher name "Pen and Sword", and publish date "January 19, 2017"
 Then I should see the file has isbn "978-1473853331", asin "1473853338", author name "Geri Walton", is author "true", publisher name "Pen and Sword", and publish date "January 19, 2017"
+
+Scenario: The Author can specify his or her book by isbn
+Given there is a file "booklist.json" with ISBN numbers
+When I set as the author of isbn "978-0385489492"
+Then I should get the author of isbn "978-0385489492" as "true" 

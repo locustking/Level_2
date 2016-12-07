@@ -259,14 +259,16 @@ function bba_edit_book_list(){
 		//update the is author flag      
       $tableRow = $tableRow . "<form action name=\"editList\" method=\"post\">";
       $tableRow = $tableRow . "<input type=\"hidden\" name=\"isbn\" value=\"" . $res->isbn . "\">";
-		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"update\">";      
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"update\">";  
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"editList\" \>";	    
       $tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"is_author\" value=\"" . $res->is_author . "\"></td>";  
       $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Update\"></td>";
       //delete the book from list
       $tableRow = $tableRow . "<td><form action name=\"editList\" method=\"post\">";
       $tableRow = $tableRow . "<input type=\"hidden\" name=\"isbn\" value=\"" . $res->isbn . "\">";
-		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"delete\">";      
-      $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Delete\"></td>"; 
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"delete\">";  
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"editList\" \>";	    
+      $tableRow = $tableRow . "<input type=\"Submit\" value=\"Delete\"></td>"; 
  
       $tableRow = $tableRow . "</tr>";
       //add row to body

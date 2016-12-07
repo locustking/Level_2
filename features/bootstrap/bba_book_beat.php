@@ -76,11 +76,11 @@ function bookbeat_func($atts){
 						if(isset($_POST['editAction'])){
 							if ($_POST['editAction']=="update"){
 								if(isset($_POST['isbn']) && isset($_POST['is_author'])){
-							    	bba_book_update_is_author($_POST['isbn'],$_POST['is_author'])
+							    	bba_book_update_is_author($_POST['isbn'],$_POST['is_author']);
 							    }
 							}elseif($_POST['editAction']=="delete"){
 							    if(isset($_POST['isbn'])){
-							    	bba_book_delete($_POST['isbn'])
+							    	bba_book_delete($_POST['isbn']);
 							    }
 							}
 						}	

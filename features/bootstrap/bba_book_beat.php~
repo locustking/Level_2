@@ -256,7 +256,7 @@ function bba_edit_book_list(){
       $tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $FoundBook->ItemAttributes->ISBN . "\">";
 		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"update\">";      
       $tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=\"" . $res->is_author . "\"></td>";  
-      $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Update\">"
+      $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Update\">";
       //delete the book from list
       $tableRow = $tableRow . "<form action name=\"editList\" method=\"post\">";
       $tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $FoundBook->ItemAttributes->ISBN . "\">";

@@ -6,45 +6,15 @@
             "is_author": true,
             "author_name": "Geri Walton",
             "publisher_name": "",
-            "publish_date": "",
-            "book_title": "Marie Antoinette s Confidante: The Rise and Fall of the Princesse de Lamballe",
-            "amazon": {
-                "sales_rank": 645699,
-                "num_reviews": 1,
-                "avg_ratings": 4,
-                "publisher_name": null,
-                "publish_date": null
-            },
-            "amazon_uk": {
-                "sales_rank": 299698,
-                "num_reviews": 2,
-                "avg_ratings": 4.5,
-                "publisher_name": null,
-                "publish_date": null
-            }
+            "publish_date": ""
         },
         {
             "isbn": "978-0385489492",
             "asin": "0385489498",
-            "is_author": false,
-            "author_name": "Lady Antonia Fraser",
+            "is_author": true,
+            "author_name": "Antonia Fraser",
             "publisher_name": "",
-            "publish_date": "",
-            "book_title": "Marie Antoinette: The Journey",
-            "amazon": {
-                "sales_rank": 38476,
-                "num_reviews": 238,
-                "avg_ratings": 4.3,
-                "publisher_name": null,
-                "publish_date": null
-            },
-            "amazon_uk": {
-                "sales_rank": 279267,
-                "num_reviews": 68,
-                "avg_ratings": 4,
-                "publisher_name": null,
-                "publish_date": null
-            }
+            "publish_date": ""
         }
     ],
     "timestamp": "2016-12-06 22:01:49"

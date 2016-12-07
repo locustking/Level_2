@@ -226,7 +226,7 @@ function bba_edit_book_list(){
 
     // wire up bookbeatjson object to bookbeatlist
    $bookbeatlist->setBookBeatJSON($bookbeatjson);
-	$result->getBooks();    
+	$result=$bookbeatlist->getBooks();    
     
    //the edit table
    $table = "<table id='listEdit' class='tablesorter'>";		

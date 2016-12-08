@@ -11,7 +11,7 @@ final class BookBeatSearch{
 		
 		$searchForm = "<form action name=\"buildlist\" method=\"post\">";
 		$searchForm = $searchForm . "<input type=\"hidden\" name=\"formtype\" value=\"buildlist\" \>";
-		$searchForm = $searchForm . "<label for=\"textSearch\">Search for:</label>";
+		$searchForm = $searchForm . "<label for=\"textSearch\">Add Book:</label>";
 		$searchForm = $searchForm . "<input type=\"text\" name=\"textSearch\" id=\"textSearch\" value=\"";
 		$searchForm = $searchForm . $searchText;
 		$searchForm = $searchForm .  "\">";
@@ -113,7 +113,8 @@ public function BookSearch($searchText){
 			
 				//the form portion of the row
 				$tableRow = $tableRow . "<form action name=\"addItem\" method=\"post\">";
-				$tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=\"true\"></td>" ;			
+				$tableRow = $tableRow . "<td><input type=\"hidden\" name=\"Is_Author\" value=false></td>" ;	
+				$tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=true></td>" ;			
 				$tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Add\"></td>"; 
 
 				//hidden attributes to send to the jason 

@@ -75,9 +75,13 @@ function bookbeat_func($atts){
 						//$isbn,$asin,$is_author,$author_name
 						if(isset($_POST['editAction'])){
 							if ($_POST['editAction']=="update"){
-							
+								if(isset($_POST['isbn']) && isset($_POST['is_author'])){
+							    	bba_book_update_is_author($_POST['isbn'],$_POST['is_author']);
+							    }
 							}elseif($_POST['editAction']=="delete"){
-							
+							    if(isset($_POST['isbn'])){
+							    	bba_book_delete($_POST['isbn']);
+							    }
 							}
 						}	
 	               $pagecontent = bba_edit_book_list();   
@@ -122,7 +126,7 @@ function bba_booklist_display() {
 
     // update bookbeatlist. this will collect the sales rank from amazon and update the json file.
     // returning an array with the updated list
-	$source = "amazon";
+	 $source = "amazon";
     $result = $bookbeatlist->updateSalesRank($source);
     
     // Display book list
@@ -184,7 +188,7 @@ function bba_book_add($isbn,$asin,$is_author_check,$author_name){
     return $content;
 	
 }
-function bba_book_update_is_author($isbn,$is_author_check){
+function bba_book_update_is_author($isbn,$is_author){
     // init BookBeat, BookBeatJSON and BookBeatList instances
     $bookbeat = new BookBeat();
     $bookbeatjson = new BookBeatJSON();
@@ -211,7 +215,7 @@ function bba_book_delete($isbn){
     // wire up bookbeatjson object to bookbeatlist
     $bookbeatlist->setBookBeatJSON($bookbeatjson);
      
-    $bookbeatlist->deleteBook($isbn);
+    //$bookbeatlist->deleteBook($isbn);
 }
 
 function bba_edit_book_list(){
@@ -226,7 +230,7 @@ function bba_edit_book_list(){
 
     // wire up bookbeatjson object to bookbeatlist
    $bookbeatlist->setBookBeatJSON($bookbeatjson);
-	$result->getBooks();    
+	$result=$bookbeatlist->getBooks();    
     
    //the edit table
    $table = "<table id='listEdit' class='tablesorter'>";		
@@ -239,6 +243,7 @@ function bba_edit_book_list(){
 		$tableHeader = $tableHeader . "<th>Publication Date</th>";
 		$tableHeader = $tableHeader . "<th>Is this your book</th>";
 		$tableHeader = $tableHeader . "<th>Update</th>";
+		$tableHeader = $tableHeader . "<th>Delete</th>";
 		$tableHeader = $tableHeader . "</tr>";
 	$tableHeader = $tableHeader . "</thead>";
 	
@@ -246,22 +251,30 @@ function bba_edit_book_list(){
 
    // Display book list
 	foreach ($result as $res){
-		$tableRow = $tableRow . "<tr>";        
+		$tableRow = "<tr>";        
       $tableRow = $tableRow . "<td>" . $res->book_title . "</td>";
       $tableRow = $tableRow . "<td>" . $res->author_name . "</td>";
       $tableRow = $tableRow . "<td>" . $res->publisher_name . "</td>";
       $tableRow = $tableRow . "<td>" . $res->publish_date . "</td>";
 		//update the is author flag      
       $tableRow = $tableRow . "<form action name=\"editList\" method=\"post\">";
-      $tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $FoundBook->ItemAttributes->ISBN . "\">";
-		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"update\">";      
-      $tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=\"" . $res->is_author . "\"></td>";  
-      $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Update\">";
+      $tableRow = $tableRow . "<input type=\"hidden\" name=\"isbn\" value=\"" . $res->isbn . "\">";
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"update\">";  
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"editList\" \>";	
+		
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"is_author\" value=False \>";    
+      $tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"is_author\" value=True";
+      
+      if ($res->is_author) {$checked=" checked";}else{$checked="";} 
+      $tableRow = $tableRow . $checked . "></td>";  
+      
+      $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Update\"></td></form>";
       //delete the book from list
-      $tableRow = $tableRow . "<form action name=\"editList\" method=\"post\">";
-      $tableRow = $tableRow . "<input type=\"hidden\" name=\"ISBN\" value=\"" . $FoundBook->ItemAttributes->ISBN . "\">";
-		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"delete\">";      
-      $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Delete\"></td>"; 
+      $tableRow = $tableRow . "<td><form action name=\"editList\" method=\"post\">";
+      $tableRow = $tableRow . "<input type=\"hidden\" name=\"isbn\" value=\"" . $res->isbn . "\">";
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"delete\">";  
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"editList\" \>";	    
+      $tableRow = $tableRow . "<input type=\"Submit\" value=\"Delete\"></form></td>"; 
  
       $tableRow = $tableRow . "</tr>";
       //add row to body

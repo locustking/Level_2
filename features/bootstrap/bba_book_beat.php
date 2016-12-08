@@ -126,7 +126,7 @@ function bba_booklist_display() {
 
     // update bookbeatlist. this will collect the sales rank from amazon and update the json file.
     // returning an array with the updated list
-	$source = "amazon";
+	 $source = "amazon";
     $result = $bookbeatlist->updateSalesRank($source);
     
     // Display book list
@@ -262,11 +262,11 @@ function bba_edit_book_list(){
 		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"update\">";  
 		$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"editList\" \>";	
 		
-		$tableRow = $tableRow . "<input type=\"hidden\" name=\"is_author\" value=\"False\" \>";    
-      $tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"is_author\" value=\"True\"";
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"is_author\" value=False \>";    
+      $tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"is_author\" value=True";
       
-      if ($res->is_author) {$auth=" checked";}else{$auth="";} 
-      $tableRow = $tableRow . $auth . "></td>";  
+      if ($res->is_author) {$checked=" checked";}else{$checked="";} 
+      $tableRow = $tableRow . $checked . "></td>";  
       
       $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Update\"></td></form>";
       //delete the book from list

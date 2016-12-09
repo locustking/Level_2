@@ -9,14 +9,14 @@
             "publish_date": "",
             "book_title": "Marie Antoinette s Confidante: The Rise and Fall of the Princesse de Lamballe",
             "amazon": {
-                "sales_rank": 645699,
+                "sales_rank": 417504,
                 "num_reviews": 1,
                 "avg_ratings": 4,
                 "publisher_name": null,
                 "publish_date": null
             },
             "amazon_uk": {
-                "sales_rank": 299698,
+                "sales_rank": 397383,
                 "num_reviews": 2,
                 "avg_ratings": 4.5,
                 "publisher_name": null,
@@ -32,14 +32,14 @@
             "publish_date": "",
             "book_title": "Marie Antoinette: The Journey",
             "amazon": {
-                "sales_rank": 38476,
+                "sales_rank": 39149,
                 "num_reviews": 238,
                 "avg_ratings": 4.3,
                 "publisher_name": null,
                 "publish_date": null
             },
             "amazon_uk": {
-                "sales_rank": 279267,
+                "sales_rank": 439409,
                 "num_reviews": 68,
                 "avg_ratings": 4,
                 "publisher_name": null,
@@ -47,5 +47,5 @@
             }
         }
     ],
-    "timestamp": "2016-12-06 22:01:49"
+    "timestamp": "2016-12-08 22:42:52"
 }

@@ -5,19 +5,14 @@
  */
 /*
 Plugin Name: Book Beat
-Plugin URI: http://www.bookbeatapp.com
+Plugin URI: http://www.staging1.bookbeatapp.com
 Description: A tool for authors to do competitive analysis
 Author: Havard E-71, Fall 2016, Level 2 SCRUM tam
 Version: 2.0
-Author URI: http://www.bookbeatapp.com
+Author URI: http://www.staging1.bookbeatapp.com
 */
 
-/*
-TODO:
-a. fix function operation
-b. Add in Daryl code
-c. add in tablesorter using enqueue
-*/
+
 
     // display errors, warnings, and notices
     ini_set("display_errors", true);
@@ -34,84 +29,59 @@ c. add in tablesorter using enqueue
     add_shortcode( 'bba_display', 'bookbeat_func' );
 
 function bookbeat_func($atts){
-        // Check for POST method which means action, else render booklist view
-        if ($_SERVER["REQUEST_METHOD"] == "POST")
-        {
-            // Debug statement: 
-            echo "<span style='background-color: yellow'>POST from : " . $_POST['formtype'] . "</span>";
-            // determine what to do based on formtype of post (what happens if none?)
-            switch ($_POST['formtype'])
-            {
-                // clicked to edit booklist 
-                case 'buildlist' :
-                    $pageheader = bba_searchheader();
-                    $pagecontent ="";
-						  $searchText = "";                    
-                    if(isset($_POST['textSearch'])){
-								$pagecontent = "<BR>Searching for:" . $_POST['textSearch'] ;                  		
-                    		$searchText = $_POST['textSearch'];
-                    }
-                    /*if($searchText == ""){
-                    	 $pagecontent = $pagecontent . "<BR>Searching for Nothing" ; 
-                    }*/
-                   
-                    $pagecontent = $pagecontent . bba_book_search($searchText);
-						  //$pagecontent = "<p>This will show the form to add books to the list. For now, click <a href='http://hotpug.com/bookbeat/search.php' target = '_blank'>here to see the mockup</a>";
-  						  break;
-                // redisplay booklist after editing it
-                case 'results' :
-                    $pageheader = bba_pageheader();
-                    $pagecontent = bba_booklist_display();
-                    break; 
-                // Added item to JSON
-                case 'addItem' :
-						$pageheader = bba_searchheader();
-						//$isbn,$asin,$is_author,$author_name
-						$pagecontent = bba_book_add($_POST['EAN'],$_POST['ASIN'],$_POST['Is_Author'],$_POST['AuthorName']);                
-                   // will say something about item added to JSON
-                   break;
-                case 'editList' :
-                	$pageheader = bba_searchheader();
-						//$isbn,$asin,$is_author,$author_name
-						if(isset($_POST['editAction'])){
-							if ($_POST['editAction']=="update"){
-								if(isset($_POST['isbn']) && isset($_POST['is_author'])){
-							    	bba_book_update_is_author($_POST['isbn'],$_POST['is_author']);
-							    }
-							}elseif($_POST['editAction']=="delete"){
-							    if(isset($_POST['isbn'])){
-							    	bba_book_delete($_POST['isbn']);
-							    }
-							}
-						}	
-	               $pagecontent = bba_edit_book_list();   
-                  break;
-            } 
-        }
-        // if nothing relevant, show the booklist
-        else
-        {
-              $pageheader = bba_pageheader();
-              $pagecontent = bba_booklist_display();
-//            $values = array ("title"=>"Search");
-//            gaf_render("gaf_search_form.php", $values);
-        }
-            
-    // if post (from search form) do search and show results
-    
-   
-    $content = $pageheader . $pagecontent;
-    return $content;
- 
+	// Check for POST method which means action, else render booklist view
+	if ($_SERVER["REQUEST_METHOD"] == "POST"){
+		// Debug statement: 
+		echo "<span style='background-color: yellow'>POST from : " . $_POST['formtype'] . "</span>";
+		// determine what to do based on formtype of post (what happens if none?)
+		switch ($_POST['formtype']){
+			// clicked to edit booklist 
+			case 'results' :
+				$pageheader = bba_pageheader();
+				$pagecontent = bba_booklist_display();
+				break; 
+			case 'buildlist' :
+				$pageheader = bba_searchheader();
+				$pagecontent ="";
+				$searchText = "";                    
+				if(isset($_POST['textSearch'])){
+					$searchText = $_POST['textSearch'];
+					$pagecontent = $pagecontent . bba_searchheader() . bba_book_search($searchText);
+				}elseif(isset($_POST['editAction'])){
+					if ($_POST['editAction']=="update"){
+						if(isset($_POST['isbn']) && isset($_POST['is_author'])){
+							bba_book_update_is_author($_POST['isbn'],$_POST['is_author']);
+						}
+					}elseif($_POST['editAction']=="delete"){
+						if(isset($_POST['isbn'])){
+							bba_book_delete($_POST['isbn']);
+						}
+					}
+					$pagecontent = $pagecontent . bba_book_search("") . bba_edit_book_list();
+				}else{
+					$pagecontent = $pagecontent . bba_book_search("") . bba_edit_book_list();
+				}
+				break;
+			// Added item to JSON
+			case 'addItem' :
+				$pageheader = bba_searchheader();
+				//$isbn,$asin,$is_author,$author_name
+				$pagecontent = bba_book_add($_POST['EAN'],$_POST['ASIN'],$_POST['Is_Author'],$_POST['AuthorName']);   
+				$pagecontent = $pagecontent . bba_book_search("") . bba_edit_book_list();						
+				// will say something about item added to JSON
+				break;
+		} 
+	}else{
+		$pageheader = bba_pageheader();
+		$pagecontent = bba_booklist_display();
+	}
+	$content = $pageheader . $pagecontent;
+	return $content;
 }
 
 function bba_booklist_display() {
     
  
-    // Table form
-    $content = "<div>";
-    $content = $content .  "<p>Click on the column heads to sort.</p><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
-    
     // Get Book Data
     // init BookBeat, BookBeatJSON and BookBeatList instances
     $bookbeat = new BookBeat();
@@ -125,27 +95,73 @@ function bba_booklist_display() {
     $bookbeatlist->setBookBeatJSON($bookbeatjson);
 
     // update bookbeatlist. this will collect the sales rank from amazon and update the json file.
-    // returning an array with the updated list
-	 $source = "amazon";
+    // Set up Amazon US ojbect
+	$source = "amazon";
     $result = $bookbeatlist->updateSalesRank($source);
+    
+     
+    // Table form
+    $content = "<div id='tabs'>
+        <ul>
+            <li><a href='#tab-1'>Amazon US</a></li>
+            <li><a href='#tab-2'>Amazon UK</a></li>
+            <li><a href='#tab-3'>Compare</a></li>
+        </ul>
+
+        <div id='tab-1'>";
+    $content = $content . "<p>plugin dir: " . plugins_url( 'jscripts.js', __FILE__ ). "</p>";
+    $content = $content .  "<h2>Amazon US Data</h2><p>Click on the column heads to sort.</p><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
     
     // Display book list
     foreach ($result as $res){
-        $content = $content .  "<tr><td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->$source->sales_rank . "</TD><TD>" . $res->$source->num_reviews . "</TD><TD>" . $res->$source->avg_ratings . "</TD></TR>";
+        if ($res->is_author == TRUE){
+                $content = $content . "<tr style='color: LightSkyBlue;font-weight: bold'>";
+        }
+        else{
+            $content = $content . "<tr>";
+            }
+        $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->$source->sales_rank . "</TD><TD>" . $res->$source->num_reviews . "</TD><TD>" . $res->$source->avg_ratings . "</TD></TR>";
+    }
+//    
+    $content = $content . "</TBODY></TABLE></DIV>";
+    
+    // Set up Amazon UK object
+	$source = "amazon_uk";
+    $resultb = $bookbeatlist->updateSalesRank($source);
+    
+    $content = $content .  "<div id='tab-2'><h2>Amazon UK Data</h2><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
+
+    // Display book list
+    foreach ($resultb as $res){
+        if ($res->is_author == TRUE){
+        $content = $content . "<tr style='color: LightSkyBlue;font-weight: bold'>";
+        }
+        else{
+            $content = $content . "<tr>";
+            }
+        $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->$source->sales_rank . "</TD><TD>" . $res->$source->num_reviews . "</TD><TD>" . $res->$source->avg_ratings . "</TD></TR>";
+        
+    }
+
+    // Read JSON for comparison data 
+    $resultc = $bookbeatlist->updateSalesRankFromJSON();
+    
+    // show table
+     $content = $content . "</TBODY></TABLE></div>";
+     $content = $content . "<div id='tab-3'><H2>Comparative Data</H2><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>US Sales Rank</TH><TH>UK Sales Rank</TH></TR></THEAD><TBODY>";
+
+    // Display book list
+    foreach ($resultc as $res){
+        $content = $content .  "<tr><td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->amazon->sales_rank . "</TD><TD>" . $res->amazon_uk->sales_rank . "</TD></TR>";
     }
         
 
-     $content = $content . "</TBODY></TABLE></div>";
-     $content = $content . "<script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.26.0/js/jquery.tablesorter.min.js' type='text/javascript'> </script>
-<script type='text/javascript'>
-			$(document).ready(function()
-			{
-				$('#booklist').tablesorter();
-			}
-			);
-		</script>";
+     $content = $content . "</TBODY></TABLE></div></div>";
+
+
     return $content;
+    
+
 }
 function bba_book_search($searchText){
 	$bookbeatsearch = new BookBeatSearch();	
@@ -260,7 +276,7 @@ function bba_edit_book_list(){
       $tableRow = $tableRow . "<form action name=\"editList\" method=\"post\">";
       $tableRow = $tableRow . "<input type=\"hidden\" name=\"isbn\" value=\"" . $res->isbn . "\">";
 		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"update\">";  
-		$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"editList\" \>";	
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"buildlist\" \>";	
 		
 		$tableRow = $tableRow . "<input type=\"hidden\" name=\"is_author\" value=False \>";    
       $tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"is_author\" value=True";
@@ -273,7 +289,7 @@ function bba_edit_book_list(){
       $tableRow = $tableRow . "<td><form action name=\"editList\" method=\"post\">";
       $tableRow = $tableRow . "<input type=\"hidden\" name=\"isbn\" value=\"" . $res->isbn . "\">";
 		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"delete\">";  
-		$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"editList\" \>";	    
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"buildlist\" \>";	    
       $tableRow = $tableRow . "<input type=\"Submit\" value=\"Delete\"></form></td>"; 
  
       $tableRow = $tableRow . "</tr>";
@@ -287,4 +303,3 @@ function bba_edit_book_list(){
 }
 
 ?>
-

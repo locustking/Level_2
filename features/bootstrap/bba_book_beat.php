@@ -12,12 +12,7 @@ Version: 2.0
 Author URI: http://www.bookbeatapp.com
 */
 
-/*
-TODO:
-a. fix function operation
-b. Add in Daryl code
-c. add in tablesorter using enqueue
-*/
+
 
     // display errors, warnings, and notices
     ini_set("display_errors", true);
@@ -287,4 +282,3 @@ function bba_edit_book_list(){
 }
 
 ?>
-

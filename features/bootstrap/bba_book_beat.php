@@ -103,10 +103,6 @@ function bookbeat_func($atts){
 function bba_booklist_display() {
     
  
-    // Table form
-    $content = "<div>";
-    $content = $content .  "<p>Click on the column heads to sort.</p><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
-    
     // Get Book Data
     // init BookBeat, BookBeatJSON and BookBeatList instances
     $bookbeat = new BookBeat();
@@ -120,27 +116,73 @@ function bba_booklist_display() {
     $bookbeatlist->setBookBeatJSON($bookbeatjson);
 
     // update bookbeatlist. this will collect the sales rank from amazon and update the json file.
-    // returning an array with the updated list
-	 $source = "amazon";
+    // Set up Amazon US ojbect
+	$source = "amazon";
     $result = $bookbeatlist->updateSalesRank($source);
+    
+     
+    // Table form
+    $content = "<div id='tabs'>
+        <ul>
+            <li><a href='#tab-1'>Amazon US</a></li>
+            <li><a href='#tab-2'>Amazon UK</a></li>
+            <li><a href='#tab-3'>Compare</a></li>
+        </ul>
+
+        <div id='tab-1'>";
+    $content = $content . "<p>plugin dir: " . plugins_url( 'jscripts.js', __FILE__ ). "</p>";
+    $content = $content .  "<h2>Amazon US Data</h2><p>Click on the column heads to sort.</p><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
     
     // Display book list
     foreach ($result as $res){
-        $content = $content .  "<tr><td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->$source->sales_rank . "</TD><TD>" . $res->$source->num_reviews . "</TD><TD>" . $res->$source->avg_ratings . "</TD></TR>";
+        if ($res->is_author == TRUE){
+                $content = $content . "<tr style='color: LightSkyBlue;font-weight: bold'>";
+        }
+        else{
+            $content = $content . "<tr>";
+            }
+        $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->$source->sales_rank . "</TD><TD>" . $res->$source->num_reviews . "</TD><TD>" . $res->$source->avg_ratings . "</TD></TR>";
+    }
+//    
+    $content = $content . "</TBODY></TABLE></DIV>";
+    
+    // Set up Amazon UK object
+	$source = "amazon_uk";
+    $resultb = $bookbeatlist->updateSalesRank($source);
+    
+    $content = $content .  "<div id='tab-2'><h2>Amazon UK Data</h2><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
+
+    // Display book list
+    foreach ($resultb as $res){
+        if ($res->is_author == TRUE){
+        $content = $content . "<tr style='color: LightSkyBlue;font-weight: bold'>";
+        }
+        else{
+            $content = $content . "<tr>";
+            }
+        $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->$source->sales_rank . "</TD><TD>" . $res->$source->num_reviews . "</TD><TD>" . $res->$source->avg_ratings . "</TD></TR>";
+        
+    }
+
+    // Read JSON for comparison data 
+    $resultc = $bookbeatlist->updateSalesRankFromJSON();
+    
+    // show table
+     $content = $content . "</TBODY></TABLE></div>";
+     $content = $content . "<div id='tab-3'><H2>Comparative Data</H2><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>US Sales Rank</TH><TH>UK Sales Rank</TH></TR></THEAD><TBODY>";
+
+    // Display book list
+    foreach ($resultc as $res){
+        $content = $content .  "<tr><td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->amazon->sales_rank . "</TD><TD>" . $res->amazon_uk->sales_rank . "</TD></TR>";
     }
         
 
-     $content = $content . "</TBODY></TABLE></div>";
-     $content = $content . "<script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.26.0/js/jquery.tablesorter.min.js' type='text/javascript'> </script>
-<script type='text/javascript'>
-			$(document).ready(function()
-			{
-				$('#booklist').tablesorter();
-			}
-			);
-		</script>";
+     $content = $content . "</TBODY></TABLE></div></div>";
+
+
     return $content;
+    
+
 }
 function bba_book_search($searchText){
 	$bookbeatsearch = new BookBeatSearch();	

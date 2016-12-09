@@ -92,7 +92,7 @@ public function BookSearch($searchText){
 		$tableHeader = $tableHeader . "<th>Author</th>";
 		$tableHeader = $tableHeader . "<th>Publisher</th>";
 		$tableHeader = $tableHeader . "<th>Publication Date</th>";
-		$tableHeader = $tableHeader . "<th>Author Book</th>";
+		$tableHeader = $tableHeader . "<th>Is this your book</th>";
 		$tableHeader = $tableHeader . "<th>Add To List</th>";
 		$tableHeader = $tableHeader . "</tr>";
 		$tableHeader = $tableHeader . "</thead>";
@@ -113,7 +113,7 @@ public function BookSearch($searchText){
 			
 				//the form portion of the row
 				$tableRow = $tableRow . "<form action name=\"addItem\" method=\"post\">";
-				$tableRow = $tableRow . "<td><input type=\"hidden\" name=\"Is_Author\" value=false></td>" ;	
+				$tableRow = $tableRow . "<input type=\"hidden\" name=\"Is_Author\" value=false>" ;	
 				$tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=true></td>" ;			
 				$tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Add\"></td>"; 
 

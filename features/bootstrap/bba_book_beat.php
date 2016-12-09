@@ -46,7 +46,7 @@ function bookbeat_func($atts){
 				$searchText = "";                    
 				if(isset($_POST['textSearch'])){
 					$searchText = $_POST['textSearch'];
-					$pagecontent = $pagecontent . bba_searchheader() . bba_book_search($searchText);
+					$pagecontent = $pagecontent . bba_book_search($searchText);
 				}elseif(isset($_POST['editAction'])){
 					if ($_POST['editAction']=="update"){
 						if(isset($_POST['isbn']) && isset($_POST['is_author'])){
@@ -172,7 +172,7 @@ function bba_book_search($searchText){
 	
 	if (strlen($searchText) > 0){
 		$bookbeatsearch->BookSearch($searchText);
-		$content = "<div id='searchResults'>";
+		$content = $content . "<div id='searchResults'>";
 		$content = $content . $bookbeatsearch->getSearchResultsTable();
 	}
 	return $content;

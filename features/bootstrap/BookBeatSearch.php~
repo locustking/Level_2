@@ -11,7 +11,7 @@ final class BookBeatSearch{
 		
 		$searchForm = "<form action name=\"buildlist\" method=\"post\">";
 		$searchForm = $searchForm . "<input type=\"hidden\" name=\"formtype\" value=\"buildlist\" \>";
-		$searchForm = $searchForm . "<label for=\"textSearch\">Search for:</label>";
+		$searchForm = $searchForm . "<label for=\"textSearch\">Add Book:</label>";
 		$searchForm = $searchForm . "<input type=\"text\" name=\"textSearch\" id=\"textSearch\" value=\"";
 		$searchForm = $searchForm . $searchText;
 		$searchForm = $searchForm .  "\">";
@@ -22,12 +22,14 @@ final class BookBeatSearch{
 	}		
 	
 public function BookSearch($searchText){
-				
-		// Your AWS Access Key ID, as taken from the AWS Your Account page
-		$aws_access_key_id = "AKIAJZ4AZRVCPCBSKNUA";
-
-		// Your AWS Secret Key corresponding to the above ID, as taken from the AWS Your Account page
-		$aws_secret_key = "hhihlbGQ7/7UA66aOiN0dr3nmQf1he/0Y2FbCGPx";
+		$dir = dirname(__FILE__).DIRECTORY_SEPARATOR;
+		$file = $dir."aws_key.php";
+		if(file_exists($file)){
+    		include 'aws_key.php';
+		} else{
+			$aws_access_key_id = "aws_id";
+			$aws_secret_key = "aws_secret";
+		}
 
 		// The region you are interested in
 		$endpoint = "webservices.amazon.com";
@@ -35,7 +37,7 @@ public function BookSearch($searchText){
 		$params = array(
 			"Service" => "AWSECommerceService",
 			"Operation" => "ItemSearch",
-			"AWSAccessKeyId" => "AKIAJZ4AZRVCPCBSKNUA",
+			"AWSAccessKeyId" => $aws_access_key_id,
 			"AssociateTag" => "bookbeatapp-20",
 			"SearchIndex" => "Books",
 			//"Keywords" => "marie antoinette",
@@ -81,9 +83,9 @@ public function BookSearch($searchText){
 	
 	public function getSearchResultsTable(){
 		$xml = $this->searchResultsXML;
-		$table = "";		
+		$table = "<table id='searchresults' class='tablesorter'>";		
 		
-		$tableHeader = $tableHeader . "<table id='searchresults' class='tablesorter'><thead>";
+		$tableHeader = "<thead>";
 		$tableHeader = $tableHeader . "<tr>";
 		$tableHeader = $tableHeader . "<th></th>";
 		$tableHeader = $tableHeader . "<th>Title</th>";
@@ -95,13 +97,13 @@ public function BookSearch($searchText){
 		$tableHeader = $tableHeader . "</tr>";
 		$tableHeader = $tableHeader . "</thead>";
 	
-		$tableBody = "";
+		$tableBody = "<tbody>";
 		
 		//printf("there are %d items found",  $xml->Items->Item->count());
 		if($xml->Items->Item->count() > 0){
 			foreach ($xml->Items->Item as $FoundBook) :
 			
-				$tableRow = "<tbody>";
+				$tableRow = "";
 				$tableRow = $tableRow . "<tr>";
 				$tableRow = $tableRow . "<td><img src=\"" . $FoundBook->SmallImage->URL . "\" height=\"75\" width=\"50\"></td>";
 				$tableRow = $tableRow . "<td>" . $FoundBook->ItemAttributes->Title . "</td>";
@@ -111,7 +113,8 @@ public function BookSearch($searchText){
 			
 				//the form portion of the row
 				$tableRow = $tableRow . "<form action name=\"addItem\" method=\"post\">";
-				$tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=\"true\"></td>" ;			
+				$tableRow = $tableRow . "<td><input type=\"hidden\" name=\"Is_Author\" value=false></td>" ;	
+				$tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"Is_Author\" value=true></td>" ;			
 				$tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Add\"></td>"; 
 
 				//hidden attributes to send to the jason 
@@ -129,9 +132,9 @@ public function BookSearch($searchText){
 				$tableBody = $tableBody . $tableRow;
 			
 			endforeach;
-			$tableBody = $tableBody ." </tbody></table>";		
+			$tableBody = $tableBody ." </tbody>";		
 		}
-		$table = $tableHeader . $tableBody; 
+		$table = $table . $tableHeader . $tableBody . "</table>"; 
 		
 		return $table;
 		}		

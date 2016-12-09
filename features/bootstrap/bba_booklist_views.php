@@ -24,7 +24,7 @@ function bba_pageheader(){
     // Search form
     $content = $content . "<p>To create a custom booklist, click the button below.</p><form action = '' name='buildlist' method = 'post'>
                 <input type = 'hidden' name='formtype' value='buildlist' />
-                <button type='submit'>Build Book List</button>
+                <button type='submit'>Edit Book List</button>
                 </form><p>";
     
     return $content;
@@ -38,7 +38,11 @@ function bba_searchheader(){
     // Button to display booklist 
     $content = $content . "<p>To return to the current book list, use this button.</p><p><form action = '' name='results' method = 'post'>
                 <input type = 'hidden' name='formtype' value='results' />
-                <button type='submit'>Show Results</button>
+                <button type='submit'>Back to BookBeat ranking</button>
+                </form>" .
+                "<form action = '' name='results' method = 'post'>
+                <input type = 'hidden' name='formtype' value='editList' />
+                <button type='submit'>Edit List</button>
                 </form>";
     return $content;
 }

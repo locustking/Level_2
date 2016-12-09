@@ -12,12 +12,7 @@ Version: 2.0
 Author URI: http://www.bookbeatapp.com
 */
 
-/*
-TODO:
-a. fix function operation
-b. Add in Daryl code
-c. add in tablesorter using enqueue
-*/
+
 
     // display errors, warnings, and notices
     ini_set("display_errors", true);
@@ -70,6 +65,22 @@ function bookbeat_func($atts){
 						$pagecontent = bba_book_add($_POST['EAN'],$_POST['ASIN'],$_POST['Is_Author'],$_POST['AuthorName']);                
                    // will say something about item added to JSON
                    break;
+                case 'editList' :
+                	$pageheader = bba_searchheader();
+						//$isbn,$asin,$is_author,$author_name
+						if(isset($_POST['editAction'])){
+							if ($_POST['editAction']=="update"){
+								if(isset($_POST['isbn']) && isset($_POST['is_author'])){
+							    	bba_book_update_is_author($_POST['isbn'],$_POST['is_author']);
+							    }
+							}elseif($_POST['editAction']=="delete"){
+							    if(isset($_POST['isbn'])){
+							    	bba_book_delete($_POST['isbn']);
+							    }
+							}
+						}	
+	               $pagecontent = bba_edit_book_list();   
+                  break;
             } 
         }
         // if nothing relevant, show the booklist
@@ -110,7 +121,7 @@ function bba_booklist_display() {
 
     // update bookbeatlist. this will collect the sales rank from amazon and update the json file.
     // returning an array with the updated list
-	$source = "amazon";
+	 $source = "amazon";
     $result = $bookbeatlist->updateSalesRank($source);
     
     // Display book list
@@ -172,6 +183,102 @@ function bba_book_add($isbn,$asin,$is_author_check,$author_name){
     return $content;
 	
 }
+function bba_book_update_is_author($isbn,$is_author){
+    // init BookBeat, BookBeatJSON and BookBeatList instances
+    $bookbeat = new BookBeat();
+    $bookbeatjson = new BookBeatJSON();
+    $bookbeatlist = new BookBeatList();
+        
+    // set json filename $arg1
+    $bookbeatjson->setFilename("booklist.json");
+
+    // wire up bookbeatjson object to bookbeatlist
+    $bookbeatlist->setBookBeatJSON($bookbeatjson);
+     
+    $bookbeatlist->setAsAuthor($isbn,$is_author);
+}
+
+function bba_book_delete($isbn){
+    // init BookBeat, BookBeatJSON and BookBeatList instances
+    $bookbeat = new BookBeat();
+    $bookbeatjson = new BookBeatJSON();
+    $bookbeatlist = new BookBeatList();
+        
+    // set json filename $arg1
+    $bookbeatjson->setFilename("booklist.json");
+
+    // wire up bookbeatjson object to bookbeatlist
+    $bookbeatlist->setBookBeatJSON($bookbeatjson);
+     
+    //$bookbeatlist->deleteBook($isbn);
+}
+
+function bba_edit_book_list(){
+	
+	 // init BookBeat, BookBeatJSON and BookBeatList instances
+   $bookbeat = new BookBeat();
+   $bookbeatjson = new BookBeatJSON();
+   $bookbeatlist = new BookBeatList();
+        
+    // set json filename $arg1
+   $bookbeatjson->setFilename("booklist.json");
+
+    // wire up bookbeatjson object to bookbeatlist
+   $bookbeatlist->setBookBeatJSON($bookbeatjson);
+	$result=$bookbeatlist->getBooks();    
+    
+   //the edit table
+   $table = "<table id='listEdit' class='tablesorter'>";		
+		
+	$tableHeader = "<thead>";
+		$tableHeader = $tableHeader . "<tr>";
+		$tableHeader = $tableHeader . "<th>Title</th>";
+		$tableHeader = $tableHeader . "<th>Author</th>";
+		$tableHeader = $tableHeader . "<th>Publisher</th>";
+		$tableHeader = $tableHeader . "<th>Publication Date</th>";
+		$tableHeader = $tableHeader . "<th>Is this your book</th>";
+		$tableHeader = $tableHeader . "<th>Update</th>";
+		$tableHeader = $tableHeader . "<th>Delete</th>";
+		$tableHeader = $tableHeader . "</tr>";
+	$tableHeader = $tableHeader . "</thead>";
+	
+	$tableBody = "<tbody>";
+
+   // Display book list
+	foreach ($result as $res){
+		$tableRow = "<tr>";        
+      $tableRow = $tableRow . "<td>" . $res->book_title . "</td>";
+      $tableRow = $tableRow . "<td>" . $res->author_name . "</td>";
+      $tableRow = $tableRow . "<td>" . $res->publisher_name . "</td>";
+      $tableRow = $tableRow . "<td>" . $res->publish_date . "</td>";
+		//update the is author flag      
+      $tableRow = $tableRow . "<form action name=\"editList\" method=\"post\">";
+      $tableRow = $tableRow . "<input type=\"hidden\" name=\"isbn\" value=\"" . $res->isbn . "\">";
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"update\">";  
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"editList\" \>";	
+		
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"is_author\" value=False \>";    
+      $tableRow = $tableRow . "<td><input type=\"checkbox\" name=\"is_author\" value=True";
+      
+      if ($res->is_author) {$checked=" checked";}else{$checked="";} 
+      $tableRow = $tableRow . $checked . "></td>";  
+      
+      $tableRow = $tableRow . "<td><input type=\"Submit\" value=\"Update\"></td></form>";
+      //delete the book from list
+      $tableRow = $tableRow . "<td><form action name=\"editList\" method=\"post\">";
+      $tableRow = $tableRow . "<input type=\"hidden\" name=\"isbn\" value=\"" . $res->isbn . "\">";
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"editAction\" value=\"delete\">";  
+		$tableRow = $tableRow . "<input type=\"hidden\" name=\"formtype\" value=\"editList\" \>";	    
+      $tableRow = $tableRow . "<input type=\"Submit\" value=\"Delete\"></form></td>"; 
+ 
+      $tableRow = $tableRow . "</tr>";
+      //add row to body
+      $tableBody = $tableBody . $tableRow;
+   }
+	$tableBody = $tableBody ." </tbody>";		
+	$table = $table . $tableHeader . $tableBody . "</table>"; 
+	
+	return $table;
+}
 
 ?>
-

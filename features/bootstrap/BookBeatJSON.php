@@ -157,7 +157,7 @@ final class BookBeatJSON{
 		$this->writeContentToJSON();
 	}
 	
-	public function addBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date){
+	public function addBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date,$title){
 		// adds a book to json_content attribute
 		$books = $this->json_content->{"book"};
 		$book = (object)[];
@@ -167,11 +167,12 @@ final class BookBeatJSON{
 		$book->{"author_name"} = $author_name;
 		$book->{"publisher_name"} = $publisher_name;
 		$book->{"publish_date"} = $publish_date;
+		$book->{"book_title"}=$title;		
 		array_push($this->json_content->{"book"}, $book);
 		$this->writeContentToJSON();
 	}
 
-	public function updateBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date){
+	public function updateBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date,$title){
 		// updates a book to json_content attribute by $isbn
 		$books = $this->json_content->{"book"};
 		foreach ($books as $key => $book){
@@ -182,6 +183,7 @@ final class BookBeatJSON{
 				$book->{"author_name"} = $author_name;
 				$book->{"publisher_name"} = $publisher_name;
 				$book->{"publish_date"} = $publish_date;
+				$book->{"book_title"}=$title;	
 			}
 		}
 		$this->writeContentToJSON();

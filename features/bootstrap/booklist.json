@@ -6,7 +6,8 @@
             "is_author": true,
             "author_name": "Geri Walton",
             "publisher_name": "",
-            "publish_date": ""
+            "publish_date": "",
+            "book_title": ""
         },
         {
             "isbn": "978-0385489492",
@@ -14,7 +15,8 @@
             "is_author": false,
             "author_name": "Antonia Fraser",
             "publisher_name": "",
-            "publish_date": ""
+            "publish_date": "",
+            "book_title": ""
         }
     ],
     "timestamp": "2016-12-08 22:45:30"

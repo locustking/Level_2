@@ -177,12 +177,7 @@ final class BookBeatJSON{
 		foreach ($books as $key => $book){
 			if ($isbn==$book->{"isbn"}){
 				$book->{"asin"} = $asin;
-				if($is_author && strtoupper($is_author=="FALSE")){
-				 	$is_author= false;
-				}else{
-					$is_author=true;				
-				}
-				$book->{"is_author"} = $is_author; //boolval($is_author);
+				$book->{"is_author"} = (strtoupper($is_author)==="TRUE" ); //boolval($is_author);
 				//$book->{"is_author"} = ($is_author=="true" || $is_author); //boolval($is_author);
 				$book->{"author_name"} = $author_name;
 				$book->{"publisher_name"} = $publisher_name;

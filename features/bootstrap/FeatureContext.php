@@ -657,9 +657,9 @@ class FeatureContext implements Context
      */
     public function iShouldGetTheAuthorOfIsbnAs($arg1, $arg2)
     {
-        PHPUnit_Framework_Assert::assertSame(
+         PHPUnit_Framework_Assert::assertSame(
 			$this->bookbeatlist->getBookbyIsbn($arg1)->{"is_author"},
-            boolval($arg2)
+            (strtoupper($arg2)==="TRUE")
         );
     }
 

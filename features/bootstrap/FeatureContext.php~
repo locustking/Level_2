@@ -642,27 +642,30 @@ class FeatureContext implements Context
      */
     public function iSetAsTheAuthorOfIsbn($arg1,$arg2)
     {
-		$this->bookbeatlist->setAsAuthor($arg1,$arg2);
+		
     }
-
-    /**
-     * @Then I should get the author of isbn :arg1 as :arg2
-     */
-    public function iShouldGetTheAuthorOfIsbnAs($arg1, $arg2)
-    {
-        PHPUnit_Framework_Assert::assertSame(
-			$this->bookbeatlist->getBookbyIsbn($arg1)->{"is_author"},
-            boolval($arg2)
-        );
-    }
-
-   
 
     /**
      * @When I set as the author of isbn :arg1 as :arg2
      */
     public function iSetAsTheAuthorOfIsbnAs($arg1, $arg2)
     {
-        throw new PendingException();
+        $this->bookbeatlist->setAsAuthor($arg1,$arg2);
     }
+    /**
+     * @Then I should get the author of isbn :arg1 as :arg2
+     */
+    public function iShouldGetTheAuthorOfIsbnAs($arg1, $arg2)
+    {
+    	
+    	echo "book:" . $this->bookbeatlist->getBookbyIsbn($arg1)->{"is_author"} . "<br>";
+    	echo "test:" . (strtoupper($arg2)==="TRUE") . "<br>";;
+        PHPUnit_Framework_Assert::assertSame(
+			$this->bookbeatlist->getBookbyIsbn($arg1)->{"is_author"},
+            (strtoupper($arg2)==="TRUE")
+        );
+    }
+
+   
+
 }

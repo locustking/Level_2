@@ -11,7 +11,7 @@
         {
             "isbn": "978-0385489492",
             "asin": "0385489498",
-            "is_author": true,
+            "is_author": false,
             "author_name": "Antonia Fraser",
             "publisher_name": "",
             "publish_date": ""

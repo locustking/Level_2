@@ -150,15 +150,15 @@ function bba_booklist_display() {
     // show table
      $content = $content . "</TBODY></TABLE></div>";
      $content = $content . "<div id='tab-3'><H2>Comparative Data</H2><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>US Sales Rank</TH><TH>UK Sales Rank</TH></TR></THEAD><TBODY>";
+
+    // Display book list
+    foreach ($resultc as $res){
         if ($res->is_author == TRUE){
             $content = $content . "<tr style='color: LightSkyBlue;font-weight: bold'>";
         }
         else{
             $content = $content . "<tr>";
             }
-
-    // Display book list
-    foreach ($resultc as $res){
         $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->amazon->sales_rank . "</TD><TD>" . $res->amazon_uk->sales_rank . "</TD></TR>";
     }
         

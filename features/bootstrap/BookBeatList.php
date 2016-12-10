@@ -115,7 +115,7 @@ final class BookBeatList{
 		}
 	}
 	
-	public function addBook($isbn,$asin,$is_author,$author_name,$publisher_name="",$publish_date="",$title=""){
+	public function addBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date,$title){
 		// adds a book to bookbeat json
 		$book = $this->getBookbyIsbn($isbn);
 		if(isset($book->{"isbn"}) && $book->{"isbn"}==$isbn){
@@ -137,7 +137,7 @@ final class BookBeatList{
 		return $book;		
 	}
 	
-	public function updateBook($isbn,$asin,$is_author,$author_name,$publisher_name="",$publish_date="",$title=""){
+	public function updateBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date,$title){
 		// updates a book in bookbeat json
 		$this->bookbeatjson->updateBook($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date,$title);
 	}
@@ -162,7 +162,7 @@ final class BookBeatList{
 		// set is_author attribute of book $isbn to $is_author
 		// returns a book by ISBM
 		$book = $this->getBookbyIsbn($isbn);
-		$this->updateBook($isbn,$book->{"asin"},$is_author,$book->{"author_name"},$book->{"publisher_name"},$book->{"publish_date"});
+		$this->updateBook($isbn,$book->{"asin"},$is_author,$book->{"author_name"},$book->{"publisher_name"},$book->{"publish_date"},$book->{"book_title"});
 	}
 }
 ?>

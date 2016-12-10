@@ -67,7 +67,7 @@ function bookbeat_func($atts){
 			case 'addItem' :
 				$pageheader = bba_searchheader();
 				//$isbn,$asin,$is_author,$author_name
-				$pagecontent = bba_book_add($_POST['EAN'],$_POST['ASIN'],$_POST['Is_Author'],$_POST['AuthorName'],$_POST['AuthorName'],$_POST['AuthorName'],$_POST['Publisher'],$_POST['PublicationDate'],$_POST['Title']);   
+				$pagecontent = bba_book_add($_POST['EAN'],$_POST['ASIN'],$_POST['Is_Author'],$_POST['AuthorName'],$_POST['Publisher'],$_POST['PublicationDate'],$_POST['Title']);   
 				$pagecontent = $pagecontent . bba_book_search("") . bba_edit_book_list();						
 				// will say something about item added to JSON
 				break;
@@ -187,13 +187,13 @@ function bba_book_search($searchText){
 	return $content;
 }
 
-function bba_book_add($isbn,$asin,$is_author_check,$author_name,$publisher_name,$publish_date,$title){
+function bba_book_add($isbn,$asin,$is_author,$author_name,$publisher_name,$publish_date,$title){
 
-	if($is_author_check  == "Yes"){
-		$is_author = true;	
-	}else{
-		$is_author = false;	
-	}  
+	//if(strtoupper($is_author) === "TRUE"){
+	//	$is_author = true;	
+	//}else{
+	//	$is_author = false;	
+	//}  
     
     // init BookBeat, BookBeatJSON and BookBeatList instances
     $bookbeat = new BookBeat();

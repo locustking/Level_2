@@ -30,18 +30,38 @@ Author URI: http://www.staging1.bookbeatapp.com
     add_shortcode( 'bba_display', 'bookbeat_func' );
 
 function bookbeat_func($atts){
+    // Get Book Data
+    // init BookBeat, BookBeatJSON and BookBeatList instances
+
+    $bookbeat = new BookBeat();
+    $bookbeatjson = new BookBeatJSON();
+    $bookbeatlist = new BookBeatList();
+		
+    // set json filename $arg1
+    $bookbeatjson->setFilename("booklist.json");
+
+    // wire up bookbeatjson object to bookbeatlist
+    $bookbeatlist->setBookBeatJSON($bookbeatjson);
+    
 	// Check for POST method which means action, else render booklist view
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		// Debug statement: 
-		echo "<span style='background-color: yellow'>POST from : " . $_POST['formtype'] . "</span>";
-		// determine what to do based on formtype of post (what happens if none?)
 		switch ($_POST['formtype']){
 			// clicked to edit booklist 
 			case 'results' :
 				$pageheader = bba_pageheader();
-				$pagecontent = bba_booklist_display();
+				$pagecontent = bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist);
 				break; 
-			case 'buildlist' :
+            // Update JSON and re-display booklist
+            case 'updateJSON' :
+                $source = "amazon";
+                $bookbeatlist->updateSalesRank($source);
+                $source = "amazon_uk";
+                $bookbeatlist->updateSalesRank($source);
+                $pageheader = bba_pageheader();
+                $pagecontent = bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist);
+                break; 
+            case 'buildlist' :
 				$pageheader = bba_searchheader();
 				$pagecontent ="";
 				$searchText = "";                    
@@ -74,31 +94,17 @@ function bookbeat_func($atts){
 		} 
 	}else{
 		$pageheader = bba_pageheader();
-		$pagecontent = bba_booklist_display();
+		$pagecontent = bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist);
 	}
 	$content = $pageheader . $pagecontent;
 	return $content;
 }
 
-function bba_booklist_display() {
+function bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist) {
     
- 
-    // Get Book Data
-    // init BookBeat, BookBeatJSON and BookBeatList instances
-    $bookbeat = new BookBeat();
-    $bookbeatjson = new BookBeatJSON();
-    $bookbeatlist = new BookBeatList();
-		
-    // set json filename $arg1
-    $bookbeatjson->setFilename("booklist.json");
-
-    // wire up bookbeatjson object to bookbeatlist
-    $bookbeatlist->setBookBeatJSON($bookbeatjson);
-
-    // update bookbeatlist. this will collect the sales rank from amazon and update the json file.
-    // Set up Amazon US ojbect
-	$source = "amazon";
-    $result = $bookbeatlist->updateSalesRank($source);
+    
+    // Read JSON
+     $result = $bookbeatlist->updateSalesRankFromJSON();
     
      
     // Table form
@@ -115,45 +121,40 @@ function bba_booklist_display() {
     // Display book list
     foreach ($result as $res){
         if ($res->is_author == TRUE){
-                $content = $content . "<tr style='color: LightSkyBlue;font-weight: bold'>";
+                $content = $content . "<tr class='author'>";
         }
         else{
             $content = $content . "<tr>";
             }
-        $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->$source->sales_rank . "</TD><TD>" . $res->$source->num_reviews . "</TD><TD>" . $res->$source->avg_ratings . "</TD></TR>";
+        $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->amazon->sales_rank . "</TD><TD>" . $res->amazon->num_reviews . "</TD><TD>" . $res->amazon->avg_ratings . "</TD></TR>";
     }
 //    
     $content = $content . "</TBODY></TABLE></DIV>";
     
-    // Set up Amazon UK object
-	$source = "amazon_uk";
-    $resultb = $bookbeatlist->updateSalesRank($source);
     
-    $content = $content .  "<div id='tab-2'><h2>Amazon UK Data</h2><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
+    $content = $content .  "<div id='tab-2'><h2>Amazon UK Data</h2><TABLE id='booklist2' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
 
     // Display book list
-    foreach ($resultb as $res){
+    foreach ($result as $res){
         if ($res->is_author == TRUE){
-        $content = $content . "<tr style='color: LightSkyBlue;font-weight: bold'>";
+        $content = $content . "<tr class='author'>";
         }
         else{
             $content = $content . "<tr>";
             }
-        $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->$source->sales_rank . "</TD><TD>" . $res->$source->num_reviews . "</TD><TD>" . $res->$source->avg_ratings . "</TD></TR>";
+        $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->amazon_uk->sales_rank . "</TD><TD>" . $res->amazon_uk->num_reviews . "</TD><TD>" . $res->amazon_uk->avg_ratings . "</TD></TR>";
         
     }
 
-    // Read JSON for comparison data 
-    $resultc = $bookbeatlist->updateSalesRankFromJSON();
-    
+
     // show table
      $content = $content . "</TBODY></TABLE></div>";
-     $content = $content . "<div id='tab-3'><H2>Comparative Data</H2><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>US Sales Rank</TH><TH>UK Sales Rank</TH></TR></THEAD><TBODY>";
+     $content = $content . "<div id='tab-3'><H2>Comparative Data</H2><TABLE id='booklist3' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>US Sales Rank</TH><TH>UK Sales Rank</TH></TR></THEAD><TBODY>";
 
     // Display book list
-    foreach ($resultc as $res){
+    foreach ($result as $res){
         if ($res->is_author == TRUE){
-            $content = $content . "<tr style='color: LightSkyBlue;font-weight: bold'>";
+            $content = $content . "<tr class='author'>";
         }
         else{
             $content = $content . "<tr>";
@@ -161,12 +162,17 @@ function bba_booklist_display() {
         $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->amazon->sales_rank . "</TD><TD>" . $res->amazon_uk->sales_rank . "</TD></TR>";
     }
         
-     $content = $content . "</TBODY></TABLE></div></div>";$d=strtotime("10:30pm April 15 2014");
-     $d=strtotime("10:30pm April 15 2014");
-     $content = $content . "<p>Updated as of: </p>" . $bookbeatjson->getTimestamp();
-     $elapsed_days = date("Y-m-d h:i:sa",$d) - $bookbeatjson->getTimestamp();
-     $content = $content . "<p>Days since last updated: </p>" . $elapsed_days;
-     
+     $content = $content . "</TBODY></TABLE></div></div>";
+
+    // Button and text to update JSON
+     $curr_time =strtotime("10:30pm April 15 2014");
+     $json_time = $bookbeatjson->getTimestamp();
+     $content = $content . "<p>Updated as of: " . $json_time . "</p>";
+     $content = $content . "<p>Elapsed Time: " . bba_getElapsedTime($curr_time,$json_time) . "</p>";
+        $content = $content . "<form action = '' name='updateJSON' method = 'post'>
+                <input type = 'hidden' name='formtype' value='updateJSON' />
+                <button type='submit'>Update Rankings</button>
+                </form><p>";
 
 
     return $content;

@@ -151,7 +151,7 @@ function bba_booklist_display() {
      $content = $content . "</TBODY></TABLE></div>";
      $content = $content . "<div id='tab-3'><H2>Comparative Data</H2><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>US Sales Rank</TH><TH>UK Sales Rank</TH></TR></THEAD><TBODY>";
 
-    // Display book list
+    // Display comparative book list
     foreach ($resultc as $res){
         if ($res->is_author == TRUE){
             $content = $content . "<tr style='color: LightSkyBlue;font-weight: bold'>";

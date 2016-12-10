@@ -24,6 +24,7 @@ Author URI: http://www.staging1.bookbeatapp.com
         require dirname(__FILE__) . "/BookBeat.php";
         require dirname(__FILE__) . "/bba_booklist_views.php";
         require dirname(__FILE__) . "/BookBeatSearch.php";
+        require dirname(__FILE__) . "/functions.php";
 
     // Adds shortcode to call control loop from page
     add_shortcode( 'bba_display', 'bookbeat_func' );
@@ -109,7 +110,6 @@ function bba_booklist_display() {
         </ul>
 
         <div id='tab-1'>";
-    $content = $content . "<p>plugin dir: " . plugins_url( 'jscripts.js', __FILE__ ). "</p>";
     $content = $content .  "<h2>Amazon US Data</h2><p>Click on the column heads to sort.</p><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>Sales Rank</TH><TH>Num Reviews</TH><TH>Avg Rating</TH></TR></THEAD><TBODY>";
     
     // Display book list
@@ -152,11 +152,21 @@ function bba_booklist_display() {
 
     // Display book list
     foreach ($resultc as $res){
-        $content = $content .  "<tr><td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->amazon->sales_rank . "</TD><TD>" . $res->amazon_uk->sales_rank . "</TD></TR>";
+        if ($res->is_author == TRUE){
+            $content = $content . "<tr style='color: LightSkyBlue;font-weight: bold'>";
+        }
+        else{
+            $content = $content . "<tr>";
+            }
+        $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->amazon->sales_rank . "</TD><TD>" . $res->amazon_uk->sales_rank . "</TD></TR>";
     }
         
-
-     $content = $content . "</TBODY></TABLE></div></div>";
+     $content = $content . "</TBODY></TABLE></div></div>";$d=strtotime("10:30pm April 15 2014");
+     $d=strtotime("10:30pm April 15 2014");
+     $content = $content . "<p>Updated as of: </p>" . $bookbeatjson->getTimestamp();
+     $elapsed_days = date("Y-m-d h:i:sa",$d) - $bookbeatjson->getTimestamp();
+     $content = $content . "<p>Days since last updated: </p>" . $elapsed_days;
+     
 
 
     return $content;

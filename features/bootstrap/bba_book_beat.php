@@ -101,19 +101,6 @@ function bookbeat_func($atts){
 }
 
 function bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist) {
-        // Get Book Data
-    // init BookBeat, BookBeatJSON and BookBeatList instances
-
-    $bookbeat = new BookBeat();
-    $bookbeatjson = new BookBeatJSON();
-    $bookbeatlist = new BookBeatList();
-		
-    // set json filename $arg1
-    $bookbeatjson->setFilename("booklist.json");
-
-    // wire up bookbeatjson object to bookbeatlist
-    $bookbeatlist->setBookBeatJSON($bookbeatjson);
-    
     
     // Read JSON
      $result = $bookbeatlist->updateSalesRankFromJSON();

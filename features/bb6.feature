@@ -34,5 +34,10 @@ Then I should see the file has isbn "978-1473853331", asin "1473853338", author 
 
 Scenario: The Author can specify his or her book by isbn
 Given there is a file "booklist.json" with ISBN numbers
-When I set as the author of isbn "978-0385489492"
+When I set as the author of isbn "978-0385489492" as "true"
 Then I should get the author of isbn "978-0385489492" as "true" 
+
+Scenario: The Author can specify his or her book by isbn
+Given there is a file "booklist.json" with ISBN numbers
+When I set as the author of isbn "978-0385489492" as "False"
+Then I should get the author of isbn "978-0385489492" as "false" 

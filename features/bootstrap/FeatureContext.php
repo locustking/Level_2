@@ -640,11 +640,18 @@ class FeatureContext implements Context
     /**
      * @When I set as the author of isbn :arg1
      */
-    public function iSetAsTheAuthorOfIsbn($arg1)
+    public function iSetAsTheAuthorOfIsbn($arg1,$arg2)
     {
-		$this->bookbeatlist->setAsAuthor($arg1,true);
+		
     }
 
+    /**
+     * @When I set as the author of isbn :arg1 as :arg2
+     */
+    public function iSetAsTheAuthorOfIsbnAs($arg1, $arg2)
+    {
+        $this->bookbeatlist->setAsAuthor($arg1,$arg2);
+    }
     /**
      * @Then I should get the author of isbn :arg1 as :arg2
      */
@@ -655,4 +662,7 @@ class FeatureContext implements Context
             boolval($arg2)
         );
     }
+
+   
+
 }

@@ -24,6 +24,7 @@ Author URI: http://www.staging1.bookbeatapp.com
         require dirname(__FILE__) . "/BookBeat.php";
         require dirname(__FILE__) . "/bba_booklist_views.php";
         require dirname(__FILE__) . "/BookBeatSearch.php";
+        require dirname(__FILE__) . "/functions.php";
 
     // Adds shortcode to call control loop from page
     add_shortcode( 'bba_display', 'bookbeat_func' );
@@ -149,10 +150,16 @@ function bba_booklist_display() {
     // show table
      $content = $content . "</TBODY></TABLE></div>";
      $content = $content . "<div id='tab-3'><H2>Comparative Data</H2><TABLE id='booklist' class='tablesorter {sortlist: [[2,0]]}'><THEAD><TR><TH>Title</TH><TH>Author</TH><TH>US Sales Rank</TH><TH>UK Sales Rank</TH></TR></THEAD><TBODY>";
+        if ($res->is_author == TRUE){
+            $content = $content . "<tr style='color: LightSkyBlue;font-weight: bold'>";
+        }
+        else{
+            $content = $content . "<tr>";
+            }
 
     // Display book list
     foreach ($resultc as $res){
-        $content = $content .  "<tr><td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->amazon->sales_rank . "</TD><TD>" . $res->amazon_uk->sales_rank . "</TD></TR>";
+        $content = $content .  "<td>" . $res->book_title . "</td><td>" . $res->author_name . "</TD><TD>" . $res->amazon->sales_rank . "</TD><TD>" . $res->amazon_uk->sales_rank . "</TD></TR>";
     }
         
 

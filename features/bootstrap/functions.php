@@ -34,7 +34,20 @@ function load_jquery_ui() {
  
 add_action('init', 'load_jquery_ui');
 
-function bba_getElapsedTime($curr_time,$json_time){
-    return time();
+function bba_getElapsedTime($timestamp){
+//    $now = strtotime(date('Y-m-d')); 
+    $now = strtotime(date('2016-12-05'));
+    $json_date = strtotime(substr($timestamp,0,10));
+    $datediff = $json_date - $now;
+    $elapsed = floor($datediff / (60 * 60 * 24));
+    return $elapsed;
+}
+    
+function updateSources($bookbeatlist){
+    $source = "amazon";
+    $bookbeatlist->updateSalesRank($source);
+    $source = "amazon_uk";
+    $bookbeatlist->updateSalesRank($source);
+}
 }
 ?>

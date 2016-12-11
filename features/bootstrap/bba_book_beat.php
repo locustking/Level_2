@@ -54,10 +54,7 @@ function bookbeat_func($atts){
 				break; 
             // Update JSON and re-display booklist
             case 'updateJSON' :
-                $source = "amazon";
-                $bookbeatlist->updateSalesRank($source);
-                $source = "amazon_uk";
-                $bookbeatlist->updateSalesRank($source);
+                updateSources($bookbeatlist);
                 $pageheader = bba_pageheader();
                 $pagecontent = bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist);
                 break; 
@@ -105,6 +102,12 @@ function bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist) {
     // Read JSON
      $result = $bookbeatlist->updateSalesRankFromJSON();
     
+    // Check if it's up to date
+    $timestamp = $bookbeatjson->getTimestamp()
+    if (!property_exists($result, $result->amazon->sales_rank) || bba_getElapsedTime($timestamp) > 0)
+    {
+        updateSources($bookbeatlist);
+    }
      
     // Table form
     $content = "<div id='tabs'>
@@ -164,10 +167,8 @@ function bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist) {
      $content = $content . "</TBODY></TABLE></div></div>";
 
     // Button and text to update JSON
-     $curr_time =strtotime("10:30pm April 15 2014");
-     $json_time = $bookbeatjson->getTimestamp();
-     $content = $content . "<p>Updated as of: " . $json_time . "</p>";
-     $content = $content . "<p>Elapsed Time: " . bba_getElapsedTime($curr_time,$json_time) . "</p>";
+     $content = $content . "<p>Updated as of: " . $timestamp . "</p>";
+     $content = $content . "<p>Elapsed Time: " . bba_getElapsedTime($timestamp) . "</p>";
         $content = $content . "<form action = '' name='updateJSON' method = 'post'>
                 <input type = 'hidden' name='formtype' value='updateJSON' />
                 <button type='submit'>Update Rankings</button>

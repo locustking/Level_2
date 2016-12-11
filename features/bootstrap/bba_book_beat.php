@@ -106,11 +106,11 @@ function bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist) {
      $result = $bookbeatlist->updateSalesRankFromJSON();
     
     // Check if it's up to date
-//    $timestamp = $bookbeatjson->getTimestamp();
-//    if (!property_exists($result, $result->amazon->sales_rank) || bba_getElapsedTime($timestamp) > 0)
-//    {
-//        updateSources($bookbeatlist);
-//    }
+    $timestamp = $bookbeatjson->getTimestamp();
+    if (!property_exists($result, $result->amazon->sales_rank))
+    {
+        updateSources($bookbeatlist);
+    }
      
     // Table form
     $content = "<div id='tabs'>
@@ -169,7 +169,7 @@ function bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist) {
         
      $content = $content . "</TBODY></TABLE></div></div>";
 
-    // Button and text to update JSON
+    // Button and text to update JSON file
 //     $content = $content . "<p>Updated as of: " . $timestamp . "</p>";
 //     $content = $content . "<p>Elapsed Time: " . bba_getElapsedTime($timestamp) . "</p>";
 //        $content = $content . "<form action = '' name='updateJSON' method = 'post'>

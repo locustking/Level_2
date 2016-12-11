@@ -171,6 +171,7 @@ function bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist) {
 
     // Button and text to update JSON file
      $content = $content . "<p>Updated as of: " . $timestamp . "</p>";
+// next line to be used for update on elapsed time features
 //     $content = $content . "<p>Elapsed Time: " . bba_getElapsedTime($timestamp) . "</p>";
         $content = $content . "<form action = '' name='updateJSON' method = 'post'>
                 <input type = 'hidden' name='formtype' value='updateJSON' />

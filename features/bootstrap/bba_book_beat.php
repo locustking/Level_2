@@ -54,7 +54,10 @@ function bookbeat_func($atts){
 				break; 
             // Update JSON and re-display booklist
             case 'updateJSON' :
-                updateSources($bookbeatlist);
+                $source = "amazon";
+                $bookbeatlist->updateSalesRank($source);
+                $source = "amazon_uk";
+                $bookbeatlist->updateSalesRank($source);
                 $pageheader = bba_pageheader();
                 $pagecontent = bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist);
                 break; 

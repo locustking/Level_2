@@ -49,5 +49,4 @@ function updateSources($bookbeatlist){
     $source = "amazon_uk";
     $bookbeatlist->updateSalesRank($source);
 }
-
 ?>

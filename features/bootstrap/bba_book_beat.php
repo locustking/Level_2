@@ -15,8 +15,8 @@ Author URI: http://www.staging1.bookbeatapp.com
 
 
     // display errors, warnings, and notices
-    ini_set("display_errors", true);
-    error_reporting(E_ALL);
+//    ini_set("display_errors", true);
+//    error_reporting(E_ALL);
 
     // configuration
         require dirname(__FILE__) . "/BookBeatList.php"; 

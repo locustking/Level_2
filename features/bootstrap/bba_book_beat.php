@@ -103,7 +103,7 @@ function bba_booklist_display($bookbeat,$bookbeatjson,$bookbeatlist) {
      $result = $bookbeatlist->updateSalesRankFromJSON();
     
     // Check if it's up to date
-    $timestamp = $bookbeatjson->getTimestamp()
+    $timestamp = $bookbeatjson->getTimestamp();
     if (!property_exists($result, $result->amazon->sales_rank) || bba_getElapsedTime($timestamp) > 0)
     {
         updateSources($bookbeatlist);

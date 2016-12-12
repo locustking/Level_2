@@ -385,16 +385,19 @@ Monday 12/12 at 5:30 PM EST: (In Class)
 ###Continuous Integration/Continuous Delivery:
 Our CI/CD tool of choice is Jenkins
 It is hosted at http://www.bookbeatjenkins.com  
-There are three jobs setup to support our CI/CD pipeline.  They are as follows:
+There are four jobs setup to support our CI/CD pipeline.  They are as follows:
 - bookbeat
-- bookbeat-prod-deploy
 - bookbeat-stage-deploy
+- bookbeat-selenium-test
+- bookbeat-prod-deploy
 
-We also have staging areas: staging1.bookbeatapp.com + staging2.bookbeatapp.com 
+We also have staging areas: staging1.bookbeatapp.com + staging2.bookbeatapp.com
+
+We also integrated Selenium in order to develop test cases for the UI and website for staging.
 
 Each commit to the master branch of our Level_2.git repository master branch triggers the 'bookbeat' build job.  This job runs our test suite for our BDD and TDD test cases.  If the tests pass successfully, it triggers the bookbeat-stage-deploy job.
 
-This pushes the files to our bookbeat app staging environment.  Once the team verifies the staging site looks good, a manual run of the bookbeat-prod-deploy will push our code to our production environment.
+This pushes the files to our bookbeat app staging environment, which in turn will trigger the bookbeat-selenium-test job. This job automates the UI test on the staging environment and push the code to production when the UI test passed.
 
 To see our Jenkins setup, go to the above mentioned URL and supply the following credentials:
 
@@ -404,7 +407,6 @@ To see our Jenkins setup, go to the above mentioned URL and supply the following
 Prior Screencast - https://www.dropbox.com/home/Level-2_CSCI-E71-Project/Meeting%20Notes%20%2B%20Recordings/ci_cd-screencast.mov
 
 We also integrated Selenium in order to develop test cases for the UI and website for staging.
-
 ###BDD and TDD:
 The fourth of 4 sprints of development we continued to use Behat Cucumber. We used a behavior driven development method. Features and automated tests were developed before coding the application. 
 

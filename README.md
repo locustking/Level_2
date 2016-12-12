@@ -317,7 +317,8 @@ As such, we aimed for a maximum of 23 story points per user story this sprint (l
 
 ###Stories into Tasks
 We turned those stories into Tasks using a Trello list, and assigning responsibility for each. Many tasks required research in order to complete, as we were integrating with the Amazon UK site now.
-In order to develop and work, using BDD and TDD, we've designed simple behaviors and tests, to drive incremental development and completion of the tasks. We continued to integrate a CD/CI framework using Jenkins, and tried our hand at also adding Selenium (didn’t work after a few tries).
+In order to develop and work, using BDD and TDD, we've designed simple behaviors and tests, to drive incremental development and completion of the tasks. We continued to integrate a CD/CI framework using Jenkins, and tried our hand at also adding Selenium.
+
 ##Schedule:
 Playlist of all recordings we were able to save from this Sprint 4 of 4 Sessions are here (also in Schedule List in Trello): https://www.youtube.com/playlist?list=PLdSVN_Vqb9vqvCZk70RdhUglwB6wiBn-9
 
@@ -345,33 +346,39 @@ The Scrum Master took note of the time, and kept us accountable.
 We faced some major impediments – Daryl and KB got sick during the sprint, we needed research with Amazon UK, we had some blocks from Amazon’s API, the UK site also had additional issues. Impediments are listed in a separate list on Trello.
 
 Tuesday 11/30 8 PM EST – We had a Daily Scrum, to check in and assign tasks (no recording)
+
 Friday 12/2 at 12 PM EST – Daily Scrum 
 -> https://www.youtube.com/watch?v=c4rKlVwBcOc&index=2&list=PLdSVN_Vqb9vqvCZk70RdhUglwB6wiBn-9 (Recording via Daryl)
-Sunday 12/4 Scrum Sunday at 12 PM EST
+
+Sunday 12/4 Scrum at 12 PM EST
 -> https://www.youtube.com/watch?v=wVoIl2iMcE8&list=PLdSVN_Vqb9vqvCZk70RdhUglwB6wiBn-9&index=4 (Recording via Daryl)
 
 Tuesday 12/6 12 PM EST (No recording)
+
 Friday 12/9 12 PM EST 
 -> https://www.youtube.com/watch?v=ZFCyAcDh5I0&list=PLdSVN_Vqb9vqvCZk70RdhUglwB6wiBn-9&index=5 (Recording via Daryl)
 
 Saturday 12/10 12 PM EST:
 -> https://www.youtube.com/watch?v=Eov7NRgC1WI&list=PLdSVN_Vqb9vqvCZk70RdhUglwB6wiBn-9&index=6 
+
 Sunday – Daily Scrum and Review 12/11 12 PM EST:
 -> https://www.youtube.com/watch?v=UbkCFtqG8j8&list=PLdSVN_Vqb9vqvCZk70RdhUglwB6wiBn-9&index=7 (Recording via Daryl)
 
 ###Sprint Review with Stakeholder:
 Sunday 12/11 at 4 PM EST (Included the actual Stakeholder, Geri, and we went over the project, new code and databases, updated working software, and vision to gain feedback)
-	Review with Stakeholder is here: https://www.dropbox.com/personal/Level-2_CSCI-E71-Project/Meeting%20Notes%20%2B%20Recordings/2016-12-11%201Sprint%20Review%20with%20Stakeholder (Saved via Ringcentral Meetings)
+
+Review with Stakeholder is here: https://www.dropbox.com/personal/Level-2_CSCI-E71-Project/Meeting%20Notes%20%2B%20Recordings/2016-12-11%201Sprint%20Review%20with%20Stakeholder (Saved via Ringcentral Meetings)
+
 Geri noted she liked the new website, the search function and prepopulated results. She noted, on future releases she would want to work on new data feeds (like Goodreads) and also get new columns – like Date of Publication, Publisher, etc.
 
 ###Sprint Review with Demo/Rehearsal:
-Monday 12/12 at 3 PM EST:
+Monday 12/12 at 3 PM EST: (Recording to be available 12/13)
 
 We did a Product Demo run through, and Sprint Review. 
 
 The Product Owner noted how grateful he was for the team effort, and noted the changes for future versions based on the Stakeholder feedback, and their work so far (Good reads, and new columns – Publisher, Published Date). We also went over the improvements we could made for future sprints.
 
-Monday 12/12 at 5:30 PM EST:
+Monday 12/12 at 5:30 PM EST: (In Class)
 - In class review of the Software
 
 ###Continuous Integration/Continuous Delivery:
@@ -381,19 +388,27 @@ There are three jobs setup to support our CI/CD pipeline.  They are as follows:
 - bookbeat
 - bookbeat-prod-deploy
 - bookbeat-stage-deploy
+
 We also have staging areas: staging1.bookbeatapp.com + staging2.bookbeatapp.com 
+
 Each commit to the master branch of our Level_2.git repository master branch triggers the 'bookbeat' build job.  This job runs our test suite for our BDD and TDD test cases.  If the tests pass successfully, it triggers the bookbeat-stage-deploy job.
+
 This pushes the files to our bookbeat app staging environment.  Once the team verifies the staging site looks good, a manual run of the bookbeat-prod-deploy will push our code to our production environment.
+
 To see our Jenkins setup, go to the above mentioned URL and supply the following credentials:
 
 - username: testuser
 - password: 1password
 
 Prior Screencast - https://www.dropbox.com/home/Level-2_CSCI-E71-Project/Meeting%20Notes%20%2B%20Recordings/ci_cd-screencast.mov
+
 We also integrated Selenium in order to develop test cases for the UI and website for staging.
+
 ###BDD and TDD:
-The third of 4 sprints of development we continued to use Behat Cucumber.
-We used a behavior driven development method. Features and automated tests were developed before coding the application. Evidence of this can be seen in the Pair and Mob programming recordings for this sprint: https://www.youtube.com/watch?v=OBTmLBiA8gQ&list=PLdSVN_Vqb9vqvCZk70RdhUglwB6wiBn-9&index=3 
+The fourth of 4 sprints of development we continued to use Behat Cucumber. We used a behavior driven development method. Features and automated tests were developed before coding the application. 
+
+Evidence of this can be seen in the Pair and Mob programming recordings for this sprint: https://www.youtube.com/watch?v=OBTmLBiA8gQ&list=PLdSVN_Vqb9vqvCZk70RdhUglwB6wiBn-9&index=3 
+
 3 new user stories + features for BB6, BB7, and BB8 were added in this sprint. The new features resulted in 101 new unit tests in total. The previous sprint, there were 41 total unit tests that were passing with no failures.
 
 You can view these here:  https://github.com/locustking/Level_2/blob/master/bdd_output.txt 
@@ -408,6 +423,7 @@ We had several tests integrated for the UI and the product. This is available vi
 ##URL of Backlog via Trello 
 ###(Contains Backlog, Sprint Backlog, User Stories, Tasks, Timeline, and more):
 https://trello.com/b/qDwMkuI6/book-beat-a-book-author-s-competitive-analysis-tool 
+
 The Trello board also contains the Sprint Burndown chart (both link, and an image file) for Sprint #4: https://trello-attachments.s3.amazonaws.com/58121fbf6125ce7c59069e82/584dc9216bcb8c105e1be77d/3c49591ae00b38003254730650254554/sprint_4_of_4_burndown_chart.png 
 
 ##Product Files - Listing breakdowns, files, personas, minutes, screenshots + recordings of some meetings):

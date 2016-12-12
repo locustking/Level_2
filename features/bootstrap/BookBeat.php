@@ -102,7 +102,6 @@ final class BookBeat{
 	function curl_get_contents($url){
 		// sends url query using curl package
 		// returns the response string
-		$debug = false;
 		$curl = curl_init();
 		$config['useragent'] = 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0';
 
@@ -118,11 +117,6 @@ final class BookBeat{
 		curl_setopt($curl, CURLOPT_HEADER, false);
 		$contents = curl_exec($curl);
 		curl_close($curl);
-		if($debug){
-			print("debug curl<br />\n");
-			print("url:".$url."<br />\n");
-			print("content:".$contents."<br />\n");
-		}
 		return $contents;
 	}
 	
@@ -181,10 +175,14 @@ final class BookBeat{
 		$file = $dir."aws_key.php";
 		if(file_exists($file)){
     		include 'aws_key.php';
-		} else{
+		}
+		
+		/*
+		else{
 			$aws_access_key_id = "aws_id";
 			$aws_secret_key = "aws_secret";
 		}
+		*/
 		
 		if($source=="amazon"){
 			$endpoint = "webservices.amazon.com";
@@ -243,9 +241,17 @@ final class BookBeat{
 		$dom_doc->loadHTML($page_content);
 		$xpath = new DOMXpath($dom_doc);
 		$element = $xpath->query("//span[@class='crAvgStars']/span/a/img/@title");
-		$this->avg_rating = floatval(explode(" ",trim($element->item(0)->nodeValue))[0]);
+		if(!$element){
+			$this->avg_rating = 0.0;
+		} else {
+			$this->avg_rating = floatval(explode(" ",trim($element->item(0)->nodeValue))[0]);
+		}
 		$element = $xpath->query("//span[@class='crAvgStars']/a/text()");
-		$this->num_reviews=intval(explode(" ",trim($element->item(0)->nodeValue))[0]);
+		if(!$element){
+			$this->num_reviews = 0;
+		} else {
+			$this->num_reviews=intval(explode(" ",trim($element->item(0)->nodeValue))[0]);
+		}
 		libxml_clear_errors();
 		$this->isbn = $simple_xml->Items->Item->ItemAttributes->EAN->__toString();
 		$this->asin = $simple_xml->Items->Item->ASIN->__toString();

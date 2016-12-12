@@ -372,7 +372,8 @@ Review with Stakeholder is here: https://www.dropbox.com/personal/Level-2_CSCI-E
 Geri noted she liked the new website, the search function and prepopulated results. She noted, on future releases she would want to work on new data feeds (like Goodreads) and also get new columns – like Date of Publication, Publisher, etc.
 
 ###Sprint Review with Demo/Rehearsal:
-Monday 12/12 at 3 PM EST: (Recording to be available 12/13)
+Monday 12/12 at 3 PM EST: 
+-> https://youtu.be/A-ZzI6ALNxA Recording via Daryl
 
 We did a Product Demo run through, and Sprint Review. 
 

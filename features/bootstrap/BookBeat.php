@@ -175,14 +175,11 @@ final class BookBeat{
 		$file = $dir."aws_key.php";
 		if(file_exists($file)){
     		include 'aws_key.php';
-		}
-		
-		/*
-		else{
+		}else{
 			$aws_access_key_id = "aws_id";
 			$aws_secret_key = "aws_secret";
 		}
-		*/
+		
 		
 		if($source=="amazon"){
 			$endpoint = "webservices.amazon.com";

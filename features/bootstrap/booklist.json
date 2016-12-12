@@ -49,7 +49,7 @@
         {
             "isbn": "978-1606064832",
             "asin": "1606064835",
-            "is_author": true,
+            "is_author": false,
             "author_name": "Helene Delalex",
             "publisher_name": "",
             "publish_date": "",
@@ -70,5 +70,5 @@
             }
         }
     ],
-    "timestamp": "2016-12-12 14:08:49"
+    "timestamp": "2016-12-12 14:14:33"
 }

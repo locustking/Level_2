@@ -15,7 +15,7 @@ And the delta timestamp should be positive integer
 
 Scenario: The Author can pull sales rank of the Author's selected books from Amazon UK
 Given there is a file "booklist.json" with ISBN numbers
-When I add with isbn "978-1606064832", asin "1606064835", author name "Helene Delalex" and is author "true"
+When I add with isbn "978-1606064832", asin "1606064835", author name "Helene Delalex" and is author "false"
 And I pull the sales rank from Amazon UK
 Then I should see the sales rank of each book from Amazon UK
 And the sales rank should be integer from Amazon UK

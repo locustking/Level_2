@@ -45,7 +45,30 @@
                 "publisher_name": null,
                 "publish_date": null
             }
+        },
+        {
+            "isbn": "978-1606064832",
+            "asin": "1606064835",
+            "is_author": true,
+            "author_name": "Helene Delalex",
+            "publisher_name": "",
+            "publish_date": "",
+            "book_title": "Marie-Antoinette",
+            "amazon": {
+                "sales_rank": 359651,
+                "num_reviews": 4,
+                "avg_ratings": 4.2,
+                "publisher_name": null,
+                "publish_date": null
+            },
+            "amazon_uk": {
+                "sales_rank": 287196,
+                "num_reviews": 0,
+                "avg_ratings": 0,
+                "publisher_name": null,
+                "publish_date": null
+            }
         }
     ],
-    "timestamp": "2016-12-12 13:49:10"
+    "timestamp": "2016-12-12 14:07:42"
 }

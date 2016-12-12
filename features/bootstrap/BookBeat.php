@@ -241,13 +241,13 @@ final class BookBeat{
 		$dom_doc->loadHTML($page_content);
 		$xpath = new DOMXpath($dom_doc);
 		$element = $xpath->query("//span[@class='crAvgStars']/span/a/img/@title");
-		if(!$element){
+		if($element->{"length"}==0){
 			$this->avg_rating = 0.0;
 		} else {
 			$this->avg_rating = floatval(explode(" ",trim($element->item(0)->nodeValue))[0]);
 		}
 		$element = $xpath->query("//span[@class='crAvgStars']/a/text()");
-		if(!$element){
+		if($element->{"length"}==0){
 			$this->num_reviews = 0;
 		} else {
 			$this->num_reviews=intval(explode(" ",trim($element->item(0)->nodeValue))[0]);

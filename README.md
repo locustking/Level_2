@@ -340,6 +340,8 @@ Mob Programming and Troubleshooting: 12/10 at 8 PM EST with Basuki, Doug, and Er
 ###Daily Scrum(s)
 
 At the start of each daily scrum or programming meeting, we discussed what we did in the last 24 hours, and the work we'd do for the next 24 hours.
+
+The Scrum Master took note of the time, and kept us accountable.
 We faced some major impediments – Daryl and KB got sick during the sprint, we needed research with Amazon UK, we had some blocks from Amazon’s API, the UK site also had additional issues. Impediments are listed in a separate list on Trello.
 
 Tuesday 11/30 8 PM EST – We had a Daily Scrum, to check in and assign tasks (no recording)
@@ -362,9 +364,15 @@ Sunday 12/11 at 4 PM EST (Included the actual Stakeholder, Geri, and we went ove
 	Review with Stakeholder is here: https://www.dropbox.com/personal/Level-2_CSCI-E71-Project/Meeting%20Notes%20%2B%20Recordings/2016-12-11%201Sprint%20Review%20with%20Stakeholder (Saved via Ringcentral Meetings)
 Geri noted she liked the new website, the search function and prepopulated results. She noted, on future releases she would want to work on new data feeds (like Goodreads) and also get new columns – like Date of Publication, Publisher, etc.
 
-###Sprint Review with Demo:
+###Sprint Review with Demo/Rehearsal:
 Monday 12/12 at 3 PM EST:
 
+We did a Product Demo run through, and Sprint Review. 
+
+The Product Owner noted how grateful he was for the team effort, and noted the changes for future versions based on the Stakeholder feedback, and their work so far (Good reads, and new columns – Publisher, Published Date). We also went over the improvements we could made for future sprints.
+
+Monday 12/12 at 5:30 PM EST:
+- In class review of the Software
 
 ###Continuous Integration/Continuous Delivery:
 Our CI/CD tool of choice is Jenkins
@@ -373,35 +381,47 @@ There are three jobs setup to support our CI/CD pipeline.  They are as follows:
 - bookbeat
 - bookbeat-prod-deploy
 - bookbeat-stage-deploy
-
-Each commit to the master branch of our Level_2.git repository master branch triggers the 'bookbeat' build job.  This job
-runs our test suite for our BDD and TDD test cases.  If the tests pass successfully, it triggers the bookbeat-stage-deploy job.
-This pushes the files to our bookbeat app staging environment.  Once the team verifies the staging site looks good, a manual run 
-of the bookbeat-prod-deploy will push our code to our production environment.
-
+We also have staging areas: staging1.bookbeatapp.com + staging2.bookbeatapp.com 
+Each commit to the master branch of our Level_2.git repository master branch triggers the 'bookbeat' build job.  This job runs our test suite for our BDD and TDD test cases.  If the tests pass successfully, it triggers the bookbeat-stage-deploy job.
+This pushes the files to our bookbeat app staging environment.  Once the team verifies the staging site looks good, a manual run of the bookbeat-prod-deploy will push our code to our production environment.
 To see our Jenkins setup, go to the above mentioned URL and supply the following credentials:
 
 - username: testuser
 - password: 1password
 
-Screencast - https://www.dropbox.com/home/Level-2_CSCI-E71-Project/Meeting%20Notes%20%2B%20Recordings/ci_cd-screencast.mov
-
+Prior Screencast - https://www.dropbox.com/home/Level-2_CSCI-E71-Project/Meeting%20Notes%20%2B%20Recordings/ci_cd-screencast.mov
+We also integrated Selenium in order to develop test cases for the UI and website for staging.
 ###BDD and TDD:
-The fourth of 4 sprints:
+The third of 4 sprints of development we continued to use Behat Cucumber.
+We used a behavior driven development method. Features and automated tests were developed before coding the application. Evidence of this can be seen in the Pair and Mob programming recordings for this sprint: https://www.youtube.com/watch?v=OBTmLBiA8gQ&list=PLdSVN_Vqb9vqvCZk70RdhUglwB6wiBn-9&index=3 
+3 new user stories + features for BB6, BB7, and BB8 were added in this sprint. The new features resulted in 101 new unit tests in total. The previous sprint, there were 41 total unit tests that were passing with no failures.
 
-Currently there are 5 defined Cucumber features are located:
-https://github.com/locustking/Level_2/tree/master/features
-Behat Cucumber testing output is located:
-https://github.com/locustking/Level_2/blob/master/bdd_output.txt
+You can view these here:  https://github.com/locustking/Level_2/blob/master/bdd_output.txt 
+
+Currently there are defined Cucumber features are located: https://github.com/locustking/Level_2/tree/master/features 
+Behat Cucumber testing output is located: https://github.com/locustking/Level_2/blob/master/bdd_output.txt 
+
+Selenium was also integrated for our UI: https://github.com/locustking/Level_2/blob/master/vendor/phpunit/phpunit-selenium/Tests/selenium-tests.php 
+
+We had several tests integrated for the UI and the product. This is available via the Jenkins login, and shown as jobs based on the integration between Selenium and Jenkins.
 
 ##URL of Backlog via Trello 
 ###(Contains Backlog, Sprint Backlog, User Stories, Tasks, Timeline, and more):
-    https://trello.com/b/qDwMkuI6/book-beat-a-book-author-s-competitive-analysis-tool
-
+https://trello.com/b/qDwMkuI6/book-beat-a-book-author-s-competitive-analysis-tool 
 The Trello board also contains the Sprint Burndown chart (both link, and an image file) for Sprint #4: https://trello-attachments.s3.amazonaws.com/58121fbf6125ce7c59069e82/584dc9216bcb8c105e1be77d/3c49591ae00b38003254730650254554/sprint_4_of_4_burndown_chart.png 
 
 ##Product Files - Listing breakdowns, files, personas, minutes, screenshots + recordings of some meetings):
-     https://www.dropbox.com/sh/0dt5bp4taqr8qzu/AAC17L79iNsP6t0wipnTAUnQa?dl=0  
+ https://www.dropbox.com/sh/0dt5bp4taqr8qzu/AAC17L79iNsP6t0wipnTAUnQa?dl=0  
 
-These also include minutes for all meetings, in which we checked in and reviewed the work over the prior 24 hours, the next 24 hours, and any impediments.
+The Product Files also contains the Radiators used for the Personas we used during the sprint (https://www.dropbox.com/s/jpc6vw7ygf4bvb0/Book%20Beat%20App%20%E2%80%93%20Personas.pptx?dl=0 )and the Product vision was listed as a radiator on our site via http://bookbeatapp.com/our-vision/ 
 
+## Future Sprints:
+
+Based on our Stakeholder Feedback, we decided in future sprints to work on the Goodreads data and also add more columns of data based on our scraper.
+
+Our sprint review with the development team came up with new suggestions for how to improve on future sprints. We concluded that we could benefit from:
+-	Being able to see what others are working on in real time
+-	Separate branches in Github / staging and production sites for the members involved to see the work contributed
+-	Documentation around the code development (code commenting, or more version control), etc.
+
+We faced some issues around version control we would like to address in future sprints, and the suggestions above could assist on that endeavor.
